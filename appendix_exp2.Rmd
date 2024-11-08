@@ -1,4 +1,4 @@
-# Experiment 1 {#exp1}
+# Experiment 2 {#exp2}
 
 ## Materials
 
@@ -14,9 +14,9 @@ We excluded all participants whose answer did not resemble "I pay attention".
 
 ## Descriptives
 
-```{r exp1-descriptives}
+```{r exp2-descriptives}
 # by discipline
-exp1 %>% 
+exp2 %>% 
   group_by(discipline, impressiveness) %>% 
   summarise(across(c(impressed, learn, competence, trust, consensus), 
                    list(mean = ~mean(., na.rm=TRUE)), 
@@ -30,12 +30,12 @@ exp1 %>%
 
 ## Results
 
-Fig. \@ref(fig:exp1-plot) summarizes descriptive results.
+Fig. \@ref(fig:exp2-plot) summarizes descriptive results.
 
-(ref:exp1-plot) Overview of treatment effect on various outcomes
+(ref:exp2-plot) Overview of treatment effect on various outcomes
 
-```{r exp1-plot, fig.cap="(ref:exp1-plot)"}
-plot_data <- exp1 %>% 
+```{r exp2-plot, fig.cap="(ref:exp2-plot)"}
+plot_data <- exp2 %>% 
   pivot_longer(
     c(competence, trust, impressed, learn),
     names_to = "outcome", 
@@ -60,20 +60,20 @@ ggplot(plot_data, aes(x = impressiveness, y = value, fill = impressiveness,
 
 ```
 
-The results of the models from the hypotheses can be found in table \@ref(tab:exp1-hypotheses-table).
+The results of the models from the hypotheses can be found in table \@ref(tab:exp2-hypotheses-table).
 
-```{r exp1-hypotheses-table}
+```{r exp2-hypotheses-table}
 # H1 a
-H1a_model <- lmer(competence ~ impressiveness + (1 | id), exp1)
+H1a_model <- lmer(competence ~ impressiveness + (1 | id), exp2)
 
 # H1 b
-H1b_model <- lmer(competence ~ impressed + (1 | id), exp1)
+H1b_model <- lmer(competence ~ impressed + (1 | id), exp2)
 
 # H2 a
-H2a_model <- lmer(trust ~ impressiveness + (1 | id), exp1)
+H2a_model <- lmer(trust ~ impressiveness + (1 | id), exp2)
 
 # H2 b
-H2b_model <- lmer(trust ~ impressed + (1 | id), exp1)
+H2b_model <- lmer(trust ~ impressed + (1 | id), exp2)
 
 modelsummary(list(
                   "H1a (Competence)" = H1a_model,
@@ -87,19 +87,19 @@ modelsummary(list(
   kable_styling(latex_options = "scale_down")
 ```
 
-The results of the model from RQ1 and of the models from RQ2 (interaction between impressiveness and consensus on competence/trust) can be found in table \@ref(tab:exp1-consensus-table).
+The results of the model from RQ1 and of the models from RQ2 (interaction between impressiveness and consensus on competence/trust) can be found in table \@ref(tab:exp2-consensus-table).
 
-```{r exp1-consensus-table}
+```{r exp2-consensus-table}
 # RQ1
-RQ1_model <- lmer(learn ~ impressiveness + (1 | id), exp1)
+RQ1_model <- lmer(learn ~ impressiveness + (1 | id), exp2)
 
 # RQ2
 # for H1
-RQ2_H1a_model <- lmer(trust ~ impressiveness*consensus + (1 | id), exp1)
-RQ2_H1b_model <- lmer(trust ~ impressed*consensus + (1 | id), exp1)
+RQ2_H1a_model <- lmer(trust ~ impressiveness*consensus + (1 | id), exp2)
+RQ2_H1b_model <- lmer(trust ~ impressed*consensus + (1 | id), exp2)
 # for H2
-RQ2_H2a_model <- lmer(competence ~ impressiveness*consensus + (1 | id), exp1)
-RQ2_H2b_model <- lmer(competence~ impressed*consensus + (1 | id), exp1)
+RQ2_H2a_model <- lmer(competence ~ impressiveness*consensus + (1 | id), exp2)
+RQ2_H2b_model <- lmer(competence~ impressed*consensus + (1 | id), exp2)
 
 modelsummary(list("RQ 1" = RQ1_model,
                   "H1a x Consensus" = RQ2_H1a_model,

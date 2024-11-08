@@ -112,15 +112,42 @@ d <- d %>%
                 .names = "{.col}_std"))
 ```
 
+## Add demographics
+
+## Recode demographics
+
+```{r, message=FALSE}
+prolific_demographics <- read_csv("./data/prolific.csv")
+
+d <- left_join(d, prolific_demographics, by = c("PROLIFIC_PID" = "Participant id"))
+```
+
+
+```{r}
+d <- d %>% 
+  mutate(gender = case_when(Sex == "Male" ~ "male", 
+                            Sex == "Female" ~  "female", 
+                            .default = NA), 
+         age = as.numeric(Age)
+         ) 
+```
+
 ## Make long format version
+
+We want to add a binary variable that identifies whether the outcome is knowledge (`n_correct_std`) or one of the other outcomes of interest.
 
 ```{r}
 # Convert to long format
 data_long <- d %>%
   pivot_longer(cols = c(n_correct_std, trust_std, impressed_std, competence_std), 
                names_to = "outcome", values_to = "value") %>% 
-# add a numeric version for outcome
-  mutate(outcome_numeric = ifelse(outcome == "n_correct_std", 1, 0))
+  # use nicer names for outcomes
+  mutate(outcome = recode(outcome,
+                          "competence_std" = "competence",
+                          "impressed_std" = "impressiveness",
+                          "n_correct_std" = "knowledge",
+                          "trust_std" = "trust")
+         )
 
 ```
 

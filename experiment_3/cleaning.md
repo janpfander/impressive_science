@@ -6,15 +6,8 @@ output:
 ---
 
 
-```r
+``` r
 library(tidyverse)     # create plots with ggplot, manipulate data, etc.
-```
-
-```
-## Warning: package 'stringr' was built under R version 4.2.3
-```
-
-```r
 library(broom.mixed)   # convert regression models into nice tables
 library(modelsummary)  # combine multiple regression models into a single table
 library(lme4)          # model specification / estimation 
@@ -26,7 +19,7 @@ library(kableExtra)    # for tables
 
 ## Import data
 
-```r
+``` r
 d <- read_csv("./data/qualtrics.csv")
 names(d)
 ```
@@ -76,7 +69,7 @@ names(d)
 ```
 
 
-```r
+``` r
 # inspect
 head(d) # you can also use View(d)
 ```
@@ -100,7 +93,7 @@ head(d) # you can also use View(d)
 ## #   archeo_know <chr>, archeo_learn <chr>, archeo_knowledge1 <chr>, …
 ```
 
-```r
+``` r
 # delete first two rows
 d <- d %>% 
   slice(3: nrow(.)) 
@@ -108,7 +101,7 @@ d <- d %>%
 
 ## Attention check
 
-```r
+``` r
 # attention check
 # to see different answers given (i.e.levels), transform into factor
 d$attention <- as.factor(d$attention)
@@ -121,7 +114,7 @@ levels(d$attention)
 ## [4] "I pay attention"     "I PAY ATTENTION"     "I pay attention."
 ```
 
-```r
+``` r
 table(d$attention)
 ```
 
@@ -136,7 +129,7 @@ table(d$attention)
 There is no failed attention check. 
 
 
-```r
+``` r
 # filter to only valid attention check responses
 d <- d %>% filter(str_detect(attention, regex("atten", ignore_case = TRUE)))
 ```
@@ -144,7 +137,7 @@ d <- d %>% filter(str_detect(attention, regex("atten", ignore_case = TRUE)))
 ## Re-shape data
 
 
-```r
+``` r
 # check all names and their order
 names(d)
 ```
@@ -195,7 +188,7 @@ names(d)
 
 
 
-```r
+``` r
 # clean and re-shape
 d <- d %>% 
   # add an easy to read participant identifier
@@ -224,7 +217,7 @@ d <- d %>%
 Calculate an average knowledge score and number of correctly answered questions per participant. 
 
 
-```r
+``` r
 d <- d %>% 
   # add average knowledge score
   rowwise() %>% 
@@ -238,7 +231,7 @@ d <- d %>%
 ## Remove distraction task variable
 
 
-```r
+``` r
 d <- d %>% 
   select(-c(starts_with("text"), contains("intention"), contains("benefit")))
 ```
@@ -246,7 +239,7 @@ d <- d %>%
 ## Add scaled variables
 
 
-```r
+``` r
 # Scale all variables except id and add a suffix "std" to the new variables
 d <- d %>%
   mutate(across(c(n_correct, trust, impressed, competence), 
@@ -254,23 +247,59 @@ d <- d %>%
                 .names = "{.col}_std"))
 ```
 
+## Add demographics
+
+## Recode demographics
+
+
+``` r
+prolific_demographics <- read_csv("./data/prolific.csv")
+
+d <- left_join(d, prolific_demographics, by = c("PROLIFIC_PID" = "Participant id"))
+```
+
+
+
+``` r
+d <- d %>% 
+  mutate(gender = case_when(Sex == "Male" ~ "male", 
+                            Sex == "Female" ~  "female", 
+                            .default = NA), 
+         age = as.numeric(Age)
+         ) 
+```
+
+```
+## Warning: There was 1 warning in `mutate()`.
+## ℹ In argument: `age = as.numeric(Age)`.
+## Caused by warning:
+## ! NAs introduced by coercion
+```
+
 ## Make long format version
 
+We want to add a binary variable that identifies whether the outcome is knowledge (`n_correct_std`) or one of the other outcomes of interest.
 
-```r
+
+``` r
 # Convert to long format
 data_long <- d %>%
   pivot_longer(cols = c(n_correct_std, trust_std, impressed_std, competence_std), 
                names_to = "outcome", values_to = "value") %>% 
-# add a numeric version for outcome
-  mutate(outcome_numeric = ifelse(outcome == "n_correct_std", 1, 0))
+  # use nicer names for outcomes
+  mutate(outcome = recode(outcome,
+                          "competence_std" = "competence",
+                          "impressed_std" = "impressiveness",
+                          "n_correct_std" = "knowledge",
+                          "trust_std" = "trust")
+         )
 ```
 
 
 ## Export data
 
 
-```r
+``` r
 # wide format
 write_csv(d, "data/cleaned_wide.csv")
 

@@ -14,9 +14,9 @@ affiliation:
     institution   : ""
     
 abstract: |
-  XX
+  Around the globe, most people trust science at least to some extent.  This matters to a range of significant outcomes (vaccination, climate change…). However, the causes of this trust aren’t well understood. Here we investigate a potential factor explaining trust in science: exposure to impressive (and consensual) scientific results.
   
-keywords          : 
+keywords          : Trust in science; science knowledge; deficit model
 
 
 
@@ -29,13 +29,15 @@ figurelist        : no
 tablelist         : no
 footnotelist      : no
 
-classoption       : "doc" # "doc" for nice look, "man" for manuscripty
+classoption       : "man" # "doc" for nice look, "man" for manuscripty
 output            : papaja::apa6_pdf # "_doc" for word; however, note that some of the features of kableExtra are not available for word and will yield errors. For example to knit to word, you'll have to comment out all "add_header_above()" functions for model output tables, or e.g. set always allow html as true in the yaml heading
 
 always_allow_html: true
 
 appendix:
   - "appendix_exp1.Rmd"
+  - "appendix_exp2.Rmd"
+  - "appendix_exp3.Rmd"
 
 bibliography: references.bib
 ---
@@ -57,7 +59,7 @@ knitr::opts_chunk$set(
   # tidy.opts = list(width.cutoff = 120),  # Code width
   # fig.retina = 3, dpi = conditional_dpi,
   # fig.width = 7, fig.asp = 0.618,
-  # fig.align = conditional_align, out.width = "100%",
+  #fig.align = conditional_align, out.width = "100%",
   fig.path = "output/figures/",
   cache.path = "output/_cache/",
   fig.process = function(x) {  # Remove "-1" from figure names
@@ -99,6 +101,7 @@ library("grid")        # for image plots
 library("gridExtra")   # for image plots
 library("png")         # for image plots
 library("modelsummary") # for regression tables
+library("ggrepel") # for better random patterns in plots
 ```
 
 ```{r functions}
@@ -111,17 +114,52 @@ source("functions/own_functions.R")
 
 # Introduction
 
-XX
+## Trust in science matters
 
-We cite a paper like this [@colognaTrustClimateScience2023].
+Trust in science is related to many desirable outcomes, from acceptance of anthropogenic climate change [@colognaRoleTrustClimate2020] or vaccination [@sturgisTrustScienceSocial2021; @lindholtPublicAcceptanceCOVID192021] to following recommendations during COVID [@alganTrustScientistsTimes2021, which suggests that trust in science was the most important predictor of these behaviors].
 
-XX
+## Across the globe, people tend to trust science
 
-Why might people trust science without understanding it? There is a popular explanation as to why people do not trust science enough: the deficit model. According to the deficit model, people do not trust in science enough, because they do not know enough about it. Yet, survey data consistently shows that most people do trust science - although, indeed, they do not seem to know much about it. To explain this, we propose the lasting-impression account. According to the lasting-impression account, people are impressed by scientific findings, e.g. because of their difficulty, their precision, and their degree of consensus. They infer that scientists are competent and, everything else equal, trustworthy. We suspect that these impressions persist more than specific scientific knowledge, and are more relevant for explaining trust in science.
+People seem to overwhelmingly trust science. The most large-scale evidence on that comes from the Wellcome Global Monitor: In a first survey in 2018, the Wellcome Global Monitor collected responses from more than 140,000 people in over 140 countries on their trust in science [@wellcomeglobalmonitorWellcomeGlobalMonitor2018]. Globally, 34% said they trust science ‘a lot’, 45% answered ‘some’ and only 13% ‘not much, or not at all’ (10% said they did not know). In a second survey on 119.000 people from 113 countries in 2020, in midst of the Covid-19 pandemic and before vaccines were available, trust in science and scientists was even higher: 41% of respondents said they trust science ‘a lot’, 39% ‘some’, and 13% ‘not much, or not at all’ [@wellcomeglobalmonitorWellcomeGlobalMonitor2020]. Other studies suggest that, in many countries, scientists are among the most trusted professions [@funkScienceScientistsHeld2020]. Trust in science also appears to be very stable, at least in the US, where longitudinal data covering a long time span is available. In the General Social Survey (GSS), trust in the scientific community is among the most stable of about a dozen institutions since the mid-1970s [@funkPublicConfidenceScientists2020; @smithTrendsPublicAttitudes2013].
+
+## Existing explanations for trust in science
+
+In the literature on the public understanding of science has focused on explaining a lack of trust in, and more generally negative attitudes towards science. The most popular explanation as to why people do not trust science enough is known as the "deficit model". According to the deficit model, people do not trust science enough, because they do not know enough about it. The deficit model implies that when people trust science, it is because they know a lot about it.
+
+Seemingly in line with that view, large scale survey studies consistently identify education to be the most strongly correlated with trust in science among all sorts of demographic variables (Bak, 2001; Miller, 2004; Noy & O’Brien, 2019; Wellcome Global Monitor, 2018, 2020): the more educated tend to trust science more. The the deficit model provides a straightforward causal explanation for this correlation: education fosters trust by improving the understanding of science.
+
+However, the empirical evidence for this causal model is not conclusive. To begin with, there is now consensus on how to measure understanding of science (Gauchat & Andrews, 2018). A widely used measure consists of asking people a set of basic science knowledge questions. Sometimes it is also measured by coding open ended-questions about the scientific method. By either method (? - check this more thoroughly) past research has found science knowledge to be, in some cases, alarming low (REF e.g. Miller) and at best weakly associated with attitudes towards science, and only for general attitudes (Sturgis 2008). Other research has shown that the correlation between education level and positive attitudes towards and holds even after controlling for science knowledge, leading the researchers to conclude that only part of the effect of education can be explained by transmitting science knowledge (Bak, 2001).
+
+How to make sense of the fact that science knowledge tends to be low, while trust in science tends to be high and strongly associated with education?
+
+## The lasting-impression account
+
+Here, we propose a complementary account by which education could foster trust: the lasting-impression account. According to the lasting-impression account, people are impressed by scientific findings, e.g. because of their difficulty, their precision, and their degree of consensus. They infer that scientists are competent and, everything else equal, trustworthy. We suspect that these impressions persist more than specific scientific knowledge, and are more relevant for explaining trust in science.
+
+It is well-established that people can form long-lasting impressions of others on the basis of specific encounters, and that these impressions last even if the specific encounter is forgotten. [Extreme example: short term amnesia, basic principle here, find more recent refs]. Beyond these extreme examples, we commonly form impressions of the people around us while forgetting the details of how we formed these impressions. If a colleague fixes our computer, we might forget exactly how they fixed it, yet remember that they are good at fixing computers.
+
+Things might not be all that different for science. When people are exposed to impressive knowledge, they tend to believe that the people who uncovered that knowledge are competent. More specifically, impressiveness is driven by (i) something that people believe is hard to know and (ii) that people have reason to believe is true. As for (ii), if people cannot verify the information for themselves, probably one of the most important factors is consensus. The underlying logic is that it would be very unlikely to agree on a precise idea by chance, if the idea weren’t accurate. Once the likely accuracy of the idea is established, positive assessments of competence follow: people must be competent to have had the idea in the first place. [Give examples, from experiments and from science] That first element does not entail any understanding of how the idea was reached. I can be very impressed that scientists have been able to measure the size of our galaxy, even if I have no idea how they did it.
+
+[E.g. liquins account of explanations]
+
+The lasting-impression account of trust in science can reconcile the following robust observations: (i) people have very little science knowledge yet they trust science; (ii) scientific education is the main driver of trust in science, yet current science knowledge is only weakly correlated to trust in science.
+
+Explaining (i) is easy with the current account: people who have received an education have been exposed to science, they have been impressed, they maintain this impression, but they forget the knowledge that generated it.
+
+Explaining (ii) is a bit less obvious, but still fine. The current account does predict that, everything else equal, more science education should be associated with more current knowledge, and thus current knowledge should be associated with trust in science as well. However, for us the link between current K and trust is indirect, as current K is mostly relevant as an indicator of prior exposure to science. As a result, it’s not so surprising that the link between K and trust is weak, by contrast with the link between education and trust. As a result, the current account perfectly accounts for the fact that the correlation between education level and positive attitudes towards science is considerably stronger, and holds even after controlling for scientific knowledge (Bak, 2001).
+
+We agree with the deficit model that more exposure to science should lead to more trust. But we disagree that the distrust in science that is sometimes observed among people who have received a science education is mostly due to a lack of knowledge (except maybe for specific areas that people underestimate, like the ones we explore here). Overwhelming trust in science, a strong correlation with education, but low factual knowledge, suggest that it doesn't matter that the facts are retained, as long as the impression of trustworthiness is retained -- in the same way that if your mechanic fixes your car, you forget how he did it, but you remember he's a good mechanic.
 
 # Overview of experiments
 
-Experiments one and two tested whether exposure to impressive scientific content increases trust in scientists. Experiment 3, tests if this trust in scientists persists, and if it persists more than specific knowledge about the content.
+In this paper we first provide observational survey data that is consistent with our account. People who perceive scientists to be more precise and more consensual also tend to trust scientists more both within and across different disciplines. We then run a series of experiments to test the causal claim of our model.
+
+Ideally, we test the two elements of the model:
+
+-   when an idea is perceived as impressive (and consensual, but here we take that for granted), people think those who generated the idea are competent (and can be trusted)
+-   people can maintain their general impression even if they forget the specifics [here, maybe show, like Liquin (?) that memory of the content isn’t well (hard to show?) correlated with impressiveness rating?]
+
+Experiments one and two tested whether exposure to impressive scientific content increases trust in scientists. Experiment 3 tested if this trust in scientists persists, and if it persists more than specific knowledge about the content.
 
 # Experiment 1
 
@@ -163,6 +201,13 @@ RQ2_H2b_model <- lmer(competence~ impressed*consensus + (1 | id), exp1)
 # Manipulation check
 manipulation_check_model <- lmer(impressed ~ impressiveness + (1 | id), exp1) 
 
+# by discipline
+manipulation_check_archeo <- lm(impressed ~ impressiveness, 
+                                  exp1 %>% filter(discipline == "archeo")) 
+
+manipulation_check_entom <- lm(impressed ~ impressiveness, 
+                                  exp1 %>% filter(discipline == "entom")) 
+
 # extract descriptives for inline reporting
 exp1_descriptives <- list(
   # Demographics
@@ -178,6 +223,13 @@ exp1_descriptives <- list(
                      .names = "{.col}_{.fn}")) %>%
     mutate_if(is.numeric, round, digits = 2) %>% 
     split(.$impressiveness),
+  means_by_discipline = exp1 %>% 
+    group_by(impressiveness, discipline) %>% 
+    summarize(across(c(competence, trust, impressed, learn), 
+                     list(mean = mean, sd = sd), 
+                     .names = "{.col}_{.fn}")) %>%
+    mutate_if(is.numeric, round, digits = 2) %>% 
+    super_split(impressiveness, discipline),
   # H1
   H1a = text_ready(H1a_model),
   H1b = text_ready(H1b_model),
@@ -192,9 +244,10 @@ exp1_descriptives <- list(
   RQ2_H2a = text_ready(RQ2_H2a_model), 
   RQ2_H2b = text_ready(RQ2_H2b_model),
   # Manipulation check
-  manipulation_check = text_ready(manipulation_check_model)
+  manipulation_check = text_ready(manipulation_check_model),
+  manipulation_check_archeo = text_ready(manipulation_check_archeo),
+  manipulation_check_entom = text_ready(manipulation_check_entom)
 )
-
 ```
 
 The main goal of experiment one to see if exposure to impressive science content could enhance people's trust in scientists. We had the following hypotheses:
@@ -203,7 +256,7 @@ The main goal of experiment one to see if exposure to impressive science content
 
 **H1b: Across all conditions, participants who are more impressed by the text about a discipline will also tend to perceive the scientists of the discipline as more competent.**
 
-**H2a: Participants will trust a discipline more than they did before after reading an impressive text about the discipline's findings, compared to when reading a basic text.**
+**H2a: Participants will trust a discipline more than they did before, after reading an impressive text about the discipline's findings, compared to when reading a basic text.**
 
 **H2b: Across all conditions, participants who are more impressed by the text about a discipline will also tend to trust the scientists of the discipline more.**
 
@@ -221,9 +274,11 @@ We recruited 100 participants via Prolific. Two participants failed our attentio
 
 ### Procedure
 
-After providing their consent to participate in the study, participants were given an attention check: "Imagine you are playing video games with a friend and at some point your friend says: "I don't want to play this game anymore! To make sure that you read the instructions, please write the three following words"I pay attention" in the box below. I really dislike this game, it's the most overrated game ever. Do you agree with your friend?". We excluded all participants whose answer did not resemble "I pay attention". Then, participants read the following instructions: "You’re going to read two texts about scientific discoveries, in two fields: archeology (the study of human activity through the recovery and analysis of material culture), and entomology (the study of insects). We ask you to read the texts, and then answer a few questions about them." Next, participants read vignettes about scientific findings in the disciplines of entomology and archaeology. We manipulated the impressiveness of the texts, so that there was one "basic" and one "impressive" version for each of the disciplines (see Table \@ref(tab:exp1-stimuli)). Impressiveness varies within participants, but between disciplines: each participant sees an `impressive` version for one discipline, and a `basic` version for the other discipline. After each text, participants are asked several questions about the vignette and their perceptions of the scientists' trustworthiness.
+After providing their consent to participate in the study and passing an attention check, participants read the following introduction: "You’re going to read two texts about scientific discoveries, in two fields: archeology (the study of human activity through the recovery and analysis of material culture), and entomology (the study of insects). We ask you to read the texts, and then answer a few questions about them." Next, participants read vignettes about scientific findings in the disciplines of entomology and archaeology. We manipulated the impressiveness of the texts, so that there was one "basic" and one "impressive" version for each of the disciplines (see Table \@ref(tab:exp1-stimuli)). We varied impressiveness within participants, but between disciplines: each participant saw an impressive version for one discipline, and a basic version for the other discipline. After reading each text, participants were asked a series of questions. We asked participants how much they think they learned from reading the text ("How much do you feel you’ve learnt about human history by reading this text?" [1 - Nothing, 2 - A bit, 3 - Some, 4 - Quite a bit, 5 - A lot]) and how impressive they found it (“How impressive do you think the findings of the archaeologists described in the text are?” [1 - Not very impressive, 2 - A bit impressive, 3 - Quite impressive, 4 - Very impressive, 5 - Extremely impressive]). We also asked them about whether reading the text changed their impression of the competence of the scientists of the respective discipline ("Would you agree that reading this text has made you think of archaeologists as more competent than you thought before?" [1 - Strongly disagree, 2 - Disagree, 3 - Neither agree nor disagree, 4 - Agree, 5 - Strongly agree]) and their trust in the respective discipline ("Having read this text, would you agree that you trust the discipline of archaeology more than you did before?" [1 - Strongly disagree, 2 - Disagree, 3 - Neither agree nor disagree, 4 - Agree, 5 - Strongly agree]). Finally, we also asked about the perceived consensus ("To which extent do you think the findings from the short text you just read reflect a minority or a majority opinion among archaeologists?" [1 - Small minority, 2 - Minority, 3 - About half, 4 - Majority, 5 - Large majority]).
 
 ### Materials
+
+Table \@ref(tab:exp1-stimuli) shows the vignettes we used.
 
 ```{r exp1-stimuli}
 # Create a matrix of image file paths as Markdown-formatted strings
@@ -258,60 +313,492 @@ Sometimes entomologists study insects by observing them in the wild, sometimes t
 
 An entomologist often specializes in one type of insect in order to study it in depth. For example, an entomologist who specializes in ants is called a myrmecologist. "))
 
-# Use kable() to create the table and print it as Markdown
-kableExtra::kable(table, 
+#Use kable() to create the table and print it as Markdown
+kableExtra::kable(table,
                   col.names = c("", "Impressive", "Basic"),
                   caption = "Stimuli of Experiment 1",
-                  align = "l", 
-                  booktabs = T,
-                  longtable = TRUE) %>%
-  kable_paper(full_width = FALSE) %>%
+                  align = "l",
+                  booktabs = TRUE,
+                  longtable = TRUE,
+                  #full_width = TRUE,
+                  #format = "pandoc"
+                  ) %>%
+  kable_styling(latex_options = "repeat_header",
+                font_size = 8) %>%
   column_spec(1, width = "5em") %>%
-  column_spec(2, width = "20em") %>%
-  column_spec(3, width = "20em")
+  column_spec(2, width = "25em") %>%
+  column_spec(3, width = "25em")
+
+# for word version
+# flextable::flextable(table) %>%
+#     flextable::set_caption(caption = "Stimuli of Experiment 1") %>%
+#     flextable::autofit() %>%
+#     flextable::width(j = 1, width = 3) %>%
+#     flextable::width(j = 2, width = 5) %>%
+#     flextable::width(j = 3, width = 5) 
+
+# papaja::apa_table(
+#     table,
+#     caption = "Stimuli of Experiment 1",
+#     col.names = c("", "Impressive", "Basic"),
+#     # the p means vertically aligned at the top of each table cell, but there are other options
+#     align = c("p{1.5cm}", "p{7cm}", "p{7cm}"),
+#     font_size = "scriptsize"
+#   )
 ```
 
-We asked participants how much they think they learned from reading the text ("How much do you feel you’ve learnt about human history by reading this text?" [1 - Nothing, 2 - A bit, 3 - Some, 4 - Quite a bit, 5 - A lot]) and how impressive they found it (“How impressive do you think the findings of the archaeologists described in the text are?” [1 - Not very impressive, 2 - A bit impressive, 3 - Quite impressive, 4 - Very impressive, 5 - Extremely impressive]). We also asked them about whether reading the text changed their impression of the competence of the scientists of the respective discipline ("Would you agree that reading this text has made you think of archaeologists as more competent than you thought before?" [1 - Strongly disagree, 2 - Disagree, 3 - Neither agree nor disagree, 4 - Agree, 5 - Strongly agree]) and their trust in the respective discipline ("Having read this text, would you agree that you trust the discipline of archaeology more than you did before?" [1 - Strongly disagree, 2 - Disagree, 3 - Neither agree nor disagree, 4 - Agree, 5 - Strongly agree]). Finally, we also asked about the perceived consensus ("To which extent do you think the findings from the short text you just read reflect a minority or a majority opinion among archaeologists?" [1 - Small minority, 2 - Minority, 3 - About half, 4 - Majority, 5 - Large majority]).
+## Results and discussion
 
-## Results
-
-For a manipulation check, we find that--in line with pilot studies--participants indeed perceive the impressive text as more impressive (mean = `r exp1_descriptives$means$imp$impressed_mean`, sd = `r exp1_descriptives$means$imp$impressed_sd`; $\hat{b}$ = `r exp1_descriptives$manipulation_check$impressivenessimp$estimate` `r exp1_descriptives$manipulation_check$impressivenessimp$ci`, p `r exp1_descriptives$manipulation_check$impressivenessimp$p.value`) than the basic text (mean = `r exp1_descriptives$means$basic$impressed_mean`, sd = `r exp1_descriptives$means$basic$impressed_sd`).
+For a manipulation check, we find that--in line with pilot studies--participants indeed perceive the impressive text as more impressive (mean = `r exp1_descriptives$means$imp$impressed_mean`, sd = `r exp1_descriptives$means$imp$impressed_sd`; $\hat{b}$ = `r exp1_descriptives$manipulation_check$impressivenessimp$estimate` `r exp1_descriptives$manipulation_check$impressivenessimp$ci`, p `r exp1_descriptives$manipulation_check$impressivenessimp$p.value`) than the basic text (mean = `r exp1_descriptives$means$basic$impressed_mean`, sd = `r exp1_descriptives$means$basic$impressed_sd`). However, this overall effect is driven by the entomology vignettes ($\hat{b}$ = `r exp1_descriptives$manipulation_check_entom$impressivenessimp$estimate` `r exp1_descriptives$manipulation_check_entom$impressivenessimp$ci`, p `r exp1_descriptives$manipulation_check_entom$impressivenessimp$p.value`; $\text{mean}_{\text{basic}}$ = `r exp1_descriptives$means_by_discipline$basic$entom$impressed_mean`, $\text{sd}_{\text{basic}}$ = `r exp1_descriptives$means_by_discipline$basic$entom$impressed_sd`, $\text{mean}_{\text{impressive}}$ = `r exp1_descriptives$means_by_discipline$imp$entom$impressed_mean`, $\text{sd}_{\text{impressive}}$ = `r exp1_descriptives$means_by_discipline$imp$entom$impressed_sd`). For the archaeology vignettes we do not find a difference ($\hat{b}$ = `r exp1_descriptives$manipulation_check_archeo$impressivenessimp$estimate` `r exp1_descriptives$manipulation_check_archeo$impressivenessimp$ci`, p `r exp1_descriptives$manipulation_check_archeo$impressivenessimp$p.value`; $\text{mean}_{\text{basic}}$ = `r exp1_descriptives$means_by_discipline$basic$archeo$impressed_mean`, $\text{sd}_{\text{basic}}$ = `r exp1_descriptives$means_by_discipline$basic$archeo$impressed_sd`, $\text{mean}_{\text{impressive}}$ = `r exp1_descriptives$means_by_discipline$imp$archeo$impressed_mean`, $\text{sd}_{\text{impressive}}$ = `r exp1_descriptives$means_by_discipline$imp$archeo$impressed_sd`).
 
 We find that participants perceive scientists as more competent after having read an impressive text (mean = `r exp1_descriptives$means$imp$competence_mean`, sd = `r exp1_descriptives$means$imp$competence_sd`; $\hat{b}_{\text{Competence}}$ = `r exp1_descriptives$H1a$impressivenessimp$estimate` `r exp1_descriptives$H1a$impressivenessimp$ci`, p `r exp1_descriptives$H1a$impressivenessimp$p.value`) than after having read a basic one (mean = `r exp1_descriptives$means$basic$competence_mean`, sd = `r exp1_descriptives$means$basic$competence_sd`). Pooled across all conditions, participants impressiveness ratings are positively associated with competence ($\hat{b}$ = `r exp1_descriptives$H1b$impressed$estimate` `r exp1_descriptives$H1b$impressed$ci`, p `r exp1_descriptives$H1b$impressed$p.value`).
 
 Similar to competence, we find that participants trust a discipline more after having read an impressive text (mean = `r exp1_descriptives$means$imp$trust_mean`, sd = `r exp1_descriptives$means$imp$trust_sd`; $\hat{b}_{\text{trust}}$ = `r exp1_descriptives$H2a$impressivenessimp$estimate` `r exp1_descriptives$H2a$impressivenessimp$ci`, p `r exp1_descriptives$H2a$impressivenessimp$p.value`) than after having read a basic one. Participants impressiveness ratings are positively associated with trust when pooling across all conditions ($\hat{b}$ = `r exp1_descriptives$H2b$impressed$estimate` `r exp1_descriptives$H2b$impressed$ci`, p `r exp1_descriptives$H2b$impressed$p.value`).
 
-For RQ1, we find that participants had the impression of having learned after having read the impressive text (mean = `r exp1_descriptives$means$imp$learn_mean`, sd = `r exp1_descriptives$means$imp$learn_sd`; $\hat{b}$ = `r exp1_descriptives$RQ1$impressivenessimp$estimate` `r exp1_descriptives$RQ1$impressivenessimp$ci`, p `r exp1_descriptives$RQ1$impressivenessimp$p.value`), than after having read the basic one ((mean = `r exp1_descriptives$means$basic$learn_mean`, sd = `r exp1_descriptives$means$basic$learn_sd`).
+For RQ1, we find that participants had the impression of having learned more after having read the impressive text (mean = `r exp1_descriptives$means$imp$learn_mean`, sd = `r exp1_descriptives$means$imp$learn_sd`; $\hat{b}$ = `r exp1_descriptives$RQ1$impressivenessimp$estimate` `r exp1_descriptives$RQ1$impressivenessimp$ci`, p `r exp1_descriptives$RQ1$impressivenessimp$p.value`), than after having read the basic one (mean = `r exp1_descriptives$means$basic$learn_mean`, sd = `r exp1_descriptives$means$basic$learn_sd`).
 
-Regarding RQ2, we do not find evidence that consensus modulates the effect of impressiveness hypothesized in H1a and H2a.
+Regarding RQ2, we do not find evidence that consensus modulates the effect of impressiveness hypothesized in H1a and H2a. In Appendix \@ref(exp1), we provide regression tables and figures.
 
-Fig. \@ref(fig:exp1-plot) summarizes descriptive results. In Appendix \@ref(exp1), we provide regression tables and additional analyses.
+# Experiment 2
 
-(ref:exp1-plot) Overview of treatment effect on various outcomes
+```{r exp2}
+# Analyze data of experiments and store results
 
-```{r exp1-plot, fig.cap="(ref:exp1-plot)"}
-plot_data <- exp1 %>% 
-  pivot_longer(
-    c(competence, trust, impressed, learn),
-    names_to = "outcome", 
-               values_to = "value")
+# Experiment 2
 
-ggplot(plot_data, aes(x = impressiveness, y = value, fill = impressiveness, 
-                 color = impressiveness)) +
-  geom_half_violin (position = position_nudge(x = -.05), 
-                    adjust=1.5, alpha = .4,
-                    side = "l") +
-  geom_dotplot(position = position_nudge(x = -.05),
-               binaxis = 'y', stackdir = 'down', dotsize = 0.1, binwidth = 0.5) + 
-  # colors 
-  scale_color_viridis_d(option = "turbo", begin = 0.1, end = 0.9) +
-  scale_fill_viridis_d(option = "turbo", begin = 0.1,, end = 0.9) +
-  guides(color = "none", fill = "none") +
-  # labels
-  labs(x = "Impressiveness", y = "Likert-scale rating") +
-  plot_theme +
-  facet_wrap(~outcome)
+# read the cleaned version data set
+exp2 <- read_csv("experiment_2/data/cleaned.csv")
+
+# Hypotheses
+
+# H1 a
+H1a_model <- lmer(competence ~ impressiveness + (1 | id), exp2)
+
+# H1 b
+H1b_model <- lmer(competence ~ impressed + (1 | id), exp2)
+
+# H2 a
+H2a_model <- lmer(trust ~ impressiveness + (1 | id), exp2)
+
+# H2 b
+H2b_model <- lmer(trust ~ impressed + (1 | id), exp2)
+
+# Research questions
+
+# RQ1
+RQ1_model <- lmer(learn ~ impressiveness + (1 | id), exp2)
+
+# RQ2
+# for H1
+RQ2_H1a_model <- lmer(trust ~ impressiveness*consensus + (1 | id), exp2)
+RQ2_H1b_model <- lmer(trust ~ impressed*consensus + (1 | id), exp2)
+# for H2
+RQ2_H2a_model <- lmer(competence ~ impressiveness*consensus + (1 | id), exp2)
+RQ2_H2b_model <- lmer(competence~ impressed*consensus + (1 | id), exp2)
+
+# Manipulation check
+manipulation_check_model <- lmer(impressed ~ impressiveness + (1 | id), exp2) 
+
+# by discipline
+manipulation_check_archeo <- lm(impressed ~ impressiveness, 
+                                  exp2 %>% filter(discipline == "archeo")) 
+
+manipulation_check_entom <- lm(impressed ~ impressiveness, 
+                                  exp2 %>% filter(discipline == "entom")) 
+
+# extract descriptives for inline reporting
+exp2_descriptives <- list(
+  # Demographics
+  n_subj = n_distinct(exp2$id),
+  gender = exp2 %>% group_by(gender) %>% summarize(n = n_distinct(id)) %>% split(.$gender),
+  age = exp2 %>% summarize(across(age,list(mean = mean, median = median, sd = sd), 
+                                  .names = "{.fn}")) %>% rounded_numbers(),
+  # Means
+  means = exp2 %>% 
+    group_by(impressiveness) %>% 
+    summarize(across(c(competence, trust, impressed, learn), 
+                     list(mean = mean, sd = sd), 
+                     .names = "{.col}_{.fn}")) %>%
+    mutate_if(is.numeric, round, digits = 2) %>% 
+    split(.$impressiveness),
+  means_by_discipline = exp2 %>% 
+    group_by(impressiveness, discipline) %>% 
+    summarize(across(c(competence, trust, impressed, learn), 
+                     list(mean = mean, sd = sd), 
+                     .names = "{.col}_{.fn}")) %>%
+    mutate_if(is.numeric, round, digits = 2) %>% 
+    super_split(impressiveness, discipline),
+  # H1
+  H1a = text_ready(H1a_model),
+  H1b = text_ready(H1b_model),
+  # H2
+  H2a = text_ready(H2a_model),
+  H2b = text_ready(H2b_model),
+  # RQ1
+  RQ1 = text_ready(RQ1_model),
+  # RQ2
+  RQ2_H1a = text_ready(RQ2_H1a_model), 
+  RQ2_H1b = text_ready(RQ2_H1b_model), 
+  RQ2_H2a = text_ready(RQ2_H2a_model), 
+  RQ2_H2b = text_ready(RQ2_H2b_model),
+  # Manipulation check
+  manipulation_check = text_ready(manipulation_check_model),
+  manipulation_check_archeo = text_ready(manipulation_check_archeo),
+  manipulation_check_entom = text_ready(manipulation_check_entom)
+)
+
+
 ```
+
+Experiment 2 is essentially intended to be a slightly improved replication of experiment 1.
+
+Although we confirmed all our hypotheses, there were a couple of issues with experiment 1 that make us feel that a replication is warranted:
+
+-   We made a technical mistake: For both the impressive and basic entomology stimuli, our manipulation check question read: “How impressive do you think the findings of the archeologists described in the text are?”, whereas it should have read “… the findings of entomologists…”. Two participants brought this issue to our attention. While it should not have affected Hypotheses 1a and 2a, it might have distorted results on Hypotheses 1b and 2b which rely on the faulty question item. We will correct this mistake for study 2.
+
+-   One participant remarked that we should have spelled “archaeology” instead of “archeology”. To avoid potential confusion, we will change the spelling accordingly for study 2.
+
+-   Regarding our archeology vignettes–contrary to the findings in our pilot study–participants did not rate the impressive version more impressive than the basic version. We will therefore use slightly modified vignettes for archeology for study 2, hoping to make the two conditions more distinguishable. We also shortened the text in both conditions to be more similar in length to (i) each other and (ii) to the entomology vignettes. Table \@ref(tab:exp2-stimuli) shows the old version from study 1 and the new version for study 2.
+
+### Participants
+
+As in Experiment 1, we recruited 100 participants via Prolific. One participant failed our attention check, resulting in a final sample of `r exp2_descriptives$n_subj` participants (`r exp2_descriptives$gender$female$n` female, `r exp2_descriptives$gender$male$n` male; $age_\text{mean}$: `r exp2_descriptives$age$mean`, $age_\text{sd}$: `r exp2_descriptives$age$sd`, $age_\text{median}$: `r exp2_descriptives$age$median`). By contrast to Experiment 1, we ran Experiment 2 on a sample of UK participants, using the opportunity of replicating the main results on a sample from a different population.
+
+### Procedure
+
+The procedure was identical to that of Experiment 1.
+
+### Materials
+
+The vignettes about entomology remained the same as in Experiment 1 (see Table \@ref(tab:exp1-stimuli)). The new versions for the archeology vignettes are displayed in Table \@ref(tab:exp2-stimuli).
+
+```{r exp2-stimuli, echo=FALSE}
+# Create a matrix of image file paths as Markdown-formatted strings
+table <- data.frame(impressiveness = c("basic", 
+                                       "impressive"),
+                    Experiment_1 = c("Archaeology is the science that studies human history and prehistory based on the analysis of objects from the past such as human bones, engravings, constructions, and various objects, from nails to bits of pots. This task requires a great deal of carefulness, because objects from the past need to often be dug out from the ground and cleaned, without destroying them in the process. 
+
+Archeologists have been able to shed light on human history in all continents, from ancient Egypt to the Incas in Peru or the Khmers in Cambodia. 
+
+Archaeologists have made some startling discoveries, such as the amazing animal paintings in the Lascaux caves, which have been shown to be at least 30000 years old. On that basis, archeologists speculate on the artistic and religious lives of our ancestors. 
+
+Archeologists have also been able to find remains of our more distant ancestors, showing that our species is just one among several that appeared and then went extinct, such as Neanderthals, Homo erectus, or Homo habilis. 
+
+Archaeology relies on scientific methods of analysis such as carbon dating, which enables us to date objects, based on the type of carbon atoms they contain.", 
+"Archeologists, scientists who study human history and prehistory, are able to tell, from their bones, whether someone was male or female, how old they were, and whether they suffered from a wide range of diseases. Archeologists can now even tell at what age someone, dead for tens of thousands of years, stopped drinking their mother’s milk, from the composition of their teeth. 
+
+Looking for patterns, archeologists can also understand how far our ancestors traveled, or how often they fought each other.
+
+Archeologists can learn about the language that our ancestors or cousins might have had. For instance, the nerve that is used to control breathing is larger in humans than in apes, plausibly because we need more fine-grained control of our breathing in order to speak. As a result, the canal containing that nerve is larger in humans than in apes – and it is also enlarged in Neanderthals. 
+
+We can also tell, from an analysis of the tools they made, that, like modern humans, most Neanderthals were right-handed. It’s thought that handedness is related to the evolution of language, another piece of evidence suggesting that Neanderthals likely possessed a form of language.
+"),
+Experiment_2 = c("Archaeology is the science that studies human history and prehistory based on the analysis of objects from the past such as human bones, engravings, constructions, and various objects, from nails to bits of pots. This task requires a great deal of carefulness, because objects from the past need to often be dug out from the ground and patiently cleaned, without destroying them in the process.
+
+Archaeologists have been able to shed light on human history in all continents, from ancient Egypt to the Incas in Peru or the Khmers in Cambodia.
+
+Archaeologists study the paintings made by our ancestors, such as those that can be found in Lascaux, a set of caves found in the south of France that have been decorated by people at least 30000 years ago.
+
+Archaeologists have also found remains of our more distant ancestors, showing that our species is just one among several that appeared, and then either changed or went extinct, such as Neanderthals, Homo erectus, or Homo habilis.", 
+"Archaeologists, scientists who study human history and prehistory, are able to tell, from their bones, whether someone was male or female, how old they were, and whether they suffered from a range of diseases. Archaeologists can now tell at what age someone, dead for tens of thousands of years, stopped drinking their mother’s milk, from the composition of their teeth.
+Archaeologists learn about the language that our ancestors or cousins might have had. For instance, the nerve that is used to control breathing is larger in humans than in apes, plausibly because we need more fine-grained control of our breathing in order to speak. As a result, the canal containing that nerve is larger in humans than in apes – and it is also enlarged in Neanderthals.
+Archaeologists can also tell, from an analysis of the tools they made, that most Neanderthals were right-handed. It’s thought that handedness is related to the evolution of language, another piece of evidence suggesting that Neanderthals likely possessed a form of language."))
+
+# Use kable() to create the table and print it as Markdown
+kableExtra::kable(table, 
+                  col.names = c("", "Experiment 1 (old)", "Experiment 2 (new)"),
+                  caption = "Stimuli for Experiment 2",
+                  align = "l", 
+                  booktabs = T,
+                  longtable = TRUE) %>%
+  kable_styling(latex_options = "repeat_header",
+                font_size = 8) %>%
+  column_spec(1, width = "5em") %>%
+  column_spec(2, width = "25em") %>%
+  column_spec(3, width = "25em")
+```
+
+## Results and discussion
+
+For the manipulation check, we find that the impressive text as more impressive (mean = `r exp2_descriptives$means$imp$impressed_mean`, sd = `r exp2_descriptives$means$imp$impressed_sd`; $\hat{b}$ = `r exp2_descriptives$manipulation_check$impressivenessimp$estimate` `r exp2_descriptives$manipulation_check$impressivenessimp$ci`, p `r exp2_descriptives$manipulation_check$impressivenessimp$p.value`) than the basic text (mean = `r exp2_descriptives$means$basic$impressed_mean`, sd = `r exp2_descriptives$means$basic$impressed_sd`). By contrast to Experiment 1, this overall difference was now reflected in both the vignettes on entomology ($\hat{b}$ = `r exp2_descriptives$manipulation_check_entom$impressivenessimp$estimate` `r exp2_descriptives$manipulation_check_entom$impressivenessimp$ci`, p `r exp2_descriptives$manipulation_check_entom$impressivenessimp$p.value`; $\text{mean}_{\text{basic}}$ = `r exp2_descriptives$means_by_discipline$basic$entom$impressed_mean`, $\text{sd}_{\text{basic}}$ = `r exp2_descriptives$means_by_discipline$basic$entom$impressed_sd`, $\text{mean}_{\text{impressive}}$ = `r exp2_descriptives$means_by_discipline$imp$entom$impressed_mean`, $\text{sd}_{\text{impressive}}$ = `r exp2_descriptives$means_by_discipline$imp$entom$impressed_sd`) and the vignettes on archaeology ($\hat{b}$ = `r exp2_descriptives$manipulation_check_archeo$impressivenessimp$estimate` `r exp2_descriptives$manipulation_check_archeo$impressivenessimp$ci`, p `r exp2_descriptives$manipulation_check_archeo$impressivenessimp$p.value`; $\text{mean}_{\text{basic}}$ = `r exp2_descriptives$means_by_discipline$basic$archeo$impressed_mean`, $\text{sd}_{\text{basic}}$ = `r exp2_descriptives$means_by_discipline$basic$archeo$impressed_sd`, $\text{mean}_{\text{impressive}}$ = `r exp2_descriptives$means_by_discipline$imp$archeo$impressed_mean`, $\text{sd}_{\text{impressive}}$ = `r exp2_descriptives$means_by_discipline$imp$archeo$impressed_sd`).
+
+Replicating the results of Experiment 1, participants perceived scientists as more competent after having read an impressive text ($\hat{b}_{\text{Competence}}$ = `r exp2_descriptives$H1a$impressivenessimp$estimate` `r exp2_descriptives$H1a$impressivenessimp$ci`, p `r exp2_descriptives$H1a$impressivenessimp$p.value`; mean = `r exp2_descriptives$means$imp$competence_mean`, sd = `r exp2_descriptives$means$imp$competence_sd`) than after having read a basic one (mean = `r exp2_descriptives$means$basic$competence_mean`, sd = `r exp2_descriptives$means$basic$competence_sd`). Pooled across all conditions, participants impressiveness ratings were positively associated with competence ($\hat{b}$ = `r exp2_descriptives$H1b$impressed$estimate` `r exp2_descriptives$H1b$impressed$ci`, p `r exp2_descriptives$H1b$impressed$p.value`).
+
+Participants also trusted a discipline more after having read an impressive text ($\hat{b}_{\text{trust}}$ = `r exp2_descriptives$H2a$impressivenessimp$estimate` `r exp2_descriptives$H2a$impressivenessimp$ci`, p `r exp2_descriptives$H2a$impressivenessimp$p.value`; mean = `r exp2_descriptives$means$imp$trust_mean`, sd = `r exp2_descriptives$means$imp$trust_sd`) than after having read a basic one. Participants impressiveness ratings were positively associated with trust when pooling across all conditions ($\hat{b}$ = `r exp2_descriptives$H2b$impressed$estimate` `r exp2_descriptives$H2b$impressed$ci`, p `r exp2_descriptives$H2b$impressed$p.value`).
+
+As in Experiment 1, we find that participants had the impression of having learned more after having read the impressive text (mean = `r exp2_descriptives$means$imp$learn_mean`, sd = `r exp2_descriptives$means$imp$learn_sd`; $\hat{b}$ = `r exp2_descriptives$RQ1$impressivenessimp$estimate` `r exp2_descriptives$RQ1$impressivenessimp$ci`, p `r exp2_descriptives$RQ1$impressivenessimp$p.value`), than after having read the basic one (mean = `r exp2_descriptives$means$basic$learn_mean`, sd = `r exp2_descriptives$means$basic$learn_sd`).
+
+Regarding RQ2, we do, again, not find evidence that consensus modulates the effect of impressiveness hypothesized in H1a and H2a. In Appendix \@ref(exp2), we provide regression tables and figures.
+
+# Experiment 3
+
+```{r exp3}
+# Analyze data of experiments and store results
+
+# Experiment 3
+
+# read the cleaned version data set
+exp3_wide <- read_csv("experiment_3/data/cleaned_wide.csv")
+
+exp3_long <- read_csv("experiment_3/data/cleaned_long.csv")
+
+# Hypotheses
+
+# H1 a
+model_trust <- run_mixed_model(exp3_long, outcome = "trust")
+
+# H1 b
+model_impressed <- run_mixed_model(exp3_long, outcome = "impressiveness")
+
+# H1 c
+model_competence <- run_mixed_model(exp3_long, outcome = "competence")
+
+# Isolated Treatment effects
+
+treatment_effect_knowledge <- lm(n_correct_std ~ treatment, exp3_wide) 
+
+treatment_effect_trust <- lm(trust_std ~ treatment, exp3_wide)
+
+treatment_effect_impressed <- lm(impressed_std ~ treatment, exp3_wide) 
+
+treatment_effect_competence <- lm(competence_std ~ treatment, exp3_wide) 
+
+
+
+# extract descriptives for inline reporting
+exp3_descriptives <- list(
+  # Demographics
+  n_subj = n_distinct(exp3_wide$id),
+  gender = exp3_wide %>% group_by(gender) %>% summarize(n = n_distinct(id)) %>% split(.$gender),
+  age = exp3_wide %>%
+  summarize(
+    across(
+      age,
+      list(
+        mean = ~mean(.x, na.rm = TRUE),
+        median = ~median(.x, na.rm = TRUE),
+        sd = ~sd(.x, na.rm = TRUE)
+      ),
+      .names = "{.fn}"
+    )
+  ) %>%
+  rounded_numbers(),
+  # Means (raw scales)
+  means = exp3_wide %>% 
+    summarize(across(c("impressed", "competence", "trust", "n_correct"), 
+                     list(mean = mean, sd = sd), 
+                     .names = "{.col}_{.fn}")) %>%
+    mutate_if(is.numeric, round, digits = 2),
+  # H1a
+  model_trust  = text_ready(model_trust),
+  # H1b
+  model_impressed  = text_ready(model_impressed),
+  # H1c
+  model_competence  = text_ready(model_competence), 
+  # Treatment effects
+  treatment_effect_knowledge = text_ready(treatment_effect_knowledge),
+  treatment_effect_trust = text_ready(treatment_effect_trust),
+  treatment_effect_impressed = text_ready(treatment_effect_impressed),
+  treatment_effect_competence = text_ready(treatment_effect_competence)
+)
+
+```
+
+Experiments 1 and 2 have shown that exposure to impressive scientific content can increase trust in and perceived competence of scientists. In Experiment 3, we test if these impressions of scientists persists, and if they persists more than specific knowledge about the content.
+
+The deficit model suggests that people do not trust science (enough), because they do not know enough about it. Accordingly, more knowledge about science generates trust. Here, we want to contrast this model with an alternative one: the trust-by-impression account. According to this model, people trust science at time T+1 not so much because they know about it at time T+1, but because they have been impressed by it at time T.
+
+An implication of the deficit model is that trust should only co-occur with knowledge. For example, someone who doesn't have a minimum of astronomy knowledge (e.g. doesn't know that the earth revolves around the sun) has no reason to trust astronomers at all. By contrast, the trust-by-impression account could explain why someone without much knowledge might nevertheless trust astronomers: it requires only that a person has (at some point) been impressed by the finding of astronomers. They might have forgotten the details or even what it was, but the impression of trustworthiness remains.
+
+We expect people to forget quickly (during the time of a short distraction task) about precise content, but that the impressions they gain about scientists’ trustworthiness persist. In other words, we predict that the difference in knowledge performance between treatment and control group is larger (more negative) than the difference in trust (impressiveness/competence).
+
+H1: The difference in knowledge performance between treatment and control group is larger (more negative) than the difference in ...
+
+-   H1a: ...trust.
+
+-   H1b: ...impressiveness.
+
+-   H1c: ...competence.
+
+We are tested these hypotheses with the following model:
+
+$$
+value = (\beta_{0} + b_\text{0, participant}) + \beta_{1} Treatment + \beta_{2} Outcome + \beta_{3} (Treatment \times Outcome) + \epsilon
+$$
+
+$$
+b_\text{0, participant} \sim \mathcal{N}(0, \sigma^2_{participant})
+$$
+
+In this model, the dependent variable "value" represents a standardized version of the outcome variables. The variable "Treatment" is a binary indicator, where a value of 1 signifies that participants were exposed to the decoy (treatment group) and a value of 0 indicates that they were not (control group). The "Outcome" variable is also binary, distinguishing outcome measures: a value of 1 represents knowledge, while a value of 0 represents (in different models) one of the other outcomes, i.e. trust, impressiveness, or competence. The interaction term ("Treatment x Outcome") captures the difference in the treatment effect between these outcome measures. For example, a statistically significant, negative interaction coefficient suggests that the difference between control and decoy group was larger for the knowledge measure than for trust/competence/impressiveness. Random intercepts for participants ($b_\text{0, participant}$) are included in the model to account for individual variability. These random intercepts are assumed to follow a normal distribution with a variance of $\sigma^2_{participant}$.
+
+### Participants
+
+We ran a power simulation to inform our choice of sample size. The power simulation suggested that with 150 participants, we would cross the power threshold of 90% for the interaction effect (power = 0.958). Due to uncertainty about our parameters for the simulations, and because our budget allowed for it, we aimed to recruit a sample of 200 participants. We ended up with a sample of `r exp3_descriptives$n_subj` participants (`r exp3_descriptives$gender$female$n` female, `r exp3_descriptives$gender$male$n` male; $age_\text{mean}$: `r exp3_descriptives$age$mean`, $age_\text{sd}$: `r exp3_descriptives$age$sd`, $age_\text{median}$: `r exp3_descriptives$age$median`), none of which failed our attention check.
+
+### Procedure
+
+All participants read one vignette, established as impressive and trust enhancing in previous experiments. We randomized whether this vignette was about archaeology or entomology. Right after reading the vignette, all participants answered four seemingly relevant questions about the vignette, but which are of no interest to our hypotheses. The aim of these questions was to make the following distraction task for the treatment group less obvious.
+
+For these decoy questions, we asked participants how clear the text was [1 - Not clear at all, 2 - Not very clear, 3 - Neither clear nor not clear, 4 - Quite clear, 5 - Very clear], if the text presented any new or surprising information to them [1 - None at all, 2 - Very little, 3 - Moderately, 4 - Quite a bit, 5 - A significant amount], if it made them think of archaeologists/entomologists as more knowledgeable than they thought before [1 - Strongly disagree, 2 - Disagree, 3 - Neither agree nor disagree, 4 - Agree, 5 - Strongly agree] and how much they felt they have learned about human history/insects by reading the text [1 - Nothing, 2 - A bit, 3 - Some, 4 - Quite a bit, 5 - A lot].
+
+Participants were randomly assigned to one of two groups: In the control group, participants proceeded immediately to answer all outcome questions. In the treatment group, participants engaged in a 5min distraction task before proceeding to the same outcome questions (Check how much longer these participants actually took on average). The distraction task consists of reading two vignettes that are completely unrelated and answer a couple of questions about them.
+
+For our outcomes, similar to previous experiments, we asked participants about how impressed they were by the content (“How impressive do you think the findings of the archaeologists/entomologists described in the text are?” [1 - Not impressive at all, 2 - Not very impressive, 3 - Neither impressive nor not impressive, 4 - Quite impressive, 5 - Very impressive]), how competent they believe the scientists of the respective discipline to be ("How competent do you think archaeologists/entomologists are?" [1 - Not competent at all, 2 - Not very competent, 3 - Neither competent nor not competent, 4 - Quite competent, 5 - Very competent]), and how much they trust the respective discipline ("How much would you trust the discipline of archaeologists/entomologists ?" [1 - Not trust them at all, 2 - Not trust them much, 3 - Neither trust them or not trust them, 4 - Trust them quite a bit, 5 - Trust them a lot]).
+
+To measure the retained knowledge about the content of the vignettes, we asked participants to do a quiz of 5 multiple choice questions (Table \@ref(tab:exp3-knowledge)). For each question, participants got 1 point for the correct answer, and 0 points for any other answer. We calculated an overall knowledge score as the sum of points for all five questions, such that the maximum score is 5 and the minimum score is 0. The order between the quizz and the other outcome options was randomized.
+
+### Materials
+
+We used the impressive version of the stimuli used in Experiment 2 (see Table \@ref(tab:exp3-stimuli)).
+
+```{r exp3-stimuli, echo=FALSE}
+# Create a matrix of image file paths as Markdown-formatted strings
+table <- data.frame(
+  archaeology = "Archaeologists, scientists who study human history and prehistory, are able to tell, from their bones, whether someone was male or female, how old they were, and whether they suffered from a range of diseases. Archaeologists can now tell at what age someone, dead for tens of thousands of years, stopped drinking their mother’s milk, from the composition of their teeth.
+
+Archaeologists learn about the language that our ancestors or cousins might have had. For instance, the nerve that is used to control breathing is larger in humans than in apes, plausibly because we need more fine-grained control of our breathing in order to speak. As a result, the canal containing that nerve is larger in humans than in apes – and it is also enlarged in Neanderthals.
+
+Archaeologists can also tell, from an analysis of the tools they made, that most Neanderthals were right-handed. It’s thought that handedness is related to the evolution of language, another piece of evidence suggesting that Neanderthals likely possessed a form of language.
+",
+  Entomology = "Entomologists are the scientists who study insects. Some of them have specialized in understanding how insects perceive the world around them, and they have uncovered remarkable abilities. 
+
+Entomologists interested in how flies’ visual perception works have used special displays to present images for much less than the blink of an eye, electrodes to record how individual cells in the flies’ brain react, and ultra-precise electron microscopy to examine their eyes. Thanks to these techniques, they have shown that some flies can perceive images that are displayed for just three milliseconds (a thousandth of a second) – about ten times shorter than a single movie frame (of which there are 24 per second). 
+
+Entomologists who study the hair of crickets have shown that these microscopic hairs, which can be found on antenna-like organs attached to the crickets’ rear, are maybe the most sensitive organs in the animal kingdom. The researchers used extremely precise techniques to measure how the hair reacts to stimuli, such as laser-Doppler velocimetry, a technique capable of detecting the most minute of movements. They were able to show that the hair could react to changes in the motion of the air that had less energy than one particle of light, a single photon.
+"
+)
+
+# Use kable() to create the table and print it as Markdown
+kableExtra::kable(table, 
+                  col.names = c( "Archaeology", "Entomology"),
+                  caption = "Stimuli used in Experiment 3",
+                  align = "l", 
+                  booktabs = T,
+                  longtable = TRUE)  %>%
+  kable_styling(latex_options = "repeat_header",
+                font_size = 8) %>%
+  column_spec(1, width = "25em") %>%
+  column_spec(2, width = "25em")
+```
+
+```{r exp3-knowledge, echo=FALSE}
+block <- data.frame(
+  Archaeology = c("According to the text, what can archaeologists determine from examining bones? 
+a) Gender, age, and past diseases 
+b) Gender, age, and handedness
+c) Gender and age
+d) Gender, age, past diseases, and handedness
+(correct answer: a)
+",
+"",
+"According to the text, how do archaeologists determine at what age someone stopped drinking their mother’s milk?
+a) By analyzing their bones 
+b) By examining their hair 
+c) By studying their teeth 
+d) By observing their burial rituals
+(correct answer: c)
+",
+"",
+"The text mentions nerves that are particularly enlarged in humans compared to apes, which are they? 
+a) The nerves that control fine hand movements
+b) The nerves that control breathing
+c) The nerves that balance for bipedal motion
+d) The nerves that control the digestive system
+(correct answer: b)
+",
+"",
+"Why is the canal containing a nerve going from the brain to the thorax enlarged in Neanderthals? 
+a) Because Neanderthals had a different diet
+b) Because Neanderthals engaged in increased physical activity 
+c) Because Neanderthals were left-handed 
+d) Because Neanderthals were able to speak
+
+(correct answer: d)
+",
+"",
+"According to the text, what evidence suggests that most Neanderthals were right-handed? 
+a) Analysis of their bones 
+b) Analysis of their tools 
+c) Examination of their teeth 
+d) Observation of their cave paintings
+(correct answer: b)
+"),
+  Entomology = c("Which techniques have entomologists used to study flies' visual perception?
+
+A) Sonar imaging
+B) Electron microscopy 
+C) X-ray diffraction 
+D) Mass spectrometry
+
+(correct answer: b)
+
+",
+"",
+"What is the order or magnitude of the shorter displays flies can perceive?
+
+A) Picoseconds
+B) Nanoseconds
+C) Microseconds
+D) Milliseconds
+
+(correct answer: d)
+",
+"",
+"Where are the sensitive hairs found on crickets located?
+
+   A) Legs  
+   B) Wings  
+   C) Rear  
+   D) Head  
+
+(correct answer: c)
+",
+"",
+"What technique did entomologists use to study the sensitivity of cricket hairs?
+
+   A) Mass spectrometry  
+   B) Electron microscopy  
+   C) Laser-Doppler velocimetry  
+   D) Sonar imaging  
+
+(correct answer: c)
+",
+"",
+"According to the passage, how sensitive are the cricket hairs to air motion changes?
+
+   A) They react to changes equivalent to the energy of a single photon.  
+   B) They react to changes equivalent to the energy of a single atom.  
+   C) They react to changes equivalent to the energy of a single grain of sand.
+   D) They react to changes equivalent to the energy of a single breath.  
+(correct answer: a)
+")
+)
+
+# Use kable() to create the table and print it as Markdown
+kableExtra::kable(block, 
+                  col.names = c("Archaeology", "Entomology"),
+                  caption = "Experiment 3 knowledge questions",
+                  align = "l", 
+                  booktabs = T,
+                  longtable = TRUE)  %>%
+  kable_styling(latex_options = "repeat_header",
+                font_size = 8)  %>%
+  column_spec(1, width = "25em", extra_css = "padding: 20px;", border_right = TRUE) %>%
+  column_spec(2, width = "25em", extra_css = "padding: 20px;")
+```
+
+## Results and discussion
+
+Regarding our hypotheses, we did not find any evidence that our treatment--the distraction task--affected knowledge more than it did any of the other outcome variables ($\hat{b}_{\text{trust}}$ = `r exp3_descriptives$model_trust$interaction$estimate` `r exp3_descriptives$model_trust$interaction$ci`, p `r exp3_descriptives$model_trust$interaction$p.value`; $\hat{b}_{\text{impressiveness}}$ = `r exp3_descriptives$model_impressed$interaction$estimate` `r exp3_descriptives$model_impressed$interaction$ci`, p `r exp3_descriptives$model_impressed$interaction$p.value`; $\hat{b}_{\text{competence}}$ = `r exp3_descriptives$model_competence$interaction$estimate` `r exp3_descriptives$model_competence$interaction$ci`, p `r exp3_descriptives$model_competence$interaction$p.value`).
+
+In fact, if we look at all outcomes independently, we do not find evidence that our treatment affected any of them at all ($\hat{b}_{\text{knowledge}}$ = `r exp3_descriptives$treatment_effect_knowledge$treatmentdistraction$estimate` `r exp3_descriptives$treatment_effect_knowledge$treatmentdistraction$ci`, p `r exp3_descriptives$treatment_effect_knowledge$treatmentdistraction$p.value`; $\hat{b}_{\text{trust}}$ = `r exp3_descriptives$treatment_effect_trust$treatmentdistraction$estimate` `r exp3_descriptives$treatment_effect_trust$treatmentdistraction$ci`, p `r exp3_descriptives$treatment_effect_trust$treatmentdistraction$p.value`; $\hat{b}_{\text{impressiveness}}$ = `r exp3_descriptives$treatment_effect_impressed$treatmentdistraction$estimate` `r exp3_descriptives$treatment_effect_impressed$treatmentdistraction$ci`, p `r exp3_descriptives$treatment_effect_impressed$treatmentdistraction$p.value`; $\hat{b}_{\text{competence}}$ = `r exp3_descriptives$treatment_effect_competence$treatmentdistraction$estimate` `r exp3_descriptives$treatment_effect_competence$treatmentdistraction$ci`, p `r exp3_descriptives$treatment_effect_competence$treatmentdistraction$p.value`).
+
+In other words, over a 5min distraction task, knowledge persisted, and so did perceptions of the scientific disciplines and the scientists.
+
+# Overall discussion
+
+[also mention somewhere that this disconnect between a broad impression and reasons why it exists can be problematic exactly for the reasons we’d expect based on theories of why we have episodic memory (for social goals, see Klein, Mahr): eg pro-vax people trust medicine, but they don’t exactly know why, so they find it hard to argue against anti-vax people]
 
 \FloatBarrier
 
@@ -325,4 +812,10 @@ ggplot(plot_data, aes(x = impressiveness, y = value, fill = impressiveness,
 # (APPENDIX) Appendix {.unnumbered}
 
 ```{r child = "appendix_exp1.Rmd"}
+```
+
+```{r child = "appendix_exp2.Rmd"}
+```
+
+```{r child = "appendix_exp3.Rmd"}
 ```

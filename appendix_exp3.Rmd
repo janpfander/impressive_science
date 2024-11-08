@@ -1,0 +1,105 @@
+# Experiment 3 {#exp3}
+
+## Materials
+
+\FloatBarrier
+
+## Attention check
+
+Imagine you are playing video games with a friend and at some point your friend says: “I don’t want to play this game anymore! To make sure that you read the instructions, please write the three following words "I pay attention" in the box below. I really dislike this game, it's the most overrated game ever.”
+
+Do you agree with your friend? (Yes/No)
+
+We excluded all participants whose answer did not resemble "I pay attention".
+
+## Descriptives
+
+```{r exp3-descriptives}
+# by discipline
+exp3_wide %>% 
+  group_by(discipline, treatment) %>% 
+  summarise(across(c(n_correct, impressed, competence, trust), 
+                   list(mean = ~mean(., na.rm=TRUE)), 
+                   .names = "{col}_{fn}")) %>%
+  mutate_if(is.numeric, ~round(.x, digits = 2)) %>% 
+  kable(format = "latex", booktabs = TRUE, caption = "Descriptives") %>%
+  kable_styling(full_width = FALSE) %>%
+  # make smaller to fit
+  kable_styling(latex_options = "scale_down")
+```
+
+## Results
+
+Fig. \@ref(fig:exp3-plot) illustrates the results.
+
+(ref:exp3-plot) Overview of treatment effect on various outcomes
+
+```{r exp3-plot, fig.cap="(ref:exp3-plot)"}
+# ordre
+plot_data <- exp3_long
+
+plot_data$outcome <- factor(plot_data$outcome, levels = c("knowledge", "trust", "competence", "impressiveness"))
+# by discipline
+ggplot(plot_data, aes(x=outcome, y=value, fill = treatment)) +
+  geom_half_violin(position = position_nudge(x = -.2),
+                   adjust=2, alpha = .4,
+                   side = "l") +
+  stat_summary(fun = "mean", geom = "point", size = 2, shape = 21) +
+  stat_summary(fun = "mean", geom = "line", size = 1, linetype = "dashed") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .2) +
+  # Add nice labels
+  labs(x = NULL, y = "Standardized likert scale rating", fill = NULL) +
+  scale_fill_manual(values = c("#E69F00", "#56B4E9")) +
+  plot_theme + 
+  theme(axis.text.x = element_text(angle = 20, hjust = 1)) 
+
+
+```
+
+The results of the models from the hypotheses can be found in table \@ref(tab:exp3-hypotheses-table).
+
+```{r exp3-hypotheses-table}
+# H1 a
+model_trust <- run_mixed_model(exp3_long, outcome = "trust")
+
+# H1 b
+model_impressed <- run_mixed_model(exp3_long, outcome = "impressiveness")
+
+# H1 c
+model_competence <- run_mixed_model(exp3_long, outcome = "competence")
+
+modelsummary(list(
+                  "Competence" = model_competence,
+                  "Trust" = model_trust,
+                  "Impressiveness" = model_impressed
+                  ),
+             stars = TRUE, 
+             output = "kableExtra", 
+             caption = "Models for interaction hypotheses") %>%
+  # make smaller to fit
+  kable_styling(latex_options = "scale_down")
+```
+
+The treatment effects by outcome can be found in table \@ref(tab:exp3-treatment-effects).
+
+```{r exp3-treatment-effects}
+# Isolated Treatment effects
+treatment_effect_knowledge <- lm(n_correct_std ~ treatment, exp3_wide) 
+
+treatment_effect_trust <- lm(trust_std ~ treatment, exp3_wide)
+
+treatment_effect_impressed <- lm(impressed_std ~ treatment, exp3_wide) 
+
+treatment_effect_competence <- lm(competence_std ~ treatment, exp3_wide) 
+
+modelsummary(list("Knowledge" = treatment_effect_knowledge,
+                  "Trust" = treatment_effect_trust,
+                  "Impressiveness" = treatment_effect_impressed,
+                  "Competence" = treatment_effect_competence
+), 
+stars = TRUE, 
+output = "kableExtra", 
+caption = "Treatment effects by outcome") %>%
+  # make smaller to fit
+  kable_styling(latex_options = "scale_down")
+```

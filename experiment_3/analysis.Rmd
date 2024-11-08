@@ -84,6 +84,10 @@ stargazer(treatment_knowledge, type = "latex", title = "Regression Results",
 # Models
 
 ```{r, echo=FALSE, message=FALSE, fig.show='hold'}
+# ordre
+plot_data <- data_long
+
+plot_data$outcome <- factor(data_long$outcome, levels = c("knowledge", "trust", "competence", "impressiveness"))
 # by discipline
 ggplot(data_long, aes(x=outcome, y=value, fill = treatment)) +
   geom_half_violin(position = position_nudge(x = -.2),
@@ -93,30 +97,16 @@ ggplot(data_long, aes(x=outcome, y=value, fill = treatment)) +
   stat_summary(fun = "mean", geom = "line", size = 1, linetype = "dashed") +
   stat_summary(fun.data = "mean_se", geom = "errorbar", width = .2) +
   # Add nice labels
-  labs(x = "Convergence", y = "Accuracy", fill = NULL) +
+  labs(x = NULL, y = "Standardized likert scale rating", fill = NULL) +
   scale_fill_manual(values = c("#E69F00", "#56B4E9")) +
   #plot_theme + 
   theme(axis.text.x = element_text(angle = 20, hjust = 1))
 ```
 
-```{r}
-# Function to filter data and run mixed model for a given outcome and comparison variable
-run_mixed_model <- function(data, outcome) {
-  # Filter data to include only the pair we care about
-  data_filtered <- data %>% 
-    filter(outcome == "n_correct_std" | outcome == {{outcome}})
-
-  # Run the mixed model with random intercepts
-  model <- lmer(value ~ treatment * outcome_numeric + (1 | id), data = data_filtered)
-  
-  return(model)
-}
-```
-
 ```{r, echo=FALSE}
-model_competence <- run_mixed_model(data_long, outcome = "competence_std")
-model_trust <- run_mixed_model(data_long, outcome = "trust_std")
-model_impressed <- run_mixed_model(data_long, outcome = "impressed_std")
+model_competence <- run_mixed_model(data_long, outcome = "competence")
+model_trust <- run_mixed_model(data_long, outcome = "trust")
+model_impressed <- run_mixed_model(data_long, outcome = "impressiveness")
 
 modelsummary(list(
                   "Competence" = model_competence,
