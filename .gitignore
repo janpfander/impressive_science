@@ -20,3 +20,6 @@
 
 # Ignore text files
 *.rtf
+
+# Ignor figures
+*output/
