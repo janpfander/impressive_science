@@ -34,80 +34,33 @@ To give an overview of this power analysis, we will
 4.  Calculate the power: Repeat steps two and three many times. See for how many samples the model recovers a statistically significant estimate for the parameter we set. Statistical power is just the ratio of significant samples among all samples we look at.
 5.  Calculate power for different sample sizes: Repeat step four for various sample sizes. See at which sample size we achieve sufficiently high power.
 
-# Data generating process
-
-## Variables
-
-Outcomes variables: 
-
-- **competence**: “How competent do you think [entomologists] are?” (7-point scale: 1 = exceptionally incompetent, 2 = very incompetent, 3 = quite incompetent, 4 = neither competent nor incompetent, 5 = quite competent, 6 = very competent, 7 = exceptionally competent)
-
-- **trust**:  “How much do you trust the discipline of [entomology]?” (7-point scale: 1 = no trust at all, 2 = almost no trust, 3 = very little trust, 4 = some trust, 5 = quite strong trust, 6 = very strong trust, 7 = absolute trust).
-
-- **impressiveness**: "How impressive did you find the findings of the entomologists described in the text you have read?" (5-point scale: 1 = not impressive at all, 2 = not very impressive, 3 = neither impressive nor unimpressive, 4 = quite impressive, 5 = very impressive)
-
-- **recall**. We divided the text into different information elements. For each participant, we calculate a recall score based on how many of these elements they mention in their open-ended answer. We will code 0 if an element is not mentioned at all, and 1 if it is, not to the exact wording, but containing all the information. In order to have a more fine grained rating of the exactitude with which each point is recalled, we will assign scores of 0.5 if a point is mentioned, but lacks certain key elements. For example, if the original text goes "Some flies can perceive images displayed for just three milliseconds (a thousandth of a second). Since the two vignettes contain a slightly different number of total information elements according to our evaluation grid (13 for archaeology, 11 for entomology), we use a relative measure for the final recall score, namely the share of mentioned elements among all possible elements. 
-
-- **recall of impressing items**. After having given their post evaluation of scientist's competence and trust in the different disciplines, participants will be presented with the evaluation grid for the respective discipline they had been randomized to see. They will be asked to select the 6 (~46% of total information in vignette) most impressive elements in the case of archaeology, and the 5 (~45% of total information in vignette) most impressive elements in the case of entomology. For each participant, we will then compute the score they obtained on the element they subjectively rated to be the most impressive ones. As for the recall variable, to account for the different number of impressive elements between the two vignettes, the final personal perceived loss of impressiveness measure will be a relative one, namely the share of mentioned elements among all impressive elements.
-
-Error:
-
-Errors for the outcomes are generated from a multivariate normal distribution with mean vector $ \mu = (0, 0) $ and covariance matrix. For simplicity, we assume the same errors for all outcomes. 
-
-$$
-\Sigma = \begin{bmatrix}
-1 & \rho \\
-\rho & 1
-\end{bmatrix}
-$$
-
-## Model
-
-All pre-test measures are assumed to be scaled to have mean 0 and standard deviation 1. We use standardized effect sizes. 
-
-
-$$
-outcome_\text{post} = outcome_\text{pre}  + \beta + \epsilon_{i}
-$$
-
 # Functions
 
 ## Simulate a sample
 
 ```{r generate-data}
-# Load library
-library(MASS)
-
-# Parameters
+# Parameters for temporary tests
 effect_size <- 0.2      # Small effect size (Cohen's d)
-rho <- 0.2             # Weak correlation between pre- and post-scores
 sigma <- 1             # Standard deviation of errors
 
 # Function to simulate experiment data
-simulate_experiment_data <- function(n, effect_size, rho, sigma) {
+simulate_experiment_data <- function(n, effect_size, sigma) {
   
-  # Generate pre-scores as standardized scores
-  pre_scores <- rnorm(n, mean = 0, sd = 1)
+  # Generate scores for change in competence and trust as standardized scores
+  change_competence <- rnorm(n, mean = effect_size, sd = sigma)
+  change_trust <- rnorm(n, mean = effect_size, sd = sigma)
   
-  # Variance-covariance matrix for correlated errors
-  cov_mx <- matrix(c(sigma^2, rho, rho, sigma^2), nrow = 2)
-  
-  # Simulate error terms
-  errors <- MASS::mvrnorm(n, mu = c(0, 0), Sigma = cov_mx)
-  
-  # Calculate post-scores: pre + effect size + error
-  post_scores <- pre_scores + effect_size + errors[, 2]
+  # Generate forgetting scores
+  forgetting_score <- rnorm(n, mean = -effect_size, sd = sigma)
   
   # Create a data frame
   data <- data.frame(
     participant_id = 1:n,
-    condition = sample(c("archaeology", "entomology"), n, replace = TRUE),
-    pre_competence = pre_scores,
-    post_competence = post_scores,
-    pre_trust = pre_scores,  # Same pre-scores for trust
-    post_trust = post_scores,
-    forgetting_score = rnorm(n, mean = -effect_size, sd = 1),  # Independent outcome
-    impressiveness = rnorm(n, mean = effect_size, sd = 1), # more impressiveness expected in experiment
+    discipline = sample(c("archaeology", "entomology"), n, replace = TRUE),
+    change_competence = change_competence,  # Post-measure for competence
+    change_trust = change_trust,            # Post-measure for trust
+    forgetting_score = forgetting_score,    # Independent outcome
+    impressiveness = rnorm(n, mean = effect_size, sd = sigma), # more impressiveness expected in experiment
     impressive_forgetting_score = rnorm(n, mean = -effect_size, sd = 1)
   )
   
@@ -115,20 +68,32 @@ simulate_experiment_data <- function(n, effect_size, rho, sigma) {
 }
 
 # Function to simulate validation data
-simulate_validation_data <- function(n_validation, n_phase1, effect_size) {
+simulate_validation_data <- function(n_validation, n_phase1, effect_size, sigma) {
   
-  data <- data.frame(
+  data <- tibble(
     participant_id = 1:n_validation,
-    condition = sample(c("archaeology", "entomology"), n_validation, replace = TRUE),
-    text_id = sample(1:n_phase1, n_validation, replace = TRUE),  # Map to phase 1 participants
-    impressiveness = rnorm(n_validation, mean = 0, sd = 1)  # less impressiveness expected in validation study
-  )
+    discipline = sample(c("archaeology", "entomology"), n_validation, replace = TRUE),
+    condition = sample(c("original", "recalled"), n_validation, replace = TRUE)
+  ) %>%
+    mutate(
+      # assign a text id for recall texts
+      text_id = ifelse(condition == "recalled",
+                       sample(1:n_phase1, sum(.$condition == "recalled"), replace = TRUE),  # Map to phase 1 participants
+                       NA),
+      # make a numeric version for effect size calculations
+      condition_numeric = ifelse(condition == "original", 0, 1),
+      # 0 because no intercept (standardized variables), substract because we expect negative effect sizes for recall
+      impressiveness = 0 - effect_size * condition_numeric + rnorm(n_validation, mean = 0, sd = sigma),
+      competence = 0 - effect_size * condition_numeric + rnorm(n_validation, mean = 0, sd = sigma),
+      trust = 0 - effect_size * condition_numeric + rnorm(n_validation, mean = 0, sd = sigma)
+    )
+  
   return(data)
 }
 
 # test
-# experiment_data <- simulate_experiment_data(n = 200, effect_size = effect_size, rho = rho, sigma = sigma)
-# validation_data <- simulate_validation_data(n_validation = 100, n_phase1 = 200, effect_size = effect_size)
+# experiment_data <- simulate_experiment_data(n = 200, effect_size = effect_size, sigma = sigma)
+# validation_data <- simulate_validation_data(n_validation = 100, n_phase1 = 200, effect_size = effect_size, sigma = sigma)
 
 ```
 
@@ -145,25 +110,47 @@ run_hypotheses_tests <- function(experiment_data, validation_data) {
     stringsAsFactors = FALSE
   )
   
-  # H1a: Paired t-test on competence
-  h1a <- t.test(experiment_data$post_competence, experiment_data$pre_competence, paired = TRUE)
-  results <- rbind(results, data.frame(
-    hypothesis = "H1a",
-    test_type = "paired t-test",
-    statistic = h1a$statistic,
-    p_value = h1a$p.value,
-    mean_difference = h1a$estimate
-  ), row.names = NULL)
+  # H1a: One-sample t-test for change in competence
+  if (shapiro.test(experiment_data$change_competence)$p.value > 0.05) {
+    h1a <- t.test(experiment_data$change_competence, mu = 0)
+    results <- rbind(results, data.frame(
+      hypothesis = "H1a",
+      test_type = "one sample t-test",
+      statistic = h1a$statistic,
+      p_value = h1a$p.value,
+      mean_difference = h1a$estimate
+    ), row.names = NULL)
+  } else {
+    h1a <- wilcox.test(experiment_data$change_competence, mu = 0, exact = FALSE)
+    results <- rbind(results, data.frame(
+      hypothesis = "H1a",
+      test_type = "Wilcoxon",
+      statistic = h1a$statistic,
+      p_value = h1a$p.value,
+      mean_difference = NA
+    ), row.names = NULL)
+  }
   
-  # H1b: Paired t-test on trust
-  h1b <- t.test(experiment_data$post_trust, experiment_data$pre_trust, paired = TRUE)
-  results <- rbind(results, data.frame(
-    hypothesis = "H1b",
-    test_type = "paired t-test",
-    statistic = h1b$statistic,
-    p_value = h1b$p.value,
-    mean_difference = h1b$estimate
-  ), row.names = NULL)
+  # H1b: One-sample t-test for change in trust
+  if (shapiro.test(experiment_data$change_trust)$p.value > 0.05) {
+    h1b <- t.test(experiment_data$change_trust, mu = 0)
+    results <- rbind(results, data.frame(
+      hypothesis = "H1b",
+      test_type = "one sample t-test",
+      statistic = h1b$statistic,
+      p_value = h1b$p.value,
+      mean_difference = h1b$estimate
+    ), row.names = NULL)
+  } else {
+    h1b <- wilcox.test(experiment_data$change_trust, mu = 0, exact = FALSE)
+    results <- rbind(results, data.frame(
+      hypothesis = "H1b",
+      test_type = "Wilcoxon",
+      statistic = h1b$statistic,
+      p_value = h1b$p.value,
+      mean_difference = NA
+    ), row.names = NULL)
+  }
   
   # H2: Test forgetting score against zero
   if (shapiro.test(experiment_data$forgetting_score)$p.value > 0.05) {
@@ -186,48 +173,74 @@ run_hypotheses_tests <- function(experiment_data, validation_data) {
     ), row.names = NULL)
   }
   
-  # H3a: Independent t-test on impressiveness ratings
-  h3a <- t.test(
-    x = experiment_data$impressiveness,
-    y = validation_data$impressiveness,
-    var.equal = TRUE
-  )
-  results <- rbind(results, data.frame(
-    hypothesis = "H3a",
-    test_type = "independent t-test",
-    statistic = h3a$statistic,
-    p_value = h3a$p.value,
-    mean_difference = h3a$estimate[1] - h3a$estimate[2]
-  ), row.names = NULL)
-  
-  # H3b: Test impressive forgetting score against zero
+  # H3: One-sample test for impressive forgetting score against zero
   if (shapiro.test(experiment_data$impressive_forgetting_score)$p.value > 0.05) {
-    h3b <- t.test(experiment_data$impressive_forgetting_score, mu = 0)
+    h3 <- t.test(experiment_data$impressive_forgetting_score, mu = 0)
     results <- rbind(results, data.frame(
-      hypothesis = "H3b",
+      hypothesis = "H3",
       test_type = "one sample t-test",
-      statistic = h3b$statistic,
-      p_value = h3b$p.value,
-      mean_difference = h3b$estimate
+      statistic = h3$statistic,
+      p_value = h3$p.value,
+      mean_difference = h3$estimate
     ), row.names = NULL)
   } else {
-    h3b <- wilcox.test(experiment_data$impressive_forgetting_score, mu = 0, exact = FALSE)
+    h3 <- wilcox.test(experiment_data$impressive_forgetting_score, mu = 0, exact = FALSE)
     results <- rbind(results, data.frame(
-      hypothesis = "H3b",
+      hypothesis = "H3",
       test_type = "Wilcoxon",
-      statistic = h3b$statistic,
-      p_value = h3b$p.value,
+      statistic = h3$statistic,
+      p_value = h3$p.value,
       mean_difference = NA
     ), row.names = NULL)
   }
+  
+  # H4a: Independent t-test for text impressiveness
+  h4a <- t.test(
+    impressiveness ~ condition,
+    data = validation_data
+  )
+  results <- rbind(results, data.frame(
+    hypothesis = "H4a",
+    test_type = "independent t-test",
+    statistic = h4a$statistic,
+    p_value = h4a$p.value,
+    mean_difference = h4a$estimate[[1]] - h4a$estimate[[2]]
+  ))
+  
+  # H4b: Independent t-test for competence change
+  h4b <- t.test(
+    competence ~ condition,
+    data = validation_data
+  )
+  results <- rbind(results, data.frame(
+    hypothesis = "H4b",
+    test_type = "independent t-test",
+    statistic = h4b$statistic,
+    p_value = h4b$p.value,
+    mean_difference = h4b$estimate[[1]] - h4b$estimate[[2]]
+  ))
+  
+  # H4c: Independent t-test for trust change
+  h4c <- t.test(
+    trust ~ condition,
+    data = validation_data
+  )
+  results <- rbind(results, data.frame(
+    hypothesis = "H4c",
+    test_type = "independent t-test",
+    statistic = h4c$statistic,
+    p_value = h4c$p.value,
+    mean_difference = h4c$estimate[[1]] - h4c$estimate[[2]]
+  ))
   
   return(results)
 }
 
 
+
 # test 
-# experiment_data <- simulate_experiment_data(n = 200, effect_size = 0.2, rho = 0.2, sigma = 1)
-# validation_data <- simulate_validation_data(n_validation = 100, n_phase1 = 200, effect_size = 0.2)
+# experiment_data <- simulate_experiment_data(n = 200, effect_size = 0.2, sigma = 1)
+# validation_data <- simulate_validation_data(n_validation = 100, n_phase1 = 200, effect_size = 0.2, sigma = 1)
 # 
 # results <- run_hypotheses_tests(experiment_data, validation_data)
 # results
@@ -245,10 +258,10 @@ iterate <- function(n_iterations, n, n_validation, effect_size, rho, sigma) {
       # element in 1:iterations
       
       # Generate experiment data
-      experiment_data <- simulate_experiment_data(n = n, effect_size = effect_size, rho = rho, sigma = sigma)
+      experiment_data <- simulate_experiment_data(n = n, effect_size = effect_size, sigma = sigma)
       
       # Generate validation data
-      validation_data <- simulate_validation_data(n_validation = n_validation, n_phase1 = n, effect_size = effect_size)
+      validation_data <- simulate_validation_data(n_validation = n_validation, n_phase1 = n, effect_size = effect_size, sigma = sigma)
       
       # Run hypothesis tests
       iteration_results <- run_hypotheses_tests(experiment_data, validation_data)
@@ -330,7 +343,6 @@ power_by_sample_size <- function(sample_sizes, n_iterations, n_validation,
                                n = n,
                                n_validation = n_validation,
                                effect_size = effect_size,
-                               rho = rho,
                                sigma = sigma
                              )
                              
@@ -378,7 +390,7 @@ power_by_sample_size <- function(sample_sizes, n_iterations, n_validation,
 parameters <- list(
   sample_sizes = c(30, 50, 80, 100, 120, 150, 200, 250, 300),
   n_iterations = 1000,
-  n_validation = 200,
+  n_validation = 400,
   effect_size = 0.2,
   rho = 0.2,
   sigma = 1,
@@ -458,14 +470,14 @@ power %>%
 To demonstrate the analytical procedure in the pre-registration, we simulate a single sample. 
 
 ```{r}
-experiment_data <- simulate_experiment_data(n = 200, effect_size = effect_size, rho = rho, sigma = sigma)
+experiment_data <- simulate_experiment_data(n = 200, effect_size = effect_size, sigma = sigma)
 
 write_csv(experiment_data , paste0("data/", "simulated_experiment.csv"))
 
 
-validation_data <- simulate_validation_data(n_validation = 100, n_phase1 = 200, effect_size = effect_size)
+validation_data <- simulate_validation_data(n_validation = 100, n_phase1 = 200, effect_size = effect_size, sigma = sigma)
 
-write_csv(experiment_data , paste0("data/", "simulated_validation.csv"))
+write_csv(validation_data, paste0("data/", "simulated_validation.csv"))
 ```
 
 

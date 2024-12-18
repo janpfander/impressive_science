@@ -448,6 +448,41 @@ exp2_descriptives <- list(
 )
 
 
+
+table(exp2$competence)
+
+# Define the neutral midpoint
+neutral_midpoint <- 3
+
+# Perform a one-sample t-test
+t_test_competence <- t.test(
+  exp2$competence,
+  mu = neutral_midpoint
+)
+
+# View the results
+print(t_test_competence)
+
+# Perform a Wilcoxon signed-rank test
+wilcox_test_competence <- wilcox.test(
+  exp2$competence,
+  mu = neutral_midpoint
+)
+
+# View the results
+print(wilcox_test_competence)
+
+# Define the neutral midpoint
+neutral_midpoint <- 3
+
+# Perform a one-sample t-test
+t_test_trust <- t.test(
+  exp2$trust,
+  mu = neutral_midpoint
+)
+
+# View the results
+print(t_test_trust)
 ```
 
 Experiment 2 is essentially intended to be a slightly improved replication of experiment 1.
@@ -601,6 +636,41 @@ exp3_descriptives <- list(
   treatment_effect_impressed = text_ready(treatment_effect_impressed),
   treatment_effect_competence = text_ready(treatment_effect_competence)
 )
+
+table(exp3_wide$competence)
+
+# Define the neutral midpoint
+neutral_midpoint <- 3
+
+# Perform a one-sample t-test
+t_test_competence <- t.test(
+  exp3_wide$competence,
+  mu = neutral_midpoint
+)
+
+# View the results
+print(t_test_competence)
+
+# Perform a Wilcoxon signed-rank test
+wilcox_test_competence <- wilcox.test(
+  exp2$competence,
+  mu = neutral_midpoint
+)
+
+# View the results
+print(wilcox_test_competence)
+
+# Define the neutral midpoint
+neutral_midpoint <- 3
+
+# Perform a one-sample t-test
+t_test_trust <- t.test(
+  exp2$trust,
+  mu = neutral_midpoint
+)
+
+# View the results
+print(t_test_trust)
 
 ```
 

@@ -1,34 +1,19 @@
 ---
 title: "Pre-registration Experiment 4"
 output:
-  bookdown::pdf_document2:
-    toc: false
   bookdown::html_document2:
     keep_md: yes
     toc: false  # Remove table of contents from HTML output
   bookdown::word_document2: default
+  bookdown::pdf_document2:
+    toc: false
 always_allow_html: true
 bibliography: references.bib
 ---
 
-```{r, include=FALSE}
-# load packages
-library(tidyverse)
-library(kableExtra)
-library(lme4)
-library(broom.mixed)
-```
 
-```{r, include=FALSE}
-# make up some data to show code examples
-# Set seed for reproducibility
-set.seed(123)
 
-# Read simulated data to demonstrate analytical procedure
-experiment_data <- read_csv("data/simulated_experiment.csv")
-validation_data <- read_csv("data/simulated_validation.csv")
 
-```
 
 # Introduction
 
@@ -88,76 +73,47 @@ The procedure for the new participants is similar to the main experiment, but do
 
 Table \@ref(tab:stimuli) shows the vignettes we will use in Experiment 4. Table \@ref(tab:knowledge-evaluation-grid) shows the evaluation grid we will use to evaluate the content of participants' open-ended answers, and which participants will see towards the end of the experiment when making a selection of the most impressive elements.
 
-```{r stimuli, echo=FALSE}
-# Create a matrix of image file paths as Markdown-formatted strings
-table <- data.frame(
-  archaeology = "Archaeologists, scientists who study human history and prehistory, are able to tell, from their bones, whether someone was male or female, how old they were, and whether they suffered from a range of diseases. Archaeologists can now tell at what age someone, dead for tens of thousands of years, stopped drinking their mother’s milk, from the composition of their teeth.
+<table class=" lightable-paper" style='color: black; font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<caption>(\#tab:stimuli)(\#tab:stimuli)Stimuli</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Archaeology </th>
+   <th style="text-align:left;"> Entomology </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;width: 20em; "> Archaeologists, scientists who study human history and prehistory, are able to tell, from their bones, whether someone was male or female, how old they were, and whether they suffered from a range of diseases. Archaeologists can now tell at what age someone, dead for tens of thousands of years, stopped drinking their mother’s milk, from the composition of their teeth.
 
 Archaeologists learn about the language that our ancestors or cousins might have had. For instance, the nerve that is used to control breathing is larger in humans than in apes, plausibly because we need more fine-grained control of our breathing in order to speak. As a result, the canal containing that nerve is larger in humans than in apes – and it is also enlarged in Neanderthals.
 
-Archaeologists can also tell, from an analysis of the tools they made, that most Neanderthals were right-handed. It’s thought that handedness is related to the evolution of language, another piece of evidence suggesting that Neanderthals likely possessed a form of language.
-",
-  Entomology = "Entomologists are the scientists who study insects. Some of them have specialized in understanding how insects perceive the world around them, and they have uncovered remarkable abilities. 
+Archaeologists can also tell, from an analysis of the tools they made, that most Neanderthals were right-handed. It’s thought that handedness is related to the evolution of language, another piece of evidence suggesting that Neanderthals likely possessed a form of langua </td>
+   <td style="text-align:left;width: 20em; "> e. |Entomologists are the scientists who study insects. Some of them have specialized in understanding how insects perceive the world around them, and they have uncovered remarkable abilities. 
 
 Entomologists interested in how flies’ visual perception works have used special displays to present images for much less than the blink of an eye, electrodes to record how individual cells in the flies’ brain react, and ultra-precise electron microscopy to examine their eyes. Thanks to these techniques, they have shown that some flies can perceive images that are displayed for just three milliseconds (a thousandth of a second) – about ten times shorter than a single movie frame (of which there are 24 per second). 
 
-Entomologists who study the hair of crickets have shown that these microscopic hairs, which can be found on antenna-like organs attached to the crickets’ rear, are maybe the most sensitive organs in the animal kingdom. The researchers used extremely precise techniques to measure how the hair reacts to stimuli, such as laser-Doppler velocimetry, a technique capable of detecting the most minute of movements. They were able to show that the hair could react to changes in the motion of the air that had less energy than one particle of light, a single photon.
-"
-)
+Entomologists who study the hair of crickets have shown that these microscopic hairs, which can be found on antenna-like organs attached to the crickets’ rear, are maybe the most sensitive organs in the animal kingdom. The researchers used extremely precise techniques to measure how the hair reacts to stimuli, such as laser-Doppler velocimetry, a technique capable of detecting the most minute of movements. They were able to show that the hair could react to changes in the motion of the air that had less energy than one particle of light, a single </td>
+  </tr>
+</tbody>
+</table>
 
-# Use kable() to create the table and print it as Markdown
-kableExtra::kable(table, 
-                  col.names = c( "Archaeology", "Entomology"),
-                  caption = "Stimuli",
-                  align = "l", 
-                  booktabs = T,
-                  longtable = TRUE) %>%
-  kable_paper(full_width = FALSE) %>%
-  column_spec(1, width = "20em") %>%
-  column_spec(2, width = "20em") 
-```
 
-```{r knowledge-evaluation-grid, echo=FALSE}
-# Create the data frame with consistent row numbers
-new_table <- data.frame(
-  Archaeology = linebreak(c(
-  "1. Archaeologists can determine whether someone was male or female from their bones.",
-  "2. Archaeologists can determine how old someone was from their bones.",
-  "3. Archaeologists can determine whether someone suffered from a range of diseases from their bones.",
-  "4. Archaeologists can determine at what age someone stopped drinking their mother’s milk, based on the composition of their teeth.",
-  "5. The nerve controlling breathing is larger in humans than in apes. The canal containing that nerve is also larger in humans and Neanderthals than in apes.",
-  "6. The fact that the nerve controlling breathing is larger in humans is possibly due to the need for fine-grained control of breathing to speak.",
-  "7. Archaeologists determined that most Neanderthals were right-handed, based on analysis of Neanderthals’ tools.",
-  "8. Handedness is thought to be related to the evolution of language. This suggests that Neanderthals likely possessed a form of language."
-)),
-Entomology = linebreak(c(
-  "1. Entomologists use special displays to present images to flies for extremely short periods (less than the blink of an eye).",
-  "2. Entomologists can record how individual cells in flies’ brains react using electrodes.",
-  "3. Entomologists use ultra-precise electron microscopy to examine flies’ eyes.",
-  "4. Some flies can perceive images displayed for just three milliseconds. This duration is about ten times shorter than a single movie frame.",
-  "5. Crickets have microscopic hairs situated on antenna-like organs at their rear. ",
-  "6. Crickets' hairs are possibly the most sensitive organs in the animal kingdom. They react to changes in air motion with less energy than one photon.",
-  "7. Entomologists measured how cricket hairs react to stimuli, using laser-Doppler velocimetry, which can detect extremely minute movements.",
-  ""  # Placeholder to match vector length
-))
-)
-
-# Render the table with line breaks and PDF-compatible formatting
-kableExtra::kable(
-  new_table,
-  col.names = c("Archaeology", "Entomology"),
-  caption = "Recall evaluation grid",
-  align = "l",
-  booktabs = TRUE,
-  format = "latex",
-  longtable = TRUE,
-  escape = FALSE # Keep LaTeX formatting
-) %>%
-  kable_paper(full_width = FALSE) %>% # Ensure consistentf styling
-  column_spec(1, width = "20em") %>%  # Adjust column widths
-  column_spec(2, width = "20em")
-
-```
+\begin{longtable}[t]{>{\raggedright\arraybackslash}p{20em}>{\raggedright\arraybackslash}p{20em}}
+\caption{(\#tab:knowledge-evaluation-grid)Recall evaluation grid}\\
+\toprule
+Archaeology & Entomology\\
+\midrule
+1. Archaeologists can determine whether someone was male or female from their bones. & 1. Entomologists use special displays to present images to flies for extremely short periods (less than the blink of an eye).\\
+2. Archaeologists can determine how old someone was from their bones. & 2. Entomologists can record how individual cells in flies’ brains react using electrodes.\\
+3. Archaeologists can determine whether someone suffered from a range of diseases from their bones. & 3. Entomologists use ultra-precise electron microscopy to examine flies’ eyes.\\
+4. Archaeologists can determine at what age someone stopped drinking their mother’s milk, based on the composition of their teeth. & 4. Some flies can perceive images displayed for just three milliseconds. This duration is about ten times shorter than a single movie frame.\\
+5. The nerve controlling breathing is larger in humans than in apes. The canal containing that nerve is also larger in humans and Neanderthals than in apes. & 5. Crickets have microscopic hairs situated on antenna-like organs at their rear.\\
+\addlinespace
+6. The fact that the nerve controlling breathing is larger in humans is possibly due to the need for fine-grained control of breathing to speak. & 6. Crickets' hairs are possibly the most sensitive organs in the animal kingdom. They react to changes in air motion with less energy than one photon.\\
+7. Archaeologists determined that most Neanderthals were right-handed, based on analysis of Neanderthals’ tools. & 7. Entomologists measured how cricket hairs react to stimuli, using laser-Doppler velocimetry, which can detect extremely minute movements.\\
+8. Handedness is thought to be related to the evolution of language. This suggests that Neanderthals likely possessed a form of language. & \\
+\bottomrule
+\end{longtable}
 
 ### Outcome measures
 
@@ -178,7 +134,8 @@ Since the two vignettes contain a slightly different number of total information
 
 Although our hypotheses are directional, we will use two sided tests for all hypothesis, in order to have a more conservative test. 
 
-```{r}
+
+``` r
 # initialize an empty results data frame
 results <- data.frame(
   hypothesis = character(),
@@ -192,7 +149,8 @@ results <- data.frame(
 
 For the first set of hypotheses, we will a one-sample t-tests, to check if the average score is significantly different from the scale midpoint. Practically, we will subtract the scale mid-point from from all answers, and then test if the resulting scores are statistically different from 0^[note that we simulated standardized data, so in the sample code snippets, we won't do this procedure].
 
-```{r}
+
+``` r
 # H1a: One-sample t-test for change in competence
 if (shapiro.test(experiment_data$change_competence)$p.value > 0.05) {
   h1a <- t.test(experiment_data$change_competence, mu = 0)
@@ -241,7 +199,8 @@ if (shapiro.test(experiment_data$change_trust)$p.value > 0.05) {
 
 For H2, we want to test if the recall score is statistically different from perfect recall. Another way of framing this is whether the average forgetting score (1-recall score, since recall score is a percentage) differs significantly from zero. If the forgetting scores are approximately normally distributed, we will run a one-sample t-test. If not, we will revert to the non-parametric equivalent, the Wilcoxon signed-rank test.
 
-```{r}
+
+``` r
 # H2: Test forgetting score against zero
 if (shapiro.test(experiment_data$forgetting_score)$p.value > 0.05) {
   h2 <- t.test(experiment_data$forgetting_score, mu = 0)
@@ -269,7 +228,8 @@ if (shapiro.test(experiment_data$forgetting_score)$p.value > 0.05) {
 
 For H3, we want to test if the recall score for impressive elements is statistically different from perfect recall of these elements. As for H2, another way of framing this is whether the average forgetting score for the elements judged as impressive (1- personal impressive recall score) differs significantly from zero.
 
-```{r}
+
+``` r
 # H3: One-sample test for impressive forgetting score against zero
 if (shapiro.test(experiment_data$impressive_forgetting_score)$p.value > 0.05) {
   h3 <- t.test(experiment_data$impressive_forgetting_score, mu = 0)
@@ -297,7 +257,8 @@ if (shapiro.test(experiment_data$impressive_forgetting_score)$p.value > 0.05) {
 
 For H4a, b and c, we will compare trust, competence and impressiveness ratings between the "original texts" and the "recall texts" condition of the validation study using an independent sample t-tests.
 
-```{r}
+
+``` r
 # H4a: Independent t-test for text impressiveness
 h4a <- t.test(
   impressiveness ~ condition,
@@ -361,9 +322,10 @@ We ran a power simulation to inform our choice of sample size. All assumptions a
 
 (ref:power-plot) Results of Knowledge scores from participants in a pilot study.
 
-```{r power-plot, echo=FALSE, fig.cap="(ref:power-plot)", out.width = "80%", fig.align="center"}
-knitr::include_graphics("power_exp4_files/figure-html/plot-power-1.png")
-```
+<div class="figure" style="text-align: center">
+<img src="power_exp4_files/figure-html/plot-power-1.png" alt="(ref:power-plot)" width="80%" />
+<p class="caption">(\#fig:power-plot)(ref:power-plot)</p>
+</div>
 
 # References
 
