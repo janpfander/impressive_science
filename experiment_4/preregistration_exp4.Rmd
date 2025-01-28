@@ -159,6 +159,12 @@ kableExtra::kable(
 
 ```
 
+```{r echo=FALSE}
+# write csv with inclusion critera for human coders
+write_csv(new_table, "data/knowledge_elements.csv")
+```
+
+
 ### Outcome measures
 
 Our Likert-scale outcome measures are already described in the procedure section. Here, we will provide details on our recall measure, as well as on the personal perceived loss of impressiveness measure.

@@ -7,6 +7,8 @@
 # Ignore all elements in subfolders called "data"
 **/data/*
 
+no_git/
+
 # Ignore Word files
 *.doc
 *.docx
