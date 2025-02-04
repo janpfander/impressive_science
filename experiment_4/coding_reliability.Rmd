@@ -28,7 +28,7 @@ library(stargazer)
 library(lsr)
 library(effectsize)
 library(readxl)
-library("irr")
+#library("irr")
 library(writexl)
 ```
 
@@ -38,7 +38,6 @@ library(writexl)
 # set a seed for random sampling
 set.seed(9823)
 ```
-
 
 We begin by using the chat gpt coding tables generated in the `cleaning.Rmd` file. 
 
@@ -71,7 +70,7 @@ archeo <- sample(archeo)
 entom <- sample(entom)
 ```
 
-Then we then export them as a compbineddata frame. 
+Then we then export them as a combined data frame. 
 
 ```{r}
 coder_data <- bind_rows(archeo, entom) 
@@ -79,58 +78,104 @@ coder_data <- bind_rows(archeo, entom)
 write_csv(coder_data, ("data/template_human_coders.csv"))
 ```
 
-# Import data
+# Import human coded data
 
 ```{r, include=FALSE, message=FALSE}
-coding1 <- read_xlsx("/Users/Sophie/Documents/Travail/Assistante de recherche - 2024/Confiance dans la science/Coding participants' texts/coding_pilot2_Sophie.xlsx", skip = 1) %>%
-  #add the coder ID to the column names (ex: for coder number 1, rating columns start wity c1_)
+coding1 <- read_csv("data/human_coder_1.csv") |> 
+  # Remove the first row
+  slice(-1) |> 
+  # make everything numeric
+  mutate(across(everything(), ~ as.numeric(.x))) |> 
+  # Compute total scores
+  rowwise() |> 
+  mutate(cX_total = sum(c_across(starts_with("cX")), na.rm = TRUE)) |> 
+  ungroup() |>  # Ensure the data is no longer rowwise
+  # Add the coder ID to the column names (ex: for coder number 1, rating columns start with c1_)
   rename_with(~ gsub("cX", "c1", .x))
 
-coding2 <- read_xlsx("/Users/Sophie/Documents/Travail/Assistante de recherche - 2024/Confiance dans la science/Coding participants' texts/coding_pilot2_Jan.xlsx", skip = 1) %>%
+
+coding2 <- read_xlsx("data/human_coder_2.xlsx") |> 
+# Remove the first row
+  slice(-1) |> 
+  # make everything numeric
+  mutate(across(everything(), ~ as.numeric(.x))) |> 
+  # Compute total scores
+  rowwise() |> 
+  mutate(cX_total = sum(c_across(starts_with("cX")), na.rm = TRUE)) |> 
+  ungroup() |>  # Ensure the data is no longer rowwise
+  # Add the coder ID to the column names (ex: for coder number 1, rating columns start with c1_)
   rename_with(~ gsub("cX", "c2", .x))
 
-codingGPT <- read_xlsx("/Users/Sophie/Documents/Travail/Assistante de recherche - 2024/Confiance dans la science/Coding participants' texts/coding_pilot2_gpt.xlsx") %>%
+
+codingGPT <- read_xlsx("data/coding_study4_chatgpt.xlsx") |> 
   rename_with(~ gsub("cX", "cGPT", .x))
 
-# append data 
-coding2 <- coding2 %>%
-  select(-participant_ID, -discipline, -text)
-codingGPT <- codingGPT %>%
-  select(-participant_ID, -discipline, -text, -text_corrected)
-data = full_join(coding1, coding2, by = "text_ID") %>%
-  full_join(codingGPT, by = "text_ID")
+# combine data 
+coding2 <- coding2 |>
+  select(-condition, -text)
+
+coding1 <- coding1 |>
+  select(-condition, -text)
+
+codingGPT <- codingGPT |>
+  select(-c(text, text_corrected))
+
+
+
+data <- full_join(coding1, coding2) |> 
+  # only add those texts that coders saw
+  left_join(codingGPT)
 ```
 
 # Cleaning
 
 ```{r}
 # compute proportion of knowledge items present in the text by dividing total knowledge scores by maximum possible score 
-maxscore_archeo = ncol(coding1 %>% select(contains("archeo")))*2
-maxscore_entom = ncol(coding1 %>% select(contains("entom")))*2
+
+# the maximum score for archeo is 2*8 = 16, for entom 2*7 = 14
+maxscore_archeo = ncol(coding1 |> select(contains("archeo")))*2
+maxscore_entom = ncol(coding1 |> select(contains("entom")))*2
                          
 
-data <- data %>%
-  mutate(c1_totalp = case_when(discipline == "archeo" ~ c1_total/maxscore_archeo,
-                               discipline == "entom" ~ c1_total/maxscore_entom), 
-         c2_totalp = case_when(discipline == "archeo" ~ c2_total/maxscore_archeo,
-                               discipline == "entom" ~ c2_total/maxscore_entom),
-         cGPT_totalp = case_when(discipline == "archeo" ~ cGPT_total/maxscore_archeo,
-                               discipline == "entom" ~ cGPT_total/maxscore_entom))
+data <- data |>
+  mutate(c1_totalp = case_when(condition == "archeo" ~ c1_total/maxscore_archeo,
+                               condition == "entom" ~ c1_total/maxscore_entom), 
+         c2_totalp = case_when(condition == "archeo" ~ c2_total/maxscore_archeo,
+                               condition == "entom" ~ c2_total/maxscore_entom),
+         cGPT_totalp = case_when(condition == "archeo" ~ cGPT_total/maxscore_archeo,
+                               condition == "entom" ~ cGPT_total/maxscore_entom))
 
-data_long <- data %>%
+data_long <- data |>
+  rename(discipline = condition) |> 
   pivot_longer(starts_with("c"), 
                names_to = c("coder", "knowledge_dim"), 
                names_sep = "_", 
-               values_to = "rating")%>%
+               values_to = "rating")|>
   filter(!is.na(rating))
 
+data_long |> 
+  group_by(coder) |> 
+  count()
+
+data_long |> 
+  group_by(id) |> 
+  summarise(n_coders = n_distinct(coder)) |> 
+  filter(n_coders != 3)
+
+data_long %>%
+  filter(coder == "c2") %>%
+  filter(is.na(rating) | is.na(id))  # Replace `rating` and `id` with the actual column names if needed
+
 ```
+
+
+
 
 # Check distribution of ratings
 
 ```{r}
-data_long %>%
-  filter(knowledge_dim == "totalp") %>%
+data_long |>
+  filter(knowledge_dim == "totalp") |>
   ggplot(aes(x = rating)) + 
   geom_histogram()
 ```
@@ -164,6 +209,9 @@ Code to compute ICC comes from ten Hove, D., Jorgensen, T. D., & van der Ark, L.
 required.packages <- c("brms", "rstan", "lme4", "merDeriv", "car")
 to.install <- required.packages[!(required.packages %in% installed.packages()[,"Package"])]
 if(length(to.install)) install.packages(to.install) 
+
+# Load all packages
+lapply(required.packages, library, character.only = TRUE)
 
 ############################################################################
 ## FUNCTIONS TO COMPUTE KHAT AND Q
@@ -459,12 +507,15 @@ estICCs <- function(data,
 #### Compute ICC
 
 ```{r}
-ICC = data_long %>%
+ICC <- data_long %>%
   filter(knowledge_dim == "totalp") %>%
-  estICCs(Y = "rating", subjects = "text_ID", raters = "coder", estimator = "MLE")
+  estICCs(Y = "rating", subjects = "id", raters = "coder", estimator = "MLE")
 
 #extracting ICC for agreement between single ratings of random raters 
 ICC$ICCs["ICCa1",]
+
+
+  
 ```
 
 # Percentage of agreement
@@ -476,7 +527,7 @@ agr_c1_GPT = c()
 for(dim in knowledge_dim){
   column1 = paste("c1_", dim, sep = "")
   column2 = paste("cGPT_", dim, sep = "")
-  d = data %>% select(column1,column2)
+  d = data |> select(column1,column2)
   agr = (sum(data[column1] == data[column2], na.rm = TRUE)/sum(!is.na(data[column1] == data[column2])))*100
   agr_c1_GPT = append(agr_c1_GPT, agr)
 }
@@ -486,7 +537,7 @@ agr_c2_GPT = c()
 for(dim in knowledge_dim){
   column1 = paste("c2_", dim, sep = "")
   column2 = paste("cGPT_", dim, sep = "")
-  d = data %>% select(column1,column2)
+  d = data |> select(column1,column2)
   agr = (sum(data[column1] == data[column2], na.rm = TRUE)/sum(!is.na(data[column1] == data[column2])))*100
   agr_c2_GPT = append(agr_c2_GPT, agr)
 }
@@ -496,7 +547,7 @@ agr_c1_c2 = c()
 for(dim in knowledge_dim){
   column1 = paste("c1_", dim, sep = "")
   column2 = paste("c2_", dim, sep = "")
-  d = data %>% select(column1,column2)
+  d = data |> select(column1,column2)
   agr = (sum(data[column1] == data[column2], na.rm = TRUE)/sum(!is.na(data[column1] == data[column2])))*100
   agr_c1_c2 = append(agr_c1_c2, agr)
 }

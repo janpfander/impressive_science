@@ -194,23 +194,23 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  pdftitle={Impressiveness and trust in science},
+  pdftitle={The rational impression account of trust in science},
   pdflang={en-EN},
   pdfkeywords={Trust in science; science knowledge; deficit model},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
-\title{Impressiveness and trust in science}
+\title{The rational impression account of trust in science}
 \author{\textsuperscript{}}
 \date{}
 
 
-\shorttitle{Impressiveness and trust in science}
+\shorttitle{Rational impression account}
 
 \affiliation{\vspace{0.5cm}\textsuperscript{} }
 
 \abstract{%
-Around the globe, most people trust science at least to some extent. This matters to a range of significant outcomes (vaccination, climate change\ldots). However, the causes of this trust aren't well understood. Here we investigate a potential factor explaining trust in science: exposure to impressive (and consensual) scientific results.
+Trust in science matters to a range of significant outcomes such as intent to vaccination and believe in climate change. Around the globe, most people trust science at least to some extent. However, the causes of this trust aren't well understood. Here we test a rational impression account of trust in science: According to this account, people trust scientists because they are impressed by their findings. This impression persists even after knowledge on the specific content of the findings has vanished. We present evidence in line with the preditions in two Experiments (total n = XX). In Experiment 1, we show that impressive scientific findings lead people to think of the scientists as more competent and their discipline as more trustworthy. In Experiment 2, we find that these impressions are partly independent of remembering specific findings. The rational impression account could explain the following stylized observations: (i) Globally, most people have at least some trust in science, and almost everyone, at least in the US, trusts (nearly all of) basic science; (ii) Education, and in particular science education, is the best predictor of trust in science; (iii) The levels of specific science knowledge are relatively low, as is the associations between science knowledge and trust in science.
 }
 
 
@@ -220,47 +220,63 @@ Around the globe, most people trust science at least to some extent. This matter
 
 \section{Introduction}\label{introduction}
 
-\subsection{Trust in science matters}\label{trust-in-science-matters}
+Jon D. Miller, a pioneer in the field of public understanding of science, found that at the end of the 20th century, approximately 17\% of Americans qualified as scientifically literate--a measure he described as the ``level of skill required to read most of the articles in the Tuesday science section of The New York Times''. In the early 1990s, his estimate had been even lower, around 10\%. Meanwhile, the level of trust in the US has been relatively high and remarkably stable (Funk \& Kennedy, 2020; Funk, Tyson, Kennedy, \& Johnson, 2020; Smith \& Son, 2013): Since the 1970s, on average 43.1\% of Americans say they have a great deal of confidence in the scientific community, the second highest score among 13 institutions inclueded in the US General Social Survey (GSS), just behind the military (see Fig. \ref{fig:gss-trend}). How can we explain this gap between understanding science and trusting it? Here, we argue that people might mostly trust science because they have been impressed by it.
 
-Trust in science is related to many desirable outcomes, from acceptance of anthropogenic climate change (Cologna \& Siegrist, 2020) or vaccination (Lindholt, Jørgensen, Bor, \& Petersen, 2021; Sturgis, Brunton-Smith, \& Jackson, 2021) to following recommendations during COVID (Algan, Cohen, Davoine, Foucault, \& Stantcheva, 2021).
 
-\subsection{Across the globe, people tend to trust science}\label{across-the-globe-people-tend-to-trust-science}
 
-People seem to overwhelmingly trust science. The most large-scale evidence on that comes from the Wellcome Global Monitor: In a first survey in 2018, the Wellcome Global Monitor collected responses from more than 140,000 people in over 140 countries on their trust in science (Wellcome Global Monitor, 2018). Globally, 34\% said they trust science `a lot', 45\% answered `some' and only 13\% chose the option `not much, or not at all' (10\% said they did not know). In a second survey on 119.000 people from 113 countries in 2020, in midst of the Covid-19 pandemic and before vaccines were available, trust in science and scientists was even higher: 41\% of respondents said they trust science `a lot', 39\% `some', and 13\% `not much, or not at all' (Wellcome Global Monitor, 2020). Other studies suggest that, in many countries, scientists are among the most trusted professions (Funk, Tyson, Kennedy, \& Johnson, 2020). Trust in science also appears to be very stable, at least in the US, where longitudinal data covering a large time span is available: In the General Social Survey (GSS), trust in the scientific community is among the most stable of about a dozen institutions since the mid-1970s (Funk \& Kennedy, 2020; Smith \& Son, 2013).
+\begin{figure}
+\centering
+\includegraphics{output/figures/gss-trend.pdf}
+\caption{\label{fig:gss-trend}\emph{Top four trusted institutions in the US}. The plot shows the variation of confidence in the top four trusted institutions in the US over time. The data for this plot is from the cumulative file of the US General Social Survey (GSS).}
+\end{figure}
 
-\subsection{Existing explanations for trust in science}\label{existing-explanations-for-trust-in-science}
+We begin by presenting global evidence that most people trust science at least to some extent. We then review existing explanations for why people trust science, in particular the deficit-model, and argue that several empirical observations violate their predictions. We proceed by proposing an alternative model, which we term the `rational impression account'. In two Experiments, we provide evidence in favour of this account.
 
-How can we explain trust in science? The literature on the public understanding of science has focused on explaining a lack of trust in, and more generally negative attitudes towards science. The most popular explanation as to why people do not trust science enough is known as the ``deficit model''. According to the deficit model, people do not trust science enough, because they do not know enough about it. The deficit model implies that when people trust science, it is because they know a lot about it (Bauer, Allum, \& Miller, 2007) .
+Trust in science matters. It is related to many desirable outcomes, from acceptance of anthropogenic climate change (Cologna \& Siegrist, 2020) or vaccination (Lindholt, Jørgensen, Bor, \& Petersen, 2021; Sturgis, Brunton-Smith, \& Jackson, 2021) to following recommendations during COVID (Algan, Cohen, Davoine, Foucault, \& Stantcheva, 2021).
 
-Seemingly in line with that view, large scale survey studies consistently identify education - among all sorts of demographic variables - to be the most strongly correlated with trust in science (Bak, 2001; Noy \& O'Brien, 2019; Wellcome Global Monitor, 2018, 2020): The more educated tend to trust science more. The the deficit model provides a straightforward causal explanation for this correlation: education fosters trust by improving the understanding of science.
+Across the globe, most people report to trust science at least to some extent. In 2018, the Wellcome Global Monitor collected responses from more than 140,000 people in over 140 countries on their trust in science (Wellcome Global Monitor, 2018). Globally, 34\% said they trust science `a lot', 45\% answered `some' and only 13\% chose the option `not much, or not at all' (10\% said they did not know). In 2020, a follow-up survey on 119.000 people from 113 countries found that in midst of the Covid-19 pandemic and before vaccines were available, trust in science and scientists was even higher: 41\% of respondents said they trust science `a lot', 39\% `some', and 13\% `not much, or not at all' (Wellcome Global Monitor, 2020). In late 2022 and early 2023, another large survey project collected data on trust in science from 71,922 respondents in 68 countries. They found trust in scientists to be ``moderately high'' (mean = 3.62; sd= 0.70; Scale: 1 = very low, 2 = somewhat low, 3 = neither high nor low, 4 = somewhat high, 5 = very high). No country showed low overall trust in scientists. A recent study in the US found that even participants who say they do not trust science and who believe anti-science conspiracy theories (e.g.~that the earth is flat) did in fact accept the scientific consensus on basic, non-politicized knowledge questions (e.g.~`Are electrons are smaller than atoms?') in most cases (Pfänder, Kerzreho, \& Mercier, 2024).
 
-However, the empirical evidence for this causal model is not conclusive. To begin with, there is no consensus among researchers on how to measure understanding of science (Gauchat \& Andrews, 2018). An established, widely used measure consists of asking people a set of basic science knowledge questions (see e.g. Durant, Evans, \& Thomas, 1989; Miller, 1998) . Sometimes it is also measured by coding answers to open-ended questions about scientific methods. By either measure past research has found science knowledge to be, in some cases, alarming low (Miller, 2004; National Academies of Sciences, Engineering, and Medicine, 2016) and to be at best weakly associated with attitudes towards science (Allum, Sturgis, Tabourazi, \& Brunton-Smith, 2008). Other research has shown that the correlation between education and positive attitudes towards science holds even after controlling for science knowledge, which lead the researchers to conclude that only part of the effect of education could be explained by transmitting science knowledge (Bak, 2001).
+How can we explain trust in science? The literature on the public understanding of science has generally focused not on explaining trust, but a lack of it, and more generally negative attitudes towards science (Bauer, Allum, \& Miller, 2007).
 
-How else could education foster trust in science?
+One explanation, is what Gauchat (2011) coined the \emph{alienation model}. According to the alienation model, the ``public disassociation with science is a symptom of a general disenchantment with late modernity, mainly, the limitations associated with codified expertise, rational bureaucracy, and institutional authority'' (Gauchat, 2011). This explanation builds on the work of social theorists (Beck, 1992; Giddens, 1991; Habermas, 1989; see Gauchat, 2011 for an overview). According to these theorists, a modern, complex world increasingly requires expertise, and thus shapes institutions of knowledge elites. People who are not part of these institutions, experience a lack of agency, resulting in a feeling of alienation.
 
-\subsection{The lasting-impression account}\label{the-lasting-impression-account}
+The alienation model would predict increasing distrust in science. This does not sit well with the observation depicted in Fig. \ref{fig:gss-trend}: At least in the US, where long-term data on this is available, trust in science appears to be mostly stable, on average (Funk et al., 2020; see also Gauchat, 2012).
 
-Here, we propose a complementary account by which education could foster trust: the lasting-impression account. According to the lasting-impression account, people are impressed by scientific findings, e.g.~because of their difficulty, their precision, their degree of consensus. They infer that scientists are competent and, everything else equal, trustworthy. We suspect that these impressions persist more than specific scientific knowledge, and are more relevant for explaining trust in science.
+A second explanation which has dominated the literature on public understanding of science for decades (Bauer et al., 2007) is widely known as he ``deficit model''. According to the deficit model, people do not trust science enough, because they do not know enough about it. The deficit model implies that when people trust science, it is because they know a lot about it (Bauer et al., 2007).
 
-When people are exposed to impressive knowledge, we would expect them to believe that the people who uncovered that knowledge are competent. More specifically, impressiveness is driven by (i) something that people believe is hard to know and (ii) that people have reason to believe is true. As for (ii), if people cannot verify the information for themselves - as can be assumed to be the case for most science knowledge - probably one of the most important factors is consensus. When people lack background knowledge, they rely on social consensus as a cue for accuracy of information and competence of the informant (Pfänder, De Courson, \& Mercier, 2025). The underlying logic is that it would be very unlikely to agree on a precise idea, such as the atomic structure of DNA, by chance, if the idea weren't accurate (unless one suspects a conspiracy). Once the likely accuracy of the idea is established, positive assessments of competence follow: people must be competent to have had the idea in the first place. This inference does not require any understanding of how the idea was reached. We can be very impressed that scientists have been able to measure the size of our galaxy, even if we have no idea how they did it.
+Seemingly, empirical observations are in line with that view: large scale survey studies consistently identify education, and in particular science education--among all sorts of demographic variables--to be the most strongly correlated with trust in science (Bak, 2001; Noy \& O'Brien, 2019; Wellcome Global Monitor, 2018, 2020): The more educated tend to trust science more. The deficit model provides a straightforward causal explanation for this correlation: education fosters trust by improving the understanding of science.
 
-Once people are impressed, that impression tends to last. We commonly form impressions of the people around us while forgetting the details of how we formed these impressions. If a colleague fixes our computer, we might forget exactly how they fixed it, yet remember that they are good at fixing computers. It is well-established that people can form long-lasting impressions of others on the basis of specific encounters, and that these impressions last even if the specific encounter is forgotten {[}short term amnesia, basic principle here, find more recent refs{]}. For an extreme example, it has been demonstrated that patients with severe amnesia continued to experience emotions linked to events they could not recall (Feinstein, Duff, \& Tranel, 2010).
+However, the evidence for this causal model is far from conclusive. To begin with, there is no consensus among researchers on how to measure understanding of science (Gauchat \& Andrews, 2018). An established, widely used measure consists of asking people a set of basic science knowledge questions (see e.g. Durant, Evans, \& Thomas, 1989; Miller, 1998). Sometimes it is also measured by coding answers to open-ended questions about scientific methods. By either measure past research has found science knowledge to be, in some cases, alarming low (Miller, 2004; National Academies of Sciences, Engineering, and Medicine, 2016), contrasting with the high levels of trust in science, and to be at best weakly associated with attitudes towards science (Allum, Sturgis, Tabourazi, \& Brunton-Smith, 2008). Other research has shown that the correlation between education and positive attitudes towards science holds even after controlling for science knowledge, which led the researchers to conclude that only part of the effect of education could be explained by transmitting science knowledge (Bak, 2001).
 
-{[}Doesn't Liquin have some results suggesting that memory of the content (of explanations) isn't well correlated with impressiveness? But I can't find that anymore, maybe only mentioned in her presentation?{]}
+\section{The rational impression account}\label{the-rational-impression-account}
 
-The lasting-impression account of trust in science can reconcile the following robust observations: (i) people have very little science knowledge yet they trust science; (ii) scientific education strongly associated with trust in science, while science knowledge is is only weakly so.
+Here, we seek to explain the following stylized facts: (i) Globally, most people have at least some trust in science, and almost everyone, at least in the US, trusts (nearly all of) basic science; (ii) Education, and in particular science education, is the best predictor of trust in science; (iii) The levels of specific science knowledge are relatively low, as is the associations between science knowledge and trust in science.
 
-The account has some overlap with predictions from the deficit model: More science education should both lead to more current knowledge and to more trust. However, in our model knowledge is mostly a proxy for exposure to science, not the crucial mediator.
+All of these observations are compatible with a model of trust in science which we call the the `rational impression account'. According to this account, people are impressed by scientific findings, which in turn makes them trust scientists. The impression persists even after knowledge on the specific content of the findings has vanished.
 
-\section{Overview of experiments}\label{overview-of-experiments}
+For an information to be impressive, at least two criteria should be met: (i) it is perceived as hard to uncover and (ii) there is reason to believe is true. By (i), we mean information that most people would have no idea how to find out themselves. For example, most people would probably not be much impressed by someone telling them the biggest local park tree has exactly 110'201 leaves. Even though obtaining this information implies an exhausting counting effort, everyone knows how to do it. By contrast, finding out that it takes light \href{https://imagine.gsfc.nasa.gov/features/cosmic/milkyway_info.html}{approximately 100'000 years to travel from one end of the Milky Way to the other} is probably impressive to most people. Regarding (ii), if people cannot verify the information for themselves--as can be assumed to be the case for most scientific results--they need to rely on other cues to establish whether it might be true or not. One such cue is the degree of consensus between different sources. It has been shown that when they lack relevant background knowledge and have no reason to suspect a conspiracy, people take social consensus as a cue for accuracy of the information and competence of the informant (Pfänder, De Courson, \& Mercier, 2025). Science is perhaps the real-world case where this inference should matter most: If independent scientists agree on something like the length of the Milky Way, that should be impressive and make us think of the scientists as competent, even if we have no idea how they did it.
 
-In this paper, we present a series of experiments to test the causal claims of the lasting-impressions account. In Experiments 1 and 2, we test whether impressive scientific results leads people to think of the scientists as more competent and trustworthy. In Experiments 3 and 4, we test whether that that impression persists even if specific content is forgotten.
+Once people are impressed, that impression tends to last, even if specific content is forgotten. We commonly form impressions of the people around us while forgetting the details of how we formed these impressions: If a colleague fixes our computer, we might forget exactly how they fixed it, yet remember that they are good at fixing computers. For an extreme example, it has been demonstrated that patients with severe amnesia continued to experience emotions linked to events they could not recall (Feinstein, Duff, \& Tranel, 2010). More related to our context, it has been shown that while people find some science-related explanations more satisfying than others, this hardly predicted how well they could recall the explanations shortly after (Liquin \& Lombrozo, 2022), suggesting that that impressions and knowledge can be quite detached.
 
-All experiments were preregistered. All documents, data and code can be found on Open Science Framework \href{https://osf.io/j3bk4/}{project page} (\url{https://osf.io/j3bk4/}). All analyses were conducted in R (version 4.2.2) using R Studio. We used two-sided tests even for directional hypotheses. Unless mentioned otherwise, we report unstandardized model coefficients that can be interpreted in units of the scales we use for our dependent variables.
+The rational impression account of trust in science can reconcile the stylized facts outlined above: For (i), most people in the world receive at least some basic education that exposes them to impressive scientific findings, installing a baseline of trust. For (ii), education can be assumed to be the primary place of exposure to science, making it the most important variable. For (iii), specific knowledge about or understanding of science is not a requirement for trust.
 
-\section{Experiment 1}\label{experiment-1}
+While the rational impression account is plausible, there is no direct mechanistic test of it. In two Experiments, we aim to provide such as test.
 
-The main goal of experiment one to see if exposure to impressive science content could enhance people's trust in scientists. We had the following hypotheses:
+\section{The present studies}\label{the-present-studies}
+
+In this paper, we present two pre-registered Experiments (total n = 696) to test the predictions of the rational impression account. In Experiment 1, we test whether impressive scientific findings lead people to think of the scientists as more competent and trustworthy. In Experiment 2, we test whether that impression persists even if specific content is forgotten.
+
+All experiments were preregistered, and choices of sample size were informed by power simulations. All materials, data and code can be found on Open Science Framework \href{https://osf.io/j3bk4/}{project page} (\url{https://osf.io/j3bk4/}). All analyses were conducted in R (version 4.2.2) using R Studio. We used two-sided tests even for directional hypotheses. Unless mentioned otherwise, we report unstandardized model coefficients that can be interpreted in units of the scales we use for our dependent variables.
+
+For full transparency, we note that as part of this project, we conducted two additional Experiments which we present in detail in the ESM. The first one is almost identical to Experiment 1, but suffered from a minor technical error during the implementation. It replicates the findings of Experiment 1. The second one was supposed to test the same hypothesis as Experiment 2, but the treatment--a very short distraction task--did not alter any of the outcome variables, suggesting that our outcome measures were not sensitive enough.
+
+\subsection{Experiment 1}\label{experiment-1}
+
+The main goal of experiment one to see if exposure to impressive science content could enhance people's trust in scientists.
+
+After providing their consent to participate in the study and passing an attention check, participants read the following introduction: ``You're going to read two texts about scientific discoveries, in two fields: archeology (the study of human activity through the recovery and analysis of material culture), and entomology (the study of insects). We ask you to read the texts, and then answer a few questions about them.'' Next, participants read vignettes about scientific findings in the disciplines of entomology and archaeology. We manipulated the impressiveness of the texts, so that there was one ``basic'' and one ``impressive'' version for each of the disciplines (see Table \ref{tab:exp1-stimuli}). We varied impressiveness within participants, but between disciplines: each participant saw an impressive version for one discipline, and a basic version for the other discipline. After reading each text, participants were asked a series of questions. We asked participants how much they thought they learned from reading the text (``How much do you feel you've learnt about human history by reading this text?'' {[}1 - Nothing, 2 - A bit, 3 - Some, 4 - Quite a bit, 5 - A lot{]}) and how impressive they found it (``How impressive do you think the findings of the archaeologists described in the text are?'' {[}1 - Not very impressive, 2 - A bit impressive, 3 - Quite impressive, 4 - Very impressive, 5 - Extremely impressive{]}). We also asked them whether reading the text changed their impression of the competence of the scientists of the respective discipline (``Would you agree that reading this text has made you think of archaeologists as more competent than you thought before?'' {[}1 - Strongly disagree, 2 - Disagree, 3 - Neither agree nor disagree, 4 - Agree, 5 - Strongly agree{]}) and their trust in the respective discipline (``Having read this text, would you agree that you trust the discipline of archaeology more than you did before?'' {[}1 - Strongly disagree, 2 - Disagree, 3 - Neither agree nor disagree, 4 - Agree, 5 - Strongly agree{]}). Finally, we also asked about the perceived consensus (``To which extent do you think the findings from the short text you just read reflect a minority or a majority opinion among archaeologists?'' {[}1 - Small minority, 2 - Minority, 3 - About half, 4 - Majority, 5 - Large majority{]}).
+
+We had the following hypotheses:
 
 \textbf{H1a: Participants will perceive scientists as more competent than they did before after having read an impressive text about their discipline's findings, compared to when reading a basic text.}
 
@@ -280,11 +296,7 @@ We had the following research questions:
 
 \subsubsection{Participants}\label{participants}
 
-We recruited 100 participants via Prolific. Two participants failed our attention check, resulting in a final sample of 98 participants (48 female, 50 male; \(age_\text{mean}\): 39.40, \(age_\text{sd}\): 13.23, \(age_\text{median}\): 36).
-
-\subsubsection{Procedure}\label{procedure}
-
-After providing their consent to participate in the study and passing an attention check, participants read the following introduction: ``You're going to read two texts about scientific discoveries, in two fields: archeology (the study of human activity through the recovery and analysis of material culture), and entomology (the study of insects). We ask you to read the texts, and then answer a few questions about them.'' Next, participants read vignettes about scientific findings in the disciplines of entomology and archaeology. We manipulated the impressiveness of the texts, so that there was one ``basic'' and one ``impressive'' version for each of the disciplines (see Table \ref{tab:exp1-stimuli}). We varied impressiveness within participants, but between disciplines: each participant saw an impressive version for one discipline, and a basic version for the other discipline. After reading each text, participants were asked a series of questions. We asked participants how much they thought they learned from reading the text (``How much do you feel you've learnt about human history by reading this text?'' {[}1 - Nothing, 2 - A bit, 3 - Some, 4 - Quite a bit, 5 - A lot{]}) and how impressive they found it (``How impressive do you think the findings of the archaeologists described in the text are?'' {[}1 - Not very impressive, 2 - A bit impressive, 3 - Quite impressive, 4 - Very impressive, 5 - Extremely impressive{]}). We also asked them whether reading the text changed their impression of the competence of the scientists of the respective discipline (``Would you agree that reading this text has made you think of archaeologists as more competent than you thought before?'' {[}1 - Strongly disagree, 2 - Disagree, 3 - Neither agree nor disagree, 4 - Agree, 5 - Strongly agree{]}) and their trust in the respective discipline (``Having read this text, would you agree that you trust the discipline of archaeology more than you did before?'' {[}1 - Strongly disagree, 2 - Disagree, 3 - Neither agree nor disagree, 4 - Agree, 5 - Strongly agree{]}). Finally, we also asked about the perceived consensus (``To which extent do you think the findings from the short text you just read reflect a minority or a majority opinion among archaeologists?'' {[}1 - Small minority, 2 - Minority, 3 - About half, 4 - Majority, 5 - Large majority{]}).
+A power simulation (see OSF) suggested that the minimum required sample size to detect a statistically significant effect for all hypotheses with a power of 0.9 is n = 100 participants. We therefore recruited 100 participants from UK via Prolific. One participant failed our attention check, resulting in a final sample of 99 participants (49 female, 50 male; \(age_\text{mean}\): 42.07, \(age_\text{sd}\): 12.86, \(age_\text{median}\): 40).
 
 \subsubsection{Materials}\label{materials}
 
@@ -307,21 +319,15 @@ Table \ref{tab:exp1-stimuli} shows the vignettes we used.
 \endfoot
 \bottomrule
 \endlastfoot
-Archeology & Archeologists, scientists who study human history and prehistory, are able to tell, from their bones, whether someone was male or female, how old they were, and whether they suffered from a wide range of diseases. Archeologists can now even tell at what age someone, dead for tens of thousands of years, stopped drinking their mother’s milk, from the composition of their teeth. 
+Archeology & Archaeologists, scientists who study human history and prehistory, are able to tell, from their bones, whether someone was male or female, how old they were, and whether they suffered from a range of diseases. Archaeologists can now tell at what age someone, dead for tens of thousands of years, stopped drinking their mother’s milk, from the composition of their teeth.
+Archaeologists learn about the language that our ancestors or cousins might have had. For instance, the nerve that is used to control breathing is larger in humans than in apes, plausibly because we need more fine-grained control of our breathing in order to speak. As a result, the canal containing that nerve is larger in humans than in apes – and it is also enlarged in Neanderthals.
+Archaeologists can also tell, from an analysis of the tools they made, that most Neanderthals were right-handed. It’s thought that handedness is related to the evolution of language, another piece of evidence suggesting that Neanderthals likely possessed a form of language. & Archaeology is the science that studies human history and prehistory based on the analysis of objects from the past such as human bones, engravings, constructions, and various objects, from nails to bits of pots. This task requires a great deal of carefulness, because objects from the past need to often be dug out from the ground and patiently cleaned, without destroying them in the process.
 
-Looking for patterns, archeologists can also understand how far our ancestors traveled, or how often they fought each other.
+Archaeologists have been able to shed light on human history in all continents, from ancient Egypt to the Incas in Peru or the Khmers in Cambodia.
 
-Archeologists can learn about the language that our ancestors or cousins might have had. For instance, the nerve that is used to control breathing is larger in humans than in apes, plausibly because we need more fine-grained control of our breathing in order to speak. As a result, the canal containing that nerve is larger in humans than in apes – and it is also enlarged in Neanderthals. 
+Archaeologists study the paintings made by our ancestors, such as those that can be found in Lascaux, a set of caves found in the south of France that have been decorated by people at least 30000 years ago.
 
-We can also tell, from an analysis of the tools they made, that, like modern humans, most Neanderthals were right-handed. It’s thought that handedness is related to the evolution of language, another piece of evidence suggesting that Neanderthals likely possessed a form of language. & Archaeology is the science that studies human history and prehistory based on the analysis of objects from the past such as human bones, engravings, constructions, and various objects, from nails to bits of pots. This task requires a great deal of carefulness, because objects from the past need to often be dug out from the ground and cleaned, without destroying them in the process. 
-
-Archeologists have been able to shed light on human history in all continents, from ancient Egypt to the Incas in Peru or the Khmers in Cambodia. 
-
-Archaeologists have made some startling discoveries, such as the amazing animal paintings in the Lascaux caves, which have been shown to be at least 30000 years old. On that basis, archeologists speculate on the artistic and religious lives of our ancestors. 
-
-Archeologists have also been able to find remains of our more distant ancestors, showing that our species is just one among several that appeared and then went extinct, such as Neanderthals, Homo erectus, or Homo habilis. 
-
-Archaeology relies on scientific methods of analysis such as carbon dating, which enables us to date objects, based on the type of carbon atoms they contain.\\
+Archaeologists have also found remains of our more distant ancestors, showing that our species is just one among several that appeared, and then either changed or went extinct, such as Neanderthals, Homo erectus, or Homo habilis.\\
 Entomology & Entomologists are the scientists who study insects. Some of them have specialized in understanding how insects perceive the world around them, and they have uncovered remarkable abilities. 
 
 Entomologists interested in how flies’ visual perception works have used special displays to present images for much less than the blink of an eye, electrodes to record how individual cells in the flies’ brain react, and ultra-precise electron microscopy to examine their eyes. Thanks to these techniques, they have shown that some flies can perceive images that are displayed for just three milliseconds (a thousandth of a second) – about ten times shorter than a single movie frame (of which there are 24 per second). 
@@ -338,285 +344,55 @@ An entomologist often specializes in one type of insect in order to study it in 
 
 \subsection{Results and discussion}\label{results-and-discussion}
 
-For a manipulation check, we find that--in line with pilot studies--participants indeed perceive the impressive text as more impressive (mean = 3.66, sd = 1.08; \(\hat{b}\) = 0.59 {[}0.278, 0.906{]}, p \textless{} .001) than the basic text (mean = 3.07, sd = 1.29). However, this overall effect is driven by the entomology vignettes (\(\hat{b}\) = 1.22 {[}0.715, 1.734{]}, p \textless{} .001; \(\text{mean}_{\text{basic}}\) = 2.43, \(\text{sd}_{\text{basic}}\) = 1.29, \(\text{mean}_{\text{impressive}}\) = 3.65, \(\text{sd}_{\text{impressive}}\) = 1.25). For the archaeology vignettes we do not find a difference (\(\hat{b}\) = -0.04 {[}-0.409, 0.327{]}, p = 0.826; \(\text{mean}_{\text{basic}}\) = 3.71, \(\text{sd}_{\text{basic}}\) = 0.94, \(\text{mean}_{\text{impressive}}\) = 3.67, \(\text{sd}_{\text{impressive}}\) = 0.90).
+For the manipulation check, we find that the impressive text as more impressive (mean = 4.01, sd = 0.87; \(\hat{b}\) = 0.81 {[}0.569, 1.048{]}, p \textless{} .001) than the basic text (mean = 3.20, sd = 1.13). This overall difference was reflected in both the vignettes on entomology (\(\hat{b}\) = 0.94 {[}0.543, 1.339{]}, p \textless{} .001; \(\text{mean}_{\text{basic}}\) = 3.10, \(\text{sd}_{\text{basic}}\) = 1.09, \(\text{mean}_{\text{impressive}}\) = 4.04, \(\text{sd}_{\text{impressive}}\) = 0.89) and the vignettes on archaeology (\(\hat{b}\) = 0.67 {[}0.262, 1.086{]}, p = 0.002; \(\text{mean}_{\text{basic}}\) = 3.31, \(\text{sd}_{\text{basic}}\) = 1.18, \(\text{mean}_{\text{impressive}}\) = 3.98, \(\text{sd}_{\text{impressive}}\) = 0.87).
 
-We find that participants perceive scientists as more competent after having read an impressive text (mean = 3.83, sd = 0.85; \(\hat{b}_{\text{Competence}}\) = 0.43 {[}0.211, 0.646{]}, p \textless{} .001) than after having read a basic one (mean = 3.40, sd = 0.99). Pooled across all conditions, participants impressiveness ratings are positively associated with competence (\(\hat{b}\) = 0.29 {[}0.189, 0.388{]}, p \textless{} .001).
-
-Similar to competence, we find that participants trust a discipline more after having read an impressive text (mean = 3.82, sd = 0.88; \(\hat{b}_{\text{trust}}\) = 0.32 {[}0.135, 0.497{]}, p \textless{} .001) than after having read a basic one. Participants impressiveness ratings are positively associated with trust when pooling across all conditions (\(\hat{b}\) = 0.20 {[}0.114, 0.297{]}, p \textless{} .001).
-
-For RQ1, we find that participants had the impression of having learned more after having read the impressive text (mean = 3.48, sd = 0.95; \(\hat{b}\) = 0.68 {[}0.461, 0.906{]}, p \textless{} .001), than after having read the basic one (mean = 2.80, sd = 1.04).
-
-Regarding RQ2, we do not find evidence that consensus modulates the effect of impressiveness hypothesized in H1a and H2a. In Appendix \ref{exp1}, we provide regression tables and figures.
-
-\section{Experiment 2}\label{experiment-2}
-
-Experiment 2 is essentially intended to be a slightly improved replication of experiment 1. Although we confirmed all our hypotheses, there were a couple of issues with experiment 1 that make us feel that a replication is warranted: First, we made a technical mistake: In the entomology condition, our manipulation check question read: ``How impressive do you think the findings of the archeologists described in the text are?'', whereas it should have read ``\ldots{} the findings of entomologists\ldots{}''. Two participants brought this issue to our attention. While it should not have affected Hypotheses 1a and 2a, it might have distorted results on Hypotheses 1b and 2b which rely on the faulty question item. We corrected this mistake for Experiment 2. Second, participants who read the archeology vignettes -- contrary to the findings of a pilot study - did not rate the impressive version as more impressive than the basic version. We therefore used slightly modified vignettes for archeology for Experiment 2, hoping to make the two conditions more distinguishable. We also shortened the text in both conditions to be more similar in length to (i) each other and (ii) to the entomology vignettes. Table \ref{tab:exp2-stimuli} shows the old version from study 1 and the new version for study 2. Third, for a minor issue, one participant remarked that we should have spelled ``archaeology'' instead of ``archeology''. To avoid potential confusion, we changed the spelling accordingly in Experiment 2.
-
-\subsection{Methods}\label{methods-1}
-
-\subsubsection{Participants}\label{participants-1}
-
-As in Experiment 1, we recruited 100 participants via Prolific. One participant failed our attention check, resulting in a final sample of 99 participants (49 female, 50 male; \(age_\text{mean}\): 42.07, \(age_\text{sd}\): 12.86, \(age_\text{median}\): 40). By contrast to Experiment 1, we ran Experiment 2 on a sample of UK participants, using the opportunity of replicating the main results on a sample from a different population.
-
-\subsubsection{Procedure}\label{procedure-1}
-
-The procedure was identical to that of Experiment 1.
-
-\subsubsection{Materials}\label{materials-1}
-
-The vignettes about entomology remained the same as in Experiment 1 (see Table \ref{tab:exp1-stimuli}). The new versions for the archeology vignettes are displayed in Table \ref{tab:exp2-stimuli}.
-
-\begingroup\fontsize{8}{10}\selectfont
-
-\begin{longtable}[t]{>{\raggedright\arraybackslash}p{5em}>{\raggedright\arraybackslash}p{25em}>{\raggedright\arraybackslash}p{25em}}
-\caption{\label{tab:exp2-stimuli}Stimuli for Experiment 2}\\
-\toprule
- & Experiment 1 (old) & Experiment 2 (new)\\
-\midrule
-\endfirsthead
-\caption[]{\label{tab:exp2-stimuli}Stimuli for Experiment 2 \textit{(continued)}}\\
-\toprule
- & Experiment 1 (old) & Experiment 2 (new)\\
-\midrule
-\endhead
-
-\endfoot
-\bottomrule
-\endlastfoot
-basic & Archaeology is the science that studies human history and prehistory based on the analysis of objects from the past such as human bones, engravings, constructions, and various objects, from nails to bits of pots. This task requires a great deal of carefulness, because objects from the past need to often be dug out from the ground and cleaned, without destroying them in the process. 
-
-Archeologists have been able to shed light on human history in all continents, from ancient Egypt to the Incas in Peru or the Khmers in Cambodia. 
-
-Archaeologists have made some startling discoveries, such as the amazing animal paintings in the Lascaux caves, which have been shown to be at least 30000 years old. On that basis, archeologists speculate on the artistic and religious lives of our ancestors. 
-
-Archeologists have also been able to find remains of our more distant ancestors, showing that our species is just one among several that appeared and then went extinct, such as Neanderthals, Homo erectus, or Homo habilis. 
-
-Archaeology relies on scientific methods of analysis such as carbon dating, which enables us to date objects, based on the type of carbon atoms they contain. & Archaeology is the science that studies human history and prehistory based on the analysis of objects from the past such as human bones, engravings, constructions, and various objects, from nails to bits of pots. This task requires a great deal of carefulness, because objects from the past need to often be dug out from the ground and patiently cleaned, without destroying them in the process.
-
-Archaeologists have been able to shed light on human history in all continents, from ancient Egypt to the Incas in Peru or the Khmers in Cambodia.
-
-Archaeologists study the paintings made by our ancestors, such as those that can be found in Lascaux, a set of caves found in the south of France that have been decorated by people at least 30000 years ago.
-
-Archaeologists have also found remains of our more distant ancestors, showing that our species is just one among several that appeared, and then either changed or went extinct, such as Neanderthals, Homo erectus, or Homo habilis.\\
-impressive & Archeologists, scientists who study human history and prehistory, are able to tell, from their bones, whether someone was male or female, how old they were, and whether they suffered from a wide range of diseases. Archeologists can now even tell at what age someone, dead for tens of thousands of years, stopped drinking their mother’s milk, from the composition of their teeth. 
-
-Looking for patterns, archeologists can also understand how far our ancestors traveled, or how often they fought each other.
-
-Archeologists can learn about the language that our ancestors or cousins might have had. For instance, the nerve that is used to control breathing is larger in humans than in apes, plausibly because we need more fine-grained control of our breathing in order to speak. As a result, the canal containing that nerve is larger in humans than in apes – and it is also enlarged in Neanderthals. 
-
-We can also tell, from an analysis of the tools they made, that, like modern humans, most Neanderthals were right-handed. It’s thought that handedness is related to the evolution of language, another piece of evidence suggesting that Neanderthals likely possessed a form of language. & Archaeologists, scientists who study human history and prehistory, are able to tell, from their bones, whether someone was male or female, how old they were, and whether they suffered from a range of diseases. Archaeologists can now tell at what age someone, dead for tens of thousands of years, stopped drinking their mother’s milk, from the composition of their teeth.
-Archaeologists learn about the language that our ancestors or cousins might have had. For instance, the nerve that is used to control breathing is larger in humans than in apes, plausibly because we need more fine-grained control of our breathing in order to speak. As a result, the canal containing that nerve is larger in humans than in apes – and it is also enlarged in Neanderthals.
-Archaeologists can also tell, from an analysis of the tools they made, that most Neanderthals were right-handed. It’s thought that handedness is related to the evolution of language, another piece of evidence suggesting that Neanderthals likely possessed a form of language.\\*
-\end{longtable}
-\endgroup{}
-
-\subsection{Results and discussion}\label{results-and-discussion-1}
-
-For the manipulation check, we find that the impressive text as more impressive (mean = 4.01, sd = 0.87; \(\hat{b}\) = 0.81 {[}0.569, 1.048{]}, p \textless{} .001) than the basic text (mean = 3.20, sd = 1.13). By contrast to Experiment 1, this overall difference was now reflected in both the vignettes on entomology (\(\hat{b}\) = 0.94 {[}0.543, 1.339{]}, p \textless{} .001; \(\text{mean}_{\text{basic}}\) = 3.10, \(\text{sd}_{\text{basic}}\) = 1.09, \(\text{mean}_{\text{impressive}}\) = 4.04, \(\text{sd}_{\text{impressive}}\) = 0.89) and the vignettes on archaeology (\(\hat{b}\) = 0.67 {[}0.262, 1.086{]}, p = 0.002; \(\text{mean}_{\text{basic}}\) = 3.31, \(\text{sd}_{\text{basic}}\) = 1.18, \(\text{mean}_{\text{impressive}}\) = 3.98, \(\text{sd}_{\text{impressive}}\) = 0.87).
-
-Replicating the results of Experiment 1, participants perceived scientists as more competent after having read an impressive text (\(\hat{b}_{\text{Competence}}\) = 0.50 {[}0.314, 0.676{]}, p \textless{} .001; mean = 3.76, sd = 0.90) than after having read a basic one (mean = 3.26, sd = 0.80). Pooled across all conditions, participants impressiveness ratings were positively associated with competence (\(\hat{b}\) = 0.41 {[}0.312, 0.502{]}, p \textless{} .001).
+Participants perceived scientists as more competent after having read an impressive text (\(\hat{b}_{\text{Competence}}\) = 0.50 {[}0.314, 0.676{]}, p \textless{} .001; mean = 3.76, sd = 0.90) than after having read a basic one (mean = 3.26, sd = 0.80). Pooled across all conditions, participants impressiveness ratings were positively associated with competence (\(\hat{b}\) = 0.41 {[}0.312, 0.502{]}, p \textless{} .001).
 
 Participants also trusted a discipline more after having read an impressive text (\(\hat{b}_{\text{trust}}\) = 0.32 {[}0.17, 0.476{]}, p \textless{} .001; mean = 3.68, sd = 0.87) than after having read a basic one. Participants impressiveness ratings were positively associated with trust when pooling across all conditions (\(\hat{b}\) = 0.30 {[}0.206, 0.385{]}, p \textless{} .001).
 
-As in Experiment 1, we find that participants had the impression of having learned more after having read the impressive text (mean = 3.66, sd = 0.93; \(\hat{b}\) = 0.89 {[}0.67, 1.108{]}, p \textless{} .001), than after having read the basic one (mean = 2.77, sd = 0.96).
+Participants further had the impression of having learned more after having read the impressive text (mean = 3.66, sd = 0.93; \(\hat{b}\) = 0.89 {[}0.67, 1.108{]}, p \textless{} .001), than after having read the basic one (mean = 2.77, sd = 0.96).
 
-Regarding RQ2, we do, again, not find evidence that consensus modulates the effect of impressiveness hypothesized in H1a and H2a. In Appendix \ref{exp2}, we provide regression tables and figures.
+Regarding RQ2, we do, again, not find evidence that consensus modulates the effect of impressiveness hypothesized in H1a and H2a. In Appendix \ref{exp1}, we provide regression tables and figures.
 
-\section{Experiment 3}\label{experiment-3}
+\section{Experiment 2}\label{experiment-2}
 
-Experiments 1 and 2 have shown that exposure to impressive scientific content can increase trust in science and perceived competence of scientists. In Experiment 3, we test if these impressions persist, and if they persists more than specific knowledge about the content.
+In Experiments 1, exposure to impressive scientific content increased trust in science and perceived competence of scientists. In Experiment 2, we wanted to test whether these perceptions were at least partly independent of being able to recall the specific content that induced them. Experiment 2 consisted of a ``main study'' and a ``validation study''.
 
-The deficit model suggests that people do not trust science (enough), because they do not know enough about it. Accordingly, more knowledge about science generates trust. Here, we want to contrast this model with an alternative one: the trust-by-impression account. According to this model, people trust science at time T+1 not so much because they know about it at time T+1, but because they have been impressed by it at time T. We expected people to forget quickly about precise content, but that the impressions they gain about scientists' trustworthiness persist. We therefore predicted that our treatment - a short distraction task - will result in a stronger decrease of knowledge than a decreas in trust/impressiveness/competence.
+\subsection{Main study}\label{main-study}
 
-H1: The difference in knowledge performance between treatment and control group is larger (more negative) than the difference in \ldots{}
+In the main study, after having consented to take part in the study and passing an attention check, participants read the impressive version of one of the vignettes from Experiment 1 (Table \ref{tab:exp1-stimuli}). Whether The text was about archaeology or entomology was randomized. After reading the text, as in Experiment 1, participants were asked about changes in their perception of the scientists' competence (``Would you agree that reading this text has made you think of archaeologists/entomologists as more competent than you thought before?'' {[}1 = Strongly disagree, 2 = Disagree, 3 = Neither agree nor disagree, 4 = Agree, 5 = Strongly agree{]}) and trust in the scientists' discipline (``Having read this text, would you agree that you trust the discipline of archaeology/entomology more than you did before?'' {[}1 - Strongly disagree, 2 - Disagree, 3 - Neither agree nor disagree, 4 - Agree, 5 - Strongly agree{]}). They were also be asked about the impressiveness of the text they read: ``How impressive did you find the findings of the entomologists described in the text you have read?'' (5-point scale: 1 = not impressive at all, 2 = not very impressive, 3 = neither impressive nor unimpressive, 4 = quite impressive, 5 = very impressive). The order of these questions was randomized.
 
-\begin{itemize}
-\item
-  H1a: \ldots trust.
-\item
-  H1b: \ldots impressiveness.
-\item
-  H1c: \ldots competence.
-\end{itemize}
-
-\subsection{Methods}\label{methods-2}
-
-\subsubsection{Participants}\label{participants-2}
-
-We ran a power simulation to inform our choice of sample size. The power simulation suggested that with 150 participants, we would cross the power threshold of 90\% for the interaction effect (power = 0.958). Due to uncertainty about our parameters for the simulations, and because our budget allowed for it, we aimed to recruit a sample of 200 participants. We ended up with a sample of 202 participants (101 female, 100 male; \(age_\text{mean}\): 42.33, \(age_\text{sd}\): 13.74, \(age_\text{median}\): 41), none of which failed our attention check.
-
-\subsubsection{Procedure}\label{procedure-2}
-
-All participants read one vignette, established as impressive and trust enhancing in previous experiments. We randomized whether this vignette was about archaeology or entomology. Right after reading the vignette, all participants answered four seemingly relevant questions about the vignette, but which are of no interest to our hypotheses. The aim of these questions was to make the following distraction task for the treatment group less obvious.
-
-For these decoy questions, we asked participants how clear the text was {[}1 - Not clear at all, 2 - Not very clear, 3 - Neither clear nor not clear, 4 - Quite clear, 5 - Very clear{]}, if the text presented any new or surprising information to them {[}1 - None at all, 2 - Very little, 3 - Moderately, 4 - Quite a bit, 5 - A significant amount{]}, if it made them think of archaeologists/entomologists as more knowledgeable than they thought before {[}1 - Strongly disagree, 2 - Disagree, 3 - Neither agree nor disagree, 4 - Agree, 5 - Strongly agree{]} and how much they felt they have learned about human history/insects by reading the text {[}1 - Nothing, 2 - A bit, 3 - Some, 4 - Quite a bit, 5 - A lot{]}.
-
-Participants were randomly assigned to one of two groups: In the control group, participants proceeded immediately to answer all outcome questions. In the treatment group, participants engaged in a 5min distraction task before proceeding to the same outcome questions (Check how much longer these participants actually took on average). The distraction task consisted of reading two vignettes that were completely unrelated and answering a couple of questions about them.
-
-For our outcomes, similar to previous experiments, we asked participants how impressed they were by the content (``How impressive do you think the findings of the archaeologists/entomologists described in the text are?'' {[}1 - Not impressive at all, 2 - Not very impressive, 3 - Neither impressive nor not impressive, 4 - Quite impressive, 5 - Very impressive{]}), how competent they believed the scientists of the discipline to be (``How competent do you think archaeologists/entomologists are?'' {[}1 - Not competent at all, 2 - Not very competent, 3 - Neither competent nor not competent, 4 - Quite competent, 5 - Very competent{]}), and how much they trusted the discipline (``How much would you trust the discipline of archaeologists/entomologists ?'' {[}1 - Not trust them at all, 2 - Not trust them much, 3 - Neither trust them or not trust them, 4 - Trust them quite a bit, 5 - Trust them a lot{]}).
-
-To measure the retained knowledge about the content of the vignettes, we asked participants to answer 5 multiple choice questions (Table \ref{tab:exp3-knowledge}). For each question, participants got 1 point for the correct answer, and 0 points for any other answer. We calculated an overall knowledge score as the sum of points for all five questions, such that the maximum score is 5 and the minimum score is 0. Whether participants first answered the quiz or the other outcome questions was randomized, in both the control and the treatment group
-
-\subsubsection{Materials}\label{materials-2}
-
-We used the impressive version of the stimuli used in Experiment 2 (see Table \ref{tab:exp3-stimuli}).
-
-\begingroup\fontsize{8}{10}\selectfont
-
-\begin{longtable}[t]{>{\raggedright\arraybackslash}p{25em}>{\raggedright\arraybackslash}p{25em}}
-\caption{\label{tab:exp3-stimuli}Stimuli used in Experiment 3}\\
-\toprule
-Archaeology & Entomology\\
-\midrule
-\endfirsthead
-\caption[]{\label{tab:exp3-stimuli}Stimuli used in Experiment 3 \textit{(continued)}}\\
-\toprule
-Archaeology & Entomology\\
-\midrule
-\endhead
-
-\endfoot
-\bottomrule
-\endlastfoot
-Archaeologists, scientists who study human history and prehistory, are able to tell, from their bones, whether someone was male or female, how old they were, and whether they suffered from a range of diseases. Archaeologists can now tell at what age someone, dead for tens of thousands of years, stopped drinking their mother’s milk, from the composition of their teeth.
-
-Archaeologists learn about the language that our ancestors or cousins might have had. For instance, the nerve that is used to control breathing is larger in humans than in apes, plausibly because we need more fine-grained control of our breathing in order to speak. As a result, the canal containing that nerve is larger in humans than in apes – and it is also enlarged in Neanderthals.
-
-Archaeologists can also tell, from an analysis of the tools they made, that most Neanderthals were right-handed. It’s thought that handedness is related to the evolution of language, another piece of evidence suggesting that Neanderthals likely possessed a form of language. & Entomologists are the scientists who study insects. Some of them have specialized in understanding how insects perceive the world around them, and they have uncovered remarkable abilities. 
-
-Entomologists interested in how flies’ visual perception works have used special displays to present images for much less than the blink of an eye, electrodes to record how individual cells in the flies’ brain react, and ultra-precise electron microscopy to examine their eyes. Thanks to these techniques, they have shown that some flies can perceive images that are displayed for just three milliseconds (a thousandth of a second) – about ten times shorter than a single movie frame (of which there are 24 per second). 
-
-Entomologists who study the hair of crickets have shown that these microscopic hairs, which can be found on antenna-like organs attached to the crickets’ rear, are maybe the most sensitive organs in the animal kingdom. The researchers used extremely precise techniques to measure how the hair reacts to stimuli, such as laser-Doppler velocimetry, a technique capable of detecting the most minute of movements. They were able to show that the hair could react to changes in the motion of the air that had less energy than one particle of light, a single photon.\\*
-\end{longtable}
-\endgroup{}
-
-\begingroup\fontsize{8}{10}\selectfont
-
-\begin{longtable}[t]{>{\raggedright\arraybackslash}p{25em}|>{\raggedright\arraybackslash}p{25em}}
-\caption{\label{tab:exp3-knowledge}Experiment 3 knowledge questions}\\
-\toprule
-Archaeology & Entomology\\
-\midrule
-\endfirsthead
-\caption[]{\label{tab:exp3-knowledge}Experiment 3 knowledge questions \textit{(continued)}}\\
-\toprule
-Archaeology & Entomology\\
-\midrule
-\endhead
-
-\endfoot
-\bottomrule
-\endlastfoot
-According to the text, what can archaeologists determine from examining bones? 
-a) Gender, age, and past diseases 
-b) Gender, age, and handedness
-c) Gender and age
-d) Gender, age, past diseases, and handedness
-(correct answer: a) & Which techniques have entomologists used to study flies' visual perception?
-
-A) Sonar imaging
-B) Electron microscopy 
-C) X-ray diffraction 
-D) Mass spectrometry
-
-(correct answer: b)\\
- \vphantom{3} \vphantom{2} \vphantom{1} & \\
-According to the text, how do archaeologists determine at what age someone stopped drinking their mother’s milk?
-a) By analyzing their bones 
-b) By examining their hair 
-c) By studying their teeth 
-d) By observing their burial rituals
-(correct answer: c) & What is the order or magnitude of the shorter displays flies can perceive?
-
-A) Picoseconds
-B) Nanoseconds
-C) Microseconds
-D) Milliseconds
-
-(correct answer: d)\\
- & \\
-The text mentions nerves that are particularly enlarged in humans compared to apes, which are they? 
-a) The nerves that control fine hand movements
-b) The nerves that control breathing
-c) The nerves that balance for bipedal motion
-d) The nerves that control the digestive system
-(correct answer: b) & Where are the sensitive hairs found on crickets located?
-
-   A) Legs  
-   B) Wings  
-   C) Rear  
-   D) Head  
-
-(correct answer: \vphantom{1} c)\\
-\addlinespace
- & \\
-Why is the canal containing a nerve going from the brain to the thorax enlarged in Neanderthals? 
-a) Because Neanderthals had a different diet
-b) Because Neanderthals engaged in increased physical activity 
-c) Because Neanderthals were left-handed 
-d) Because Neanderthals were able to speak
-
-(correct answer: d) & What technique did entomologists use to study the sensitivity of cricket hairs?
-
-   A) Mass spectrometry  
-   B) Electron microscopy  
-   C) Laser-Doppler velocimetry  
-   D) Sonar imaging  
-
-(correct answer: c)\\
- & \\
-According to the text, what evidence suggests that most Neanderthals were right-handed? 
-a) Analysis of their bones 
-b) Analysis of their tools 
-c) Examination of their teeth 
-d) Observation of their cave paintings
-(correct answer: b) & According to the passage, how sensitive are the cricket hairs to air motion changes?
-
-   A) They react to changes equivalent to the energy of a single photon.  
-   B) They react to changes equivalent to the energy of a single atom.  
-   C) They react to changes equivalent to the energy of a single grain of sand.
-   D) They react to changes equivalent to the energy of a single breath.  
-(correct answer: a)\\*
-\end{longtable}
-\endgroup{}
-
-\subsection{Results and discussion}\label{results-and-discussion-2}
-
-We tested these hypotheses with the following model:
-
-\[
-value = (\beta_{0} + b_\text{0, participant}) + \beta_{1} Treatment + \beta_{2} Outcome + \beta_{3} (Treatment \times Outcome) + \epsilon
-\]
-
-\[
-b_\text{0, participant} \sim \mathcal{N}(0, \sigma^2_{participant})
-\]
-
-In this model, the dependent variable ``value'' represents a standardized version of the outcome variables. The variable ``Treatment'' is a binary indicator, where a value of 1 signifies that participants were exposed to the decoy (treatment group) and a value of 0 indicates that they were not (control group). The ``Outcome'' variable is also binary, distinguishing outcome measures: a value of 1 represents knowledge, while a value of 0 represents (in different models) one of the other outcomes, i.e.~trust, impressiveness, or competence. The interaction term (``Treatment x Outcome'') captures the difference in the treatment effect between these outcome measures. For example, a statistically significant, negative interaction coefficient would indicate that the difference between control and decoy group was larger for the knowledge measure than for trust/competence/impressiveness. Random intercepts for participants (\(b_\text{0, participant}\)) are included in the model to account for individual variability. These random intercepts are assumed to follow a normal distribution with a variance of \(\sigma^2_{participant}\).
-
-Analyzing the effects of our treatment on all outcome variables of interest separately, we do not find evidence that our treatment affected any of them at all (\(\hat{b}_{\text{knowledge}}\) = -0.22 {[}-0.501, 0.052{]}, p = 0.111; \(\hat{b}_{\text{trust}}\) = 0.14 {[}-0.134, 0.421{]}, p = 0.309; \(\hat{b}_{\text{impressiveness}}\) = -0.22 {[}-0.494, 0.059{]}, p = 0.123; \(\hat{b}_{\text{competence}}\) = -0.09 {[}-0.37, 0.186{]}, p = 0.514). In other words, over a 5min distraction task, knowledge persisted, and so did perceptions of the scientific disciplines and the scientists.
-
-Unsurprisingly, we do therefore not find evidence for our hypotheses, namely that our treatment--the distraction task--affected knowledge more than it did any of the other outcome variables (\(\hat{b}_{\text{trust}}\) = -0.37 {[}-0.759, 0.023{]}, p = 0.065; \(\hat{b}_{\text{impressiveness}}\) = -0.01 {[}-0.389, 0.375{]}, p = 0.972; \(\hat{b}_{\text{competence}}\) = -0.13 {[}-0.515, 0.251{]}, p = 0.497).
-
-\section{Experiment 4}\label{experiment-4}
-
-In Experiment 3, we quizzed participants about impressive scientific findings, either immediately after learning about them or after having gone through a distraction task. However, people's quiz performance did not vary between conditions--possibly because the quiz was generally too easy, and those questions which weren't easy were already hard to answer immediately after having read the text. In Experiment 4, we used a different design to overcome some of these issues.
-
-We first aimed to replicate the results of Experiments 1 and 2 in a slightly different design: In the first two experiments, we compared basic and impressive science texts in a between-participant design. Here, we used only the impressive version. As in the first two experiments, we used questions asking directly about changes in participants' perceptions of the scientists' competence (e.g., ``Would you agree that reading this text has made you think of archaeologists as more competent than you thought before?'' {[}1 = Strongly disagree, 2 = Disagree, 3 = Neither agree nor disagree, 4 = Agree, 5 = Strongly agree{]}) and trust in the scientists' discipline (``Having read this text, would you agree that you trust the discipline of archaeology more than you did before?'' {[}1 - Strongly disagree, 2 - Disagree, 3 - Neither agree nor disagree, 4 - Agree, 5 - Strongly agree{]}). In line with the findings of the first two experiments, we expected participants to have increased perceptions of competence and trust in scientists after reading the impressive text:
+In line with the findings of Experiment 1, we expected participants to have increased perceptions of competence and trust in scientists after:
 
 \textbf{H1a: Participants perceive scientists as more competent after having read an impressive text about their discipline's findings, compared to before.}
 
 \textbf{H1b: Participants trust a discipline more after having read an impressive text about the discipline's findings, compared to before.}
 
-The main goal of Experiment 4 was to test whether increased perceptions of competence and trustworthiness were at least partly independent of being able to recall the specific content that induced them. In contrast to Experiment 3, we used a more direct recall measure---an open-ended text answer---and an even shorter time lag. We predicted that people would not be able to recall all the information presented in the short vignettes right after having read them.
+Next, participants were given a recall task: They were asked to rewrite the vignette text they've read just before from memory. They were told that their texts will be read by future participants. To further motivate participants to write down everything they remember, they were also told that they would get a bonus for recalling as much accurate information as possible (without external aids). They were not told how much that bonus would be. We payed them 5p per point gained in the recall task. This way, participants could reach a maximum bonus of 0.8 pound for archaeology (0.05p x 2 points x 8 content elements) and 0.7 pound (0.05p x 2 points x 7 content elements) for entomology.
+
+We predicted that participants would not be able to recall all the information presented in the short vignettes right after having read them (see methods for details):
 
 \textbf{H2: Participants are not able to recall all the information of the original texts.}
 
-This hypothesis, however, only tested whether people forgot any of the content, potentially including non-impressive content. To address this issue, we asked participants, for each of the pieces of knowledge contained in the text, to indicate whether they found it impressive or not. Based on the items they selected as impressive, we then tested the hypothesis that participants also forgot some of the impressive content:
+This hypothesis, however, only tested whether people forgot any of the content, potentially including non-impressive content. To address this issue, after the recall task, we presented participants with the evaluation grid that we used to asses the open answers from the recall task (see Table \ref{tab:knowledge-evaluation-grid}). For each information element, we asked participants to indicate whether they found it impressive or not (``Do you think this piece of information is impressive?'' {[}Yes; No{]}).
+
+We predicted that even for the subjective subset of information that a participant said they found impressive, they forgot at least some of the content:
 
 \textbf{H3: Participants are not able to recall all the impressive information--as rated by themselves--contained in the original text.}
 
-Finally, we introduced another measure of the impressiveness of the texts remembered by the participants, using a different set of participants in a subsequent study. We referred to this study as the ``validation study.'' We predicted that participants in the validation study would be less impressed by the open-ended answers produced by the participants of Experiment 4 and, accordingly, would have less positively altered perceptions of the scientists' competence and the trustworthiness of their discipline compared to the original texts.
+At the end of the main study, participants were asked about their education level.
+
+\subsection{Validation study}\label{validation-study}
+
+H3 establishes whether participants recall or not content they themselves judge as impressive. However, this judgement could be biased as it happens after the recall task. For a more robust assessment, we conducted a validation study.
+
+The validation study was run XX days after the main study. For this study, a new sample of participants was recruited. After consenting to taking part in the study and passing an attention check, participants were randomly assigned to one of two conditions: In the ``original text'' condition, participants were assigned to read one of the two impressive texts of the main study, again picked at random. In the ``recall text'' condition, participants were also randomly assign to either the archeology or the entomology condition, but instead of the original vignette texts, they read one of the recall texts written by the participants' of the main study. For each participant, a text was randomly sampled (with replacement) from a pool of recall answers. Orthographic and grammatical mistakes in these texts were corrected with the help of ChatGPT beforehand.
+
+We had preregistered to sample among all recall answers from participants of the main study. However, checking recall scores after the main study and before launching the validation study, we found them to be very low on average (REPORT THE AVERAGE, see Appendix - MAKE APPENDIX). To avoid having the answers of ``lazy'' participants--who might have recalled more, but were not motivated to type what they remembered--in our sample, we decided to only selected answers that scored above median in our recall measure for the validation study. This selection is conservative in that it makes it harder to confirm our predictions under H4.
+
+After reading the text, just as in the main study, participants were asked about changes in their perception of the scientists' competence (e.g.~``Would you agree that reading this text has made you think of archaeologists/entomologists as more competent than you thought before?'' {[}1 = Strongly disagree, 2 = Disagree, 3 = Neither agree nor disagree, 4 = Agree, 5 = Strongly agree{]}) and trust in the scientists' discipline (``Having read this text, would you agree that you trust the discipline of archaeology/entomology more than you did before?'' {[}1 - Strongly disagree, 2 - Disagree, 3 - Neither agree nor disagree, 4 - Agree, 5 - Strongly agree{]}). Participants were also be asked about the impressiveness of the text they read: ``How impressive did you find the findings of the entomologists described in the text you have read?'' (5-point scale: 1 = not impressive at all, 2 = not very impressive, 3 = neither impressive nor unimpressive, 4 = quite impressive, 5 = very impressive). The order of these questions was randomized. Finally, participants were asked about their education level.
+
+We predicted that participants in the validation study would be less impressed by the open-ended answers produced by the participants of Experiment 2 compared to the original impressive vignette texts (see Table \ref{tab:exp1-stimuli}) and, accordingly, would have less positively altered perceptions of the scientists' competence and the trustworthiness of their discipline:
 
 \textbf{H4a: The texts produced by participants of the experiment as a result of the recall task will be less impressive than the original texts, as rated by participants of the validation study.}
 
@@ -624,35 +400,17 @@ Finally, we introduced another measure of the impressiveness of the texts rememb
 
 \textbf{H4c: Participants of the validation study trust a discipline more after having read the original texts, compared to after having read the texts produced by participants of the experiment as a result of the recall task.}
 
-\subsection{Methods}\label{methods-3}
+\subsection{Methods}\label{methods-1}
 
-\subsubsection{Participants}\label{participants-3}
+\subsubsection{Participants}\label{participants-1}
 
-We ran a power simulation to inform our choice of sample size. All assumptions and details on the procedure can be found on the OSF. In our simulation, we varied the sample size of the main study and effect sizes (assuming the same effect size for all hypotheses in each scenario). For all simulations, we assumed a constant validation study sample size of 400 participants (only relevant for H4a, b and c). The power simulation suggested that we would reach a power level of 90\% when assuming a medium effect size of 0.5 with already 50 participants. Due to uncertainty about our assumptions, we recruited a sample 203 participants for the main study, and a sample of 406 participants for the validation study. Although this was not the focus of our simulation, our results showed that for a medium effect size of 0.5, a sample size of 400 for the validation study yielded statistical power of greater than 90\% for all hypotheses based on this sample (H4a, b and c). All participants were from the UK, recruited on the online platform Prolific, and paid to complete the experiment.
+In our power simulation (see OSF), we varied the sample size of the main study and effect sizes (assuming the same effect size for all hypotheses in each scenario). For all simulations, we assumed a constant validation study sample size of 400 participants (only relevant for H4a, b and c). The power simulation suggested that we would reach a power level of 90\% when assuming a medium effect size of 0.5 with already 50 participants. Due to uncertainty about our assumptions, we recruited a sample 203 participants for the main study, and a sample of 406 participants for the validation study. Although this was not the focus of our simulation, our results showed that for a medium effect size of 0.5, a sample size of 400 for the validation study yielded statistical power of greater than 90\% for all hypotheses based on this sample (H4a, b and c). All participants were from the UK, recruited on the online platform Prolific, and paid to complete the experiment.
 
-We ended up with a final sample of 198 (4 failed attention checks; 99 female, 99 male; \(age_\text{mean}\): 42.65, \(age_\text{sd}\): 15.55, \(age_\text{median}\): 40) for the main study and a sample of 399 (7 failed attention checks; 201 female, 198 male; \(age_\text{mean}\): 41.71, \(age_\text{sd}\): 13.48, \(age_\text{median}\): 40) .
+We ended up with a final sample of 198 (4 failed attention checks; 99 female, 99 male; \(age_\text{mean}\): 42.65, \(age_\text{sd}\): 15.55, \(age_\text{median}\): 40) for the main study and a sample of 399 (7 failed attention checks; 201 female, 198 male; \(age_\text{mean}\): 41.71, \(age_\text{sd}\): 13.48, \(age_\text{median}\): 40).
 
-\subsubsection{Procedure}\label{procedure-3}
+\subsubsection{Materials}\label{materials-1}
 
-\paragraph{Main study}\label{main-study}
-
-After having consented to take part in the study, participants answered the following attention check: ``Please answer `Strongly agree' to this question to show you are paying attention. {[}1. Strongly disagree; 2. Somewhat disagree; 3. Neither agree nor disagree; 4. Somewhat agree; 5. Strongly agree{]}''. We all participants who did not select ``5. Strongly agree''. Next, participants were randomly assigned to either the archaeology or the entomology condition. They then read a vignette--either about entomologists or archaeologists, depending on their condition--established as impressive and trust/competence enhancing in previous experiments (Table \ref{tab:exp3-stimuli}). After reading the text, participants were asked about changes in their perception of the scientists' competence (``Would you agree that reading this text has made you think of archaeologists/entomologists as more competent than you thought before?'' {[}1 = Strongly disagree, 2 = Disagree, 3 = Neither agree nor disagree, 4 = Agree, 5 = Strongly agree{]}) and trust in the scientists' discipline (``Having read this text, would you agree that you trust the discipline of archaeology/entomology more than you did before?'' {[}1 - Strongly disagree, 2 - Disagree, 3 - Neither agree nor disagree, 4 - Agree, 5 - Strongly agree{]}). They were also be asked about the impressiveness of the text they read: ``How impressive did you find the findings of the entomologists described in the text you have read?'' (5-point scale: 1 = not impressive at all, 2 = not very impressive, 3 = neither impressive nor unimpressive, 4 = quite impressive, 5 = very impressive). The order of these questions was randomized.
-
-Next, participants were given a recall task: They were asked to rewrite the vignette text they've read just before from memory. They were told that their texts will be read by future participants. To further motivate participants to write down everything they remember, they were also told that they would get a bonus for recalling as much accurate information as possible (without external aids). They were not told how much that bonus would be. We payed them 5p per point gained in the recall task (see next section for a description of the task). This way, participants could reach a maximum bonus of 0.8 pound for archaeology (0.05p x 2 points x 8 content elements) and 0.7 pound (0.05p x 2 points x 7 content elements) for entomology.
-
-After the recall task, participants were presented with the evaluation grid that we use to asses the open answers from the recall task (see Table \ref{tab:knowledge-evaluation-grid}), for the respective discipline they had read about. For each information element separately, we asked participants to indicate whether they found it impressive or not (``Do you think this piece of information is impressive?'' {[}Yes; No{]}). Finally, participants were be asked about their education level.
-
-\paragraph{Validation study}\label{validation-study}
-
-To validate the impressiveness of the answers participants provided in the main study, we ran a validation study. For this study, a new sample of participants was recruited. Participants of this new sample were randomly assigned to one of two conditions: In the ``original text'' condition, participants were assigned to read one of the two texts of the original experiment, again picked randomly. In the ``recall text'' condition participants read one of the recall texts written by the participants' of the experiment. Whether the content was about archaeologists or entomologists was assigned randomly. For each participant, we randomly sampled one text (with replacement) from the pool of all recall answers for the respective discipline from the experiment. Orthographic and grammatical mistakes in these texts were corrected with the help of ChatGPT beforehand.
-
-We had preregistered to sample among all recall answers from participants of the main experiment. However, checking scores after the main study and before the validation study, we found them to be very low on average (REPORT THE AVERAGE, see Appendix - MAKE APPENDIX). To avoid having the answers of ``lazy'' participants--who might have recalled more, but were not motivated to type what they remembered--in our sample, we decided to only selected answers that scored above median in our recall measure for the validation study. This selection is conservative in that goes against our predictions in H4.
-
-The procedure for the validation study was similar to that of the main study, but did not involve neither a recall task nor impressiveness ratings of particular information elements. After having agreed to a consent form and having passed the same attention check, each participant was presented with a text corresponding to their condition as described above. After reading the text, just as in the main study, participants were asked about changes in their perception of the scientists' competence (e.g.~``Would you agree that reading this text has made you think of archaeologists/entomologists as more competent than you thought before?'' {[}1 = Strongly disagree, 2 = Disagree, 3 = Neither agree nor disagree, 4 = Agree, 5 = Strongly agree{]}) and trust in the scientists' discipline (``Having read this text, would you agree that you trust the discipline of archaeology/entomology more than you did before?'' {[}1 - Strongly disagree, 2 - Disagree, 3 - Neither agree nor disagree, 4 - Agree, 5 - Strongly agree{]}). Participants were also be asked about the impressiveness of the text they read: ``How impressive did you find the findings of the entomologists described in the text you have read?'' (5-point scale: 1 = not impressive at all, 2 = not very impressive, 3 = neither impressive nor unimpressive, 4 = quite impressive, 5 = very impressive). The order of these questions will be randomized. Finally, participants were asked about their education level.
-
-\subsubsection{Materials}\label{materials-3}
-
-We used the same stimuli as in Experiment 3, that is, the impressive version of the stimuli used in Experiment 2 (see Table \ref{tab:exp3-stimuli}).
+For Experiment 2, we relied the impressive version of the stimuli used in Experiment 1 (see Table \ref{tab:exp1-stimuli}).
 
 \begin{longtable}[t]{>{\raggedright\arraybackslash}p{20em}>{\raggedright\arraybackslash}p{20em}}
 \caption{\label{tab:knowledge-evaluation-grid}Recall evaluation grid}\\
@@ -689,11 +447,11 @@ Since the two vignettes contained a slightly different number of total informati
 
 After giving their post-evaluation of scientists' competence and trust in the different disciplines, participants were presented with the evaluation grid shown in Table \ref{tab:knowledge-evaluation-grid} for the respective discipline they had been randomized to see. For each element in the evaluation grid, they were asked whether they found it impressive or not. For each participant, we computed the recall score they obtained on those elements they subjectively rated as impressive. Since the number of items seen as impressive varied within participants, the final recall measure for impressive elements was a relative one, namely the share of points among all possible points for the items rated as impressive by the participant.
 
-\subsection{Results and discussion}\label{results-and-discussion-3}
+\subsection{Results and discussion}\label{results-and-discussion-1}
 
 \subsubsection{Main study}\label{main-study-1}
 
-For the first set of hypotheses, we tested whether the average scores for perceived change in competence and trust are significantly different from their respective scale midpoint (which corresponds to no change in perception). Practically, we subtracted the scale mid-point from from all answers to then test if the resulting scores are statistically different from 0. We first tested the outcome variables' distributions for normality, using a Shapiro-Wilk test. In all cases, this test suggested that the data is considered non-normally distributed (p \textless{} 0.05). Following our pre-registration, we therefor did not run a default one-sample t-test, but used a Wilcoxon signed-rank test instead. This test is a non-parametric alternative to the one-sample t-test, used when the normality assumption is violated. The one-sample Wilcoxon signed-rank test if the median of the outcome distributions is significantly different from 0.
+For the first set of hypotheses, we tested whether the average scores for perceived change in competence and trust are significantly different from their respective scale midpoint (which corresponds to no change in perception). Practically, we subtracted the scale mid-point from from all answers to then test if the resulting scores are statistically different from 0. We first tested the outcome variables' distributions for normality, using a Shapiro-Wilk test. In all cases, this test suggested that the data is considered non-normally distributed (p \textless{} 0.05). Following our pre-registration, we therefor did not run a default one-sample t-test, but used a Wilcoxon signed-rank test instead. This test is a non-parametric alternative to the one-sample t-test, used when the normality assumption is violated. It tests if the median of the outcome distributions is significantly different from 0.
 
 We confirm both H1a and H1b, finding that having read an impressive text about the findings of a scientific discipline, participants saw the scientists as more competent (median = 4, W = 12,388.50, p \textless{} .001). To test H2 and H3, we deviated from our pre-registration and select only participants with an above median recall score. This selection is because we realized many very low recall scores. To avoid having ``lazy'' participants bias our measure in direction of our predictions, we decided for this conservative approach.
 
@@ -705,13 +463,15 @@ For H4a, b and c, we compared trust, competence and impressiveness ratings betwe
 
 \section{Overall discussion}\label{overall-discussion}
 
-In Experiments 1, 2 and 4, we have shown that when scientific results are perceived as impressive (and consensual, but here we take that for granted), people think the scientists who produced these findings are competent and their discipline trustworthy. Experiment 4 suggests that people can maintain this general impression even if they forget the specifics of the content that generated them.
+The rational impression account of trust in science predicts that people trust science primarily because they are impressed by it, not because they remember much explicit knowledge. This account is rational, in that the heuristics it builds on are sound in many contexts. Trusting without understanding is not irrational: If someone finds out something that is hard to know (and consensual, but here we take that for granted), such as the distance of the milky way, we should expect them to be competent, even without knowing the details. Forgetting specific content is not irrational either: It has been argued that episodic memory exits for us to be able to justify our beliefs in communication with others (Mahr \& Csibra, 2018). As a consequence, we should be particularly good at remembering things we might need to convince others. There is no reason for young learners' minds to anticipate having to convince others of the merits of science: At school, where most people have most of their encounters with science, everyone learns the same thing and accepts it.
 
-{[}Mention somewhere that this disconnect between a broad impression and reasons why it exists can be problematic exactly for the reasons we'd expect based on theories of why we have episodic memory (for social goals, see Klein, Mahr): eg pro-vax people trust medicine, but they don't exactly know why, so they find it hard to argue against anti-vax people{]}
+In two experiments, we have provided evidence for this account. In Experiment 1, we have shown that impressive scientific findings lead people to think of scientists as more competent and trust science more. In Experiment 2, we have shown that these impressions persist despite participants forgetting specific content that generated them almost immediately after reading it.
 
-\subsection{Limitations}\label{limitations}
+It has long been a puzzle to the deficit model--the paradigmatic explanation for trust in science which assumes that it is primarily the result of knowledge about science--that across many studies, knowledge about science is at best weakly associated with science attitudes, while the association between trust in science and education, and in particular science education, is strong. The rational impression account can make sense of this. It suggests that the mechanism by which education shapes trust is the exposure to impressive science, rather than the creation of long-lasting specific knowledge or even profound understanding.
 
-In Experiment 4, we show that knowledge about content - and more precisely impressive content - is forgotten immediately after receiving it, while the impression is still present. However, it is not clear from our study how long this impression persists. In general, we should not expect a short vignette text, even a very impressive one, to have a massive effect on people's trust in science, the bulk of which has probably been shaped by years of exposure to science content during education.
+Are we suggesting that the goal of education to foster understanding of science is misguided? No.~For science to be impressive, future scientists must have understood the results of their predecessors. And, arguably, a better understanding how difficult it was to obtain a certain result should make science even more impressive. Our account generally stresses the importance of science communication: Well-crafted science communication highlighting the feat of scientists can make a difference in shaping trust in science. Because people struggle to remember what exactly impressed them, we cannot expect trust in science to automatically diffuse in the population from hearsay. Someone trusting medicine might find it hard to convince someone skeptical of vaccines, because trust for them is an abstract impression largely disconnected from specific medical knowledge. Therefore, science communication needs to be actively pursued by scientists, policy makers, and educators.
+
+The present experiments have a number of limitations: First, they were run on convenience samples recruited in a single country, the UK. Second, they were run within a very short time frame. While we can show that participants almost immediately forget about impressive content, it is not clear from our study for how long the impressions persists. We hope that future studies will extend our findings to other populations and longer time frames.
 
 \FloatBarrier
 
@@ -731,6 +491,9 @@ Bak, H.-J. (2001). Education and Public Attitudes toward Science: Implications f
 \bibitem[\citeproctext]{ref-bauerWhatCanWe2007}
 Bauer, M. W., Allum, N., \& Miller, S. (2007). What can we learn from 25 years of PUS survey research? Liberating and expanding the agenda. \emph{Public Understanding of Science}, \emph{16}(1), 79--95. \url{https://doi.org/10.1177/0963662506071287}
 
+\bibitem[\citeproctext]{ref-beckRiskSocietyNew1992}
+Beck, U. (1992). \emph{Risk society: towards a new modernity} (Repr). London: Sage.
+
 \bibitem[\citeproctext]{ref-colognaRoleTrustClimate2020}
 Cologna, V., \& Siegrist, M. (2020). The role of trust for climate change mitigation and adaptation behaviour: A meta-analysis. \emph{Journal of Environmental Psychology}, \emph{69}, 101428. \url{https://doi.org/10.1016/j.jenvp.2020.101428}
 
@@ -746,11 +509,29 @@ Funk, C., \& Kennedy, B. (2020). \emph{Public confidence in scientists has remai
 \bibitem[\citeproctext]{ref-funkScienceScientistsHeld2020}
 Funk, C., Tyson, A., Kennedy, B., \& Johnson, C. (2020). \emph{Science and scientists held in high esteem across global publics}. Retrieved from \url{https://www.pewresearch.org/science/2020/09/29/science-and-scientists-held-in-high-esteem-across-global-publics/}
 
+\bibitem[\citeproctext]{ref-gauchatCulturalAuthorityScience2011}
+Gauchat, G. (2011). The cultural authority of science: Public trust and acceptance of organized science. \emph{Public Understanding of Science}, \emph{20}(6), 751--770. \url{https://doi.org/10.1177/0963662510365246}
+
+\bibitem[\citeproctext]{ref-gauchatPoliticizationSciencePublic2012}
+Gauchat, G. (2012). Politicization of Science in the Public Sphere: A Study of Public Trust in the United States, 1974 to 2010. \emph{American Sociological Review}, \emph{77}(2), 167--187. \url{https://doi.org/10.1177/0003122412438225}
+
 \bibitem[\citeproctext]{ref-gauchatCulturalCognitiveMappingScientific2018}
 Gauchat, G., \& Andrews, K. T. (2018). The Cultural-Cognitive Mapping of Scientific Professions. \emph{American Sociological Review}, \emph{83}(3), 567--595. \url{https://doi.org/10.1177/0003122418773353}
 
+\bibitem[\citeproctext]{ref-giddensModernitySelfidentitySelf1991}
+Giddens, A. (1991). \emph{Modernity and self-identity: Self and society in the late modern age}. Stanford, Calif: Stanford University Press.
+
+\bibitem[\citeproctext]{ref-habermasJurgenHabermasSociety1989}
+Habermas, J. (1989). \emph{Jürgen Habermas on society and politics: a reader} (1. {[}print.{]}; S. Seidman, Ed.). Boston: Beacon Press.
+
 \bibitem[\citeproctext]{ref-lindholtPublicAcceptanceCOVID192021}
 Lindholt, M. F., Jørgensen, F., Bor, A., \& Petersen, M. B. (2021). Public acceptance of COVID-19 vaccines: cross-national evidence on levels and individual-level predictors using observational data. \emph{BMJ Open}, \emph{11}(6), e048172. \url{https://doi.org/10.1136/bmjopen-2020-048172}
+
+\bibitem[\citeproctext]{ref-liquinMotivatedLearnAccount2022}
+Liquin, E. G., \& Lombrozo, T. (2022). Motivated to learn: An account of explanatory satisfaction. \emph{Cognitive Psychology}, \emph{132}, 101453. \url{https://doi.org/10.1016/j.cogpsych.2021.101453}
+
+\bibitem[\citeproctext]{ref-mahrWhyWeRemember2018}
+Mahr, J. B., \& Csibra, G. (2018). Why do we remember? The communicative function of episodic memory. \emph{Behavioral and Brain Sciences}, \emph{41}, e1. \url{https://doi.org/10.1017/S0140525X17000012}
 
 \bibitem[\citeproctext]{ref-millerMeasurementCivicScientific1998a}
 Miller, J. D. (1998). The measurement of civic scientific literacy. \emph{Public Understanding of Science}, \emph{7}(3), 203--223. \url{https://doi.org/10.1088/0963-6625/7/3/001}
@@ -766,6 +547,9 @@ Noy, S., \& O'Brien, T. L. (2019). Science for good? The effects of education an
 
 \bibitem[\citeproctext]{ref-pfanderHowWiseCrowd2025}
 Pfänder, J., De Courson, B., \& Mercier, H. (2025). How wise is the crowd: Can we infer people are accurate and competent merely because they agree with each other? \emph{Cognition}, \emph{255}, 106005. \url{https://doi.org/10.1016/j.cognition.2024.106005}
+
+\bibitem[\citeproctext]{ref-pfanderQuasiuniversalAcceptanceBasic2024}
+Pfänder, J., Kerzreho, L., \& Mercier, H. (2024). \emph{Quasi-universal acceptance of basic science in the US}. \url{https://doi.org/10.31219/osf.io/qc43v}
 
 \bibitem[\citeproctext]{ref-smithTrendsPublicAttitudes2013}
 Smith, T. W., \& Son, J. (2013). Trends in public attitudes about confidence in institutions. \emph{General Social Survey Final Report}.
@@ -785,335 +569,6 @@ Wellcome Global Monitor. (2020). \emph{Wellcome Global Monitor 2020: Covid-19}. 
 
 \appendix
 
-
-\section{Experiment 1}\label{exp1}
-
-\subsection{Materials}\label{materials-4}
-
-\FloatBarrier
-
-\subsection{Attention check}\label{attention-check}
-
-Imagine you are playing video games with a friend and at some point your friend says: ``I don't want to play this game anymore! To make sure that you read the instructions, please write the three following words''I pay attention'' in the box below. I really dislike this game, it's the most overrated game ever.''
-
-Do you agree with your friend? (Yes/No)
-
-We excluded all participants whose answer did not resemble ``I pay attention''.
-
-\subsection{Descriptives}\label{descriptives}
-
-\begin{table}
-\centering\centering
-\caption{\label{tab:exp1-descriptives}Descriptives}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{llrrrrr}
-\toprule
-discipline & impressiveness & impressed\_mean & learn\_mean & competence\_mean & trust\_mean & consensus\_mean\\
-\midrule
-archeo & basic & 3.71 & 3.10 & 3.45 & 3.61 & 4.08\\
-archeo & imp & 3.67 & 3.18 & 3.63 & 3.61 & 3.88\\
-entom & basic & 2.43 & 2.49 & 3.35 & 3.39 & 3.98\\
-entom & imp & 3.65 & 3.78 & 4.02 & 4.02 & 3.78\\
-\bottomrule
-\end{tabular}}
-\end{table}
-
-\subsection{Results}\label{results}
-
-Fig. \ref{fig:exp1-plot} summarizes descriptive results.
-
-
-
-\begin{figure}
-\centering
-\includegraphics{output/figures/exp1-plot.pdf}
-\caption{\label{fig:exp1-plot}Overview of treatment effect on various outcomes}
-\end{figure}
-
-The results of the models from the hypotheses can be found in table \ref{tab:exp1-hypotheses-table}.
-
-\begin{table}
-\centering\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{lcccc}
-\toprule
-  & H1a (Competence) & H1b (Competence pooled) & H2a (Trust) & H2b (Trust pooled)\\
-\midrule
-(Intercept) & 3.398*** & 2.641*** & 3.500*** & 2.967***\\
- & (0.093) & (0.183) & (0.090) & (0.172)\\
-impressivenessimp & 0.429*** &  & 0.316*** & \\
- & (0.110) &  & (0.091) & \\
-impressed &  & 0.288*** &  & 0.205***\\
- &  & (0.050) &  & (0.046)\\
-SD (Intercept id) & 0.515 & 0.386 & 0.618 & 0.537\\
-SD (Observations) & 0.767 & 0.783 & 0.639 & 0.662\\
-\midrule
-Num.Obs. & 196 & 196 & 196 & 196\\
-R2 Marg. & 0.051 & 0.141 & 0.031 & 0.080\\
-R2 Cond. & 0.347 & 0.309 & 0.499 & 0.445\\
-AIC & 527.0 & 512.8 & 496.1 & 490.4\\
-BIC & 540.2 & 525.9 & 509.2 & 503.5\\
-ICC & 0.3 & 0.2 & 0.5 & 0.4\\
-RMSE & 0.67 & 0.71 & 0.52 & 0.56\\
-\bottomrule
-\multicolumn{5}{l}{\rule{0pt}{1em}+ p $<$ 0.1, * p $<$ 0.05, ** p $<$ 0.01, *** p $<$ 0.001}\\
-\end{tabular}}
-\end{table}
-
-The results of the model from RQ1 and of the models from RQ2 (interaction between impressiveness and consensus on competence/trust) can be found in table \ref{tab:exp1-consensus-table}.
-
-\begin{table}
-\centering\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{lccccc}
-\toprule
-  & RQ 1 & H1a x Consensus & H1b x Consensus & H2a x Consensus & H2b x Consensus\\
-\midrule
-(Intercept) & 2.796*** & 2.916*** & 2.166** & 3.086*** & 2.083*\\
- & (0.101) & (0.397) & (0.750) & (0.445) & (0.822)\\
-impressivenessimp & 0.684*** & 0.096 &  & 0.015 & \\
- & (0.112) & (0.504) &  & (0.586) & \\
-consensus &  & 0.145 & 0.211 & 0.077 & 0.145\\
- &  & (0.096) & (0.189) & (0.108) & (0.207)\\
-impressivenessimp × consensus &  & 0.065 &  & 0.112 & \\
- &  & (0.126) &  & (0.147) & \\
-impressed &  &  & 0.328 &  & 0.411+\\
- &  &  & (0.216) &  & (0.237)\\
-impressed × consensus &  &  & -0.033 &  & -0.032\\
- &  &  & (0.053) &  & (0.058)\\
-SD (Intercept id) & 0.614 & 0.583 & 0.525 & 0.476 & 0.375\\
-SD (Observations) & 0.784 & 0.647 & 0.667 & 0.782 & 0.791\\
-\midrule
-Num.Obs. & 196 & 196 & 196 & 196 & 196\\
-R2 Marg. & 0.106 & 0.059 & 0.093 & 0.067 & 0.144\\
-R2 Cond. & 0.446 & 0.481 & 0.440 & 0.319 & 0.301\\
-AIC & 550.9 & 499.9 & 499.5 & 533.1 & 523.3\\
-BIC & 564.0 & 519.6 & 519.2 & 552.8 & 543.0\\
-ICC & 0.4 & 0.4 & 0.4 & 0.3 & 0.2\\
-RMSE & 0.66 & 0.53 & 0.56 & 0.69 & 0.72\\
-\bottomrule
-\multicolumn{6}{l}{\rule{0pt}{1em}+ p $<$ 0.1, * p $<$ 0.05, ** p $<$ 0.01, *** p $<$ 0.001}\\
-\end{tabular}}
-\end{table}
-
-\section{Experiment 2}\label{exp2}
-
-\subsection{Materials}\label{materials-5}
-
-\FloatBarrier
-
-\subsection{Attention check}\label{attention-check-1}
-
-Imagine you are playing video games with a friend and at some point your friend says: ``I don't want to play this game anymore! To make sure that you read the instructions, please write the three following words''I pay attention'' in the box below. I really dislike this game, it's the most overrated game ever.''
-
-Do you agree with your friend? (Yes/No)
-
-We excluded all participants whose answer did not resemble ``I pay attention''.
-
-\subsection{Descriptives}\label{descriptives-1}
-
-\begin{table}
-\centering\centering
-\caption{\label{tab:exp2-descriptives}Descriptives}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{llrrrrr}
-\toprule
-discipline & impressiveness & impressed\_mean & learn\_mean & competence\_mean & trust\_mean & consensus\_mean\\
-\midrule
-archeo & basic & 3.31 & 2.78 & 3.31 & 3.35 & 3.90\\
-archeo & imp & 3.98 & 3.48 & 3.70 & 3.60 & 3.92\\
-entom & basic & 3.10 & 2.76 & 3.22 & 3.36 & 3.78\\
-entom & imp & 4.04 & 3.84 & 3.82 & 3.76 & 3.59\\
-\bottomrule
-\end{tabular}}
-\end{table}
-
-\subsection{Results}\label{results-1}
-
-Fig. \ref{fig:exp2-plot} summarizes descriptive results.
-
-
-
-\begin{figure}
-\centering
-\includegraphics{output/figures/exp2-plot.pdf}
-\caption{\label{fig:exp2-plot}Overview of treatment effect on various outcomes}
-\end{figure}
-
-The results of the models from the hypotheses can be found in table \ref{tab:exp2-hypotheses-table}.
-
-\begin{table}
-\centering\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{lcccc}
-\toprule
-  & H1a (Competence) & H1b (Competence pooled) & H2a (Trust) & H2b (Trust pooled)\\
-\midrule
-(Intercept) & 3.263*** & 2.043*** & 3.354*** & 2.449***\\
- & (0.086) & (0.185) & (0.086) & (0.177)\\
-impressivenessimp & 0.495*** &  & 0.323*** & \\
- & (0.091) &  & (0.077) & \\
-impressed &  & 0.407*** &  & 0.296***\\
- &  & (0.048) &  & (0.045)\\
-SD (Intercept id) & 0.565 & 0.409 & 0.657 & 0.551\\
-SD (Observations) & 0.642 & 0.640 & 0.542 & 0.547\\
-\midrule
-Num.Obs. & 198 & 198 & 198 & 198\\
-R2 Marg. & 0.078 & 0.254 & 0.035 & 0.147\\
-R2 Cond. & 0.480 & 0.471 & 0.609 & 0.577\\
-AIC & 491.4 & 458.1 & 467.9 & 446.7\\
-BIC & 504.5 & 471.3 & 481.0 & 459.9\\
-ICC & 0.4 & 0.3 & 0.6 & 0.5\\
-RMSE & 0.53 & 0.56 & 0.43 & 0.44\\
-\bottomrule
-\multicolumn{5}{l}{\rule{0pt}{1em}+ p $<$ 0.1, * p $<$ 0.05, ** p $<$ 0.01, *** p $<$ 0.001}\\
-\end{tabular}}
-\end{table}
-
-The results of the model from RQ1 and of the models from RQ2 (interaction between impressiveness and consensus on competence/trust) can be found in table \ref{tab:exp2-consensus-table}.
-
-\begin{table}
-\centering\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{lccccc}
-\toprule
-  & RQ 1 & H1a x Consensus & H1b x Consensus & H2a x Consensus & H2b x Consensus\\
-\midrule
-(Intercept) & 2.768*** & 2.904*** & 1.899** & 3.287*** & 2.965***\\
- & (0.095) & (0.346) & (0.647) & (0.375) & (0.681)\\
-impressivenessimp & 0.889*** & 0.132 &  & -0.371 & \\
- & (0.110) & (0.398) &  & (0.456) & \\
-consensus &  & 0.117 & 0.153 & -0.006 & -0.250\\
- &  & (0.087) & (0.168) & (0.095) & (0.179)\\
-impressivenessimp × consensus &  & 0.054 &  & 0.230+ & \\
- &  & (0.103) &  & (0.118) & \\
-impressed &  &  & 0.391* &  & 0.129\\
- &  &  & (0.187) &  & (0.194)\\
-impressed × consensus &  &  & -0.027 &  & 0.074\\
- &  &  & (0.048) &  & (0.050)\\
-SD (Intercept id) & 0.535 & 0.634 & 0.552 & 0.547 & 0.390\\
-SD (Observations) & 0.775 & 0.548 & 0.548 & 0.641 & 0.648\\
-\midrule
-Num.Obs. & 198 & 198 & 198 & 198 & 198\\
-R2 Marg. & 0.183 & 0.056 & 0.155 & 0.101 & 0.262\\
-R2 Cond. & 0.447 & 0.596 & 0.581 & 0.480 & 0.458\\
-AIC & 539.3 & 473.5 & 457.3 & 495.0 & 467.7\\
-BIC & 552.4 & 493.2 & 477.0 & 514.7 & 487.4\\
-ICC & 0.3 & 0.6 & 0.5 & 0.4 & 0.3\\
-RMSE & 0.67 & 0.43 & 0.44 & 0.53 & 0.57\\
-\bottomrule
-\multicolumn{6}{l}{\rule{0pt}{1em}+ p $<$ 0.1, * p $<$ 0.05, ** p $<$ 0.01, *** p $<$ 0.001}\\
-\end{tabular}}
-\end{table}
-
-\section{Experiment 3}\label{exp3}
-
-\subsection{Materials}\label{materials-6}
-
-\FloatBarrier
-
-\subsection{Attention check}\label{attention-check-2}
-
-Imagine you are playing video games with a friend and at some point your friend says: ``I don't want to play this game anymore! To make sure that you read the instructions, please write the three following words''I pay attention'' in the box below. I really dislike this game, it's the most overrated game ever.''
-
-Do you agree with your friend? (Yes/No)
-
-We excluded all participants whose answer did not resemble ``I pay attention''.
-
-\subsection{Descriptives}\label{descriptives-2}
-
-\begin{table}
-\centering\centering
-\caption{\label{tab:exp3-descriptives}Descriptives}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{llrrrr}
-\toprule
-discipline & treatment & n\_correct\_mean & impressed\_mean & competence\_mean & trust\_mean\\
-\midrule
-archeo & control & 3.51 & 4.29 & 4.51 & 4.14\\
-archeo & distraction & 3.49 & 4.08 & 4.42 & 4.21\\
-entom & control & 3.51 & 4.17 & 4.66 & 4.02\\
-entom & distraction & 2.88 & 4.12 & 4.65 & 4.16\\
-\bottomrule
-\end{tabular}}
-\end{table}
-
-\subsection{Results}\label{results-2}
-
-Fig. \ref{fig:exp3-plot} illustrates the results.
-
-
-
-\begin{figure}
-\centering
-\includegraphics{output/figures/exp3-plot.pdf}
-\caption{\label{fig:exp3-plot}Overview of treatment effect on various outcomes}
-\end{figure}
-
-The results of the models from the hypotheses can be found in table \ref{tab:exp3-hypotheses-table}.
-
-\begin{table}
-\centering\centering
-\caption{\label{tab:exp3-hypotheses-table}Models for interaction hypotheses}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{lccc}
-\toprule
-  & Competence & Trust & Impressiveness\\
-\midrule
-(Intercept) & 0.047 & -0.074 & 0.112\\
- & (0.101) & (0.101) & (0.101)\\
-treatmentdistraction & -0.092 & 0.144 & -0.217\\
- & (0.141) & (0.141) & (0.140)\\
-outcome\_binary & 0.068 & 0.189 & 0.004\\
- & (0.139) & (0.143) & (0.139)\\
-treatmentdistraction × outcome\_binary & -0.132 & -0.368+ & -0.007\\
- & (0.194) & (0.199) & (0.194)\\
-SD (Intercept id) & 0.213 & 0.000 & 0.215\\
-SD (Observations) & 0.976 & 0.998 & 0.973\\
-\midrule
-Num.Obs. & 404 & 404 & 404\\
-R2 Marg. & 0.007 & 0.009 & 0.012\\
-R2 Cond. & 0.052 &  & 0.058\\
-AIC & 1164.2 & 1164.0 & 1162.2\\
-BIC & 1188.2 & 1188.0 & 1186.3\\
-ICC & 0.0 &  & 0.0\\
-RMSE & 0.95 & 0.99 & 0.95\\
-\bottomrule
-\multicolumn{4}{l}{\rule{0pt}{1em}+ p $<$ 0.1, * p $<$ 0.05, ** p $<$ 0.01, *** p $<$ 0.001}\\
-\end{tabular}}
-\end{table}
-
-The treatment effects by outcome can be found in table \ref{tab:exp3-treatment-effects}.
-
-\begin{table}
-\centering\centering
-\caption{\label{tab:exp3-treatment-effects}Treatment effects by outcome}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{lcccc}
-\toprule
-  & Knowledge & Trust & Impressiveness & Competence\\
-\midrule
-(Intercept) & 0.115 & -0.074 & 0.112 & 0.047\\
- & (0.101) & (0.101) & (0.101) & (0.101)\\
-treatmentdistraction & -0.224 & 0.144 & -0.217 & -0.092\\
- & (0.140) & (0.141) & (0.140) & (0.141)\\
-\midrule
-Num.Obs. & 202 & 202 & 202 & 202\\
-R2 & 0.013 & 0.005 & 0.012 & 0.002\\
-R2 Adj. & 0.008 & 0.000 & 0.007 & -0.003\\
-AIC & 575.7 & 577.2 & 575.8 & 577.8\\
-BIC & 585.6 & 587.1 & 585.8 & 587.7\\
-Log.Lik. & -284.841 & -285.599 & -284.919 & -285.909\\
-RMSE & 0.99 & 0.99 & 0.99 & 1.00\\
-\bottomrule
-\multicolumn{5}{l}{\rule{0pt}{1em}+ p $<$ 0.1, * p $<$ 0.05, ** p $<$ 0.01, *** p $<$ 0.001}\\
-\end{tabular}}
-\end{table}
 
 
 \end{document}
