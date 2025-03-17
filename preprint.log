@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.29)  10 FEB 2025 15:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.29)  26 FEB 2025 15:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**paper.tex
-(./paper.tex
+**preprint.tex
+(./preprint.tex
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-12-25>
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/apa6/apa6.cls
@@ -524,31 +524,31 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'english'.
-(./paper.aux
+(./preprint.aux
 
 LaTeX Warning: Label `tab:exp1-stimuli' multiply defined.
 
 )
-\openout1 = `paper.aux'.
+\openout1 = `preprint.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 218.
-LaTeX Font Info:    ... okay on input line 218.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 218.
-LaTeX Font Info:    ... okay on input line 218.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 218.
-LaTeX Font Info:    ... okay on input line 218.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 218.
-LaTeX Font Info:    ... okay on input line 218.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 218.
-LaTeX Font Info:    ... okay on input line 218.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 218.
-LaTeX Font Info:    ... okay on input line 218.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 218.
-LaTeX Font Info:    ... okay on input line 218.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 218.
-LaTeX Font Info:    ... okay on input line 218.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 218.
-LaTeX Font Info:    ... okay on input line 218.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 225.
+LaTeX Font Info:    ... okay on input line 225.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 225.
+LaTeX Font Info:    ... okay on input line 225.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 225.
+LaTeX Font Info:    ... okay on input line 225.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 225.
+LaTeX Font Info:    ... okay on input line 225.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 225.
+LaTeX Font Info:    ... okay on input line 225.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 225.
+LaTeX Font Info:    ... okay on input line 225.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 225.
+LaTeX Font Info:    ... okay on input line 225.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 225.
+LaTeX Font Info:    ... okay on input line 225.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 225.
+LaTeX Font Info:    ... okay on input line 225.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -598,44 +598,48 @@ Package caption Info: longtable package is loaded.
 Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 )
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 218.
+Package hyperref Info: Link coloring OFF on input line 225.
 Using title for running head
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 220.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 227.
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 220.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 227.
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 220.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 227.
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 220.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 227.
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 220.
+(Font)              <14.4> on input line 227.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 220.
+(Font)              <10> on input line 227.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 220.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 220.
+(Font)              <7> on input line 227.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 227.
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 220.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 227.
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 220.
+(Font)              <10.95> on input line 227.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 220.
+(Font)              <8> on input line 227.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 220.
+(Font)              <6> on input line 227.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 227.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 227.
 
 
 [1
@@ -649,38 +653,38 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 [4]
 
 [5]
-Overfull \hbox (69.88pt too wide) in alignment at lines 297--302
+Overfull \hbox (69.88pt too wide) in alignment at lines 304--309
  [] [] [] 
  []
 
 
-Overfull \hbox (69.88pt too wide) in alignment at lines 302--307
+Overfull \hbox (69.88pt too wide) in alignment at lines 309--314
  [] [] [] 
  []
 
 
-Overfull \hbox (69.88pt too wide) in alignment at lines 307--309
+Overfull \hbox (69.88pt too wide) in alignment at lines 314--316
  [] [] [] 
  []
 
 
-Overfull \hbox (69.88pt too wide) in alignment at lines 309--311
+Overfull \hbox (69.88pt too wide) in alignment at lines 316--318
  [] [] [] 
  []
 
 
-Overfull \hbox (2.00304pt too wide) in paragraph at lines 321--321
+Overfull \hbox (2.00304pt too wide) in paragraph at lines 328--328
 []|\T1/lmr/m/n/8 Entomology|  
  []
 
 
-Overfull \hbox (69.88pt too wide) in alignment at lines 311--332
+Overfull \hbox (69.88pt too wide) in alignment at lines 318--339
  [] [] [] 
  []
 
 [6{/Users/jan/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}]
 
-LaTeX Warning: Reference `exp1' on page 7 undefined on input line 345.
+LaTeX Warning: Reference `exp1' on page 7 undefined on input line 352.
 
 
 
@@ -690,10 +694,10 @@ LaTeX Warning: Reference `exp1' on page 7 undefined on input line 345.
 
 [9]
 
-LaTeX Warning: Reference `above-median' on page 10 undefined on input line 387.
+LaTeX Warning: Reference `above-median' on page 10 undefined on input line 394.
 
 
-Overfull \hbox (28.37988pt too wide) in alignment at lines 401--418
+Overfull \hbox (28.37988pt too wide) in alignment at lines 408--425
  [] [] 
  []
 
@@ -701,29 +705,32 @@ Overfull \hbox (28.37988pt too wide) in alignment at lines 401--418
 
 [10]
 
-LaTeX Warning: Reference `gpt-prompt' on page 11 undefined on input line 424.
+LaTeX Warning: Reference `gpt-prompt' on page 11 undefined on input line 431.
 
 
 
 [11]
 
 [12]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 442.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 442.
-
 
 [13]
-
-[14]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[15]
+[14]
+Underfull \vbox (badness 6575) has occurred while \output is active []
 
-[16] (./paper.aux)
+
+
+[15]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[16]
+
+[17] (./preprint.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2020/03/25>
@@ -736,18 +743,18 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 16181 strings out of 475178
- 263072 string characters out of 5765639
- 690837 words of memory out of 5000000
- 38801 multiletter control sequences out of 15000+600000
+ 16195 strings out of 475178
+ 263322 string characters out of 5765639
+ 691636 words of memory out of 5000000
+ 38810 multiletter control sequences out of 15000+600000
  655018 words of font info for 120 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 83i,11n,93p,3188b,690s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb>
-Output written on paper.pdf (16 pages, 275877 bytes).
+ 83i,11n,93p,3191b,690s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb>
+Output written on preprint.pdf (17 pages, 304386 bytes).
 PDF statistics:
- 321 PDF objects out of 1000 (max. 8388607)
- 281 compressed objects within 3 object streams
- 79 named destinations out of 1000 (max. 500000)
- 153 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 346 PDF objects out of 1000 (max. 8388607)
+ 302 compressed objects within 4 object streams
+ 84 named destinations out of 1000 (max. 500000)
+ 177 words of extra memory for PDF output out of 10000 (max. 10000000)
 
