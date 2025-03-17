@@ -1,0 +1,10 @@
+# Selection of above-median recall scores in Experiment 2  {#above-median}
+
+
+Checking recall scores after the main study and before launching the validation study, we found them to be very low on average. 
+
+MAKE OVERVIEW HERE
+
+To avoid having the answers of "lazy" participants--who might have recalled more, but were not motivated to type what they remembered--in our sample, we decided to only selected answers that scored above median in our recall measure for the validation study
+
+MAKE OVERVIEW HERE
