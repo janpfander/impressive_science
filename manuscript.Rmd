@@ -5,21 +5,12 @@ header-includes:  | # to prevent floats from moving past certain points (for the
   \usepackage{placeins} 
   
 author: 
-  - name          : "Jan Pfänder"
-    affiliation   : "1"
-    #role:         # Contributorship roles (e.g., CRediT, https://casrai.org/credit/)
-  - name          : "Sophie de Rouilhan"
-    affiliation   : "1"
-    #role:         
-  - name          : "Hugo Mercier"
-    affiliation   : "1"
-    corresponding : yes    # Define only one corresponding author
-    email         : "hugo.mercier@gmail.com"
-    address: " "
+  - name          : ""
+    affiliation   : ""
 affiliation:
     
-  - id            : "1"
-    institution   : "Institut Jean Nicod, Département d’études cognitives, ENS, EHESS, PSL University, CNRS, France"
+  - id            : ""
+    institution   : ""
 abstract: |
   
   
@@ -34,9 +25,9 @@ tablelist         : no
 footnotelist      : no
 classoption       : "doc" # "doc" for nice look, "man" for manuscripty
 output: 
-  papaja::apa6_docx: default
   papaja::apa6_pdf: 
     keep_tex: true
+  papaja::apa6_docx: default
 always_allow_html: true
 appendix:
   - "appendix_gpt-prompt.Rmd"
@@ -910,3 +901,4 @@ The authors declare having no competing interests.
 
 ```{r child = "appendix_exp4.Rmd"}
 ```
+

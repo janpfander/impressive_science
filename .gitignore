@@ -26,5 +26,5 @@ no_git/
 # Ignore text files
 *.rtf
 
-# Ignor figures
+# Ignore figures
 *output/

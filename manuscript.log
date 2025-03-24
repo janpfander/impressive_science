@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.29)  10 FEB 2025 15:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.29)  24 MAR 2025 14:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**paper.tex
-(./paper.tex
+**manuscript.tex
+(./manuscript.tex
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-12-25>
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/apa6/apa6.cls
@@ -524,12 +524,12 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'english'.
-(./paper.aux
+(./manuscript.aux
 
-LaTeX Warning: Label `tab:exp1-stimuli' multiply defined.
+LaTeX Warning: Label `tab:unnamed-chunk-29' multiply defined.
 
 )
-\openout1 = `paper.aux'.
+\openout1 = `manuscript.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 218.
 LaTeX Font Info:    ... okay on input line 218.
@@ -645,76 +645,70 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 [2]
 
 [3]
+Underfull \vbox (badness 4193) has occurred while \output is active []
+
+
 
 [4]
 
-[5]
-Overfull \hbox (69.88pt too wide) in alignment at lines 297--302
+[5{/Users/jan/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}]
+Overfull \hbox (69.88pt too wide) in alignment at lines 293--298
  [] [] [] 
  []
 
 
-Overfull \hbox (69.88pt too wide) in alignment at lines 302--307
+Overfull \hbox (69.88pt too wide) in alignment at lines 298--303
  [] [] [] 
  []
 
 
-Overfull \hbox (69.88pt too wide) in alignment at lines 307--309
+Overfull \hbox (69.88pt too wide) in alignment at lines 303--305
  [] [] [] 
  []
 
 
-Overfull \hbox (69.88pt too wide) in alignment at lines 309--311
+Overfull \hbox (69.88pt too wide) in alignment at lines 305--307
  [] [] [] 
  []
 
 
-Overfull \hbox (2.00304pt too wide) in paragraph at lines 321--321
+Overfull \hbox (2.00304pt too wide) in paragraph at lines 317--317
 []|\T1/lmr/m/n/8 Entomology|  
  []
 
 
-Overfull \hbox (69.88pt too wide) in alignment at lines 311--332
+Overfull \hbox (69.88pt too wide) in alignment at lines 307--328
  [] [] [] 
  []
 
-[6{/Users/jan/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}]
-
-LaTeX Warning: Reference `exp1' on page 7 undefined on input line 345.
 
 
+[6{/Users/jan/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}]
 
-[7{/Users/jan/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}]
+[7]
 
 [8]
-
-[9]
-
-LaTeX Warning: Reference `above-median' on page 10 undefined on input line 387.
-
-
-Overfull \hbox (28.37988pt too wide) in alignment at lines 401--418
+Overfull \hbox (28.37988pt too wide) in alignment at lines 393--410
  [] [] 
  []
 
-
+[9]
 
 [10]
-
-LaTeX Warning: Reference `gpt-prompt' on page 11 undefined on input line 424.
-
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 434.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 434.
 
 
 [11]
 
 [12]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 442.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 442.
-
 
 [13]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 [14]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -723,31 +717,196 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [15]
 
-[16] (./paper.aux)
+[16]
+
+[17]
+<output/figures/gss-trend.pdf, id=218, 469.755pt x 325.215pt>
+File: output/figures/gss-trend.pdf Graphic file (type pdf)
+<use output/figures/gss-trend.pdf>
+Package pdftex.def Info: output/figures/gss-trend.pdf  used on input line 612.
+(pdftex.def)             Requested size: 433.62059pt x 300.19887pt.
+<output/figures/gss-trend-confidence.pdf, id=219, 469.755pt x 325.215pt>
+File: output/figures/gss-trend-confidence.pdf Graphic file (type pdf)
+<use output/figures/gss-trend-confidence.pdf>
+Package pdftex.def Info: output/figures/gss-trend-confidence.pdf  used on input line 620.
+(pdftex.def)             Requested size: 433.62059pt x 300.19887pt.
+
+pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.662 \end{longtable}
+                      [18 <./output/figures/gss-trend.pdf>]
+
+[19]
+
+[20 <./output/figures/gss-trend-confidence.pdf>]
+Overfull \hbox (69.88pt too wide) in alignment at lines 721--726
+ [] [] [] 
+ []
+
+
+Overfull \hbox (69.88pt too wide) in alignment at lines 726--731
+ [] [] [] 
+ []
+
+
+Overfull \hbox (69.88pt too wide) in alignment at lines 731--733
+ [] [] [] 
+ []
+
+
+Overfull \hbox (69.88pt too wide) in alignment at lines 733--735
+ [] [] [] 
+ []
+
+
+Overfull \hbox (2.00304pt too wide) in paragraph at lines 751--751
+[]|\T1/lmr/m/n/8 Entomology|  
+ []
+
+
+Overfull \hbox (69.88pt too wide) in alignment at lines 735--762
+ [] [] [] 
+ []
+
+
+
+[21]
+pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.762 \end{longtable}
+                     
+Overfull \hbox (69.88pt too wide) in alignment at lines 767--772
+ [] [] [] 
+ []
+
+
+Overfull \hbox (69.88pt too wide) in alignment at lines 772--777
+ [] [] [] 
+ []
+
+
+Overfull \hbox (69.88pt too wide) in alignment at lines 777--779
+ [] [] [] 
+ []
+
+
+Overfull \hbox (69.88pt too wide) in alignment at lines 779--781
+ [] [] [] 
+ []
+
+
+Overfull \hbox (69.88pt too wide) in alignment at lines 781--806
+ [] [] [] 
+ []
+
+
+
+[22]
+pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.806 \end{longtable}
+                     
+
+[23]
+<output/figures/exp1b-plot.pdf, id=284, 469.755pt x 325.215pt>
+File: output/figures/exp1b-plot.pdf Graphic file (type pdf)
+<use output/figures/exp1b-plot.pdf>
+Package pdftex.def Info: output/figures/exp1b-plot.pdf  used on input line 846.
+(pdftex.def)             Requested size: 433.62059pt x 300.19887pt.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 917.
+(/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+
+[24]
+
+[25 <./output/figures/exp1b-plot.pdf>]
+
+[26{/Users/jan/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
+<output/figures/exp1-plot.pdf, id=323, 469.755pt x 325.215pt>
+File: output/figures/exp1-plot.pdf Graphic file (type pdf)
+<use output/figures/exp1-plot.pdf>
+Package pdftex.def Info: output/figures/exp1-plot.pdf  used on input line 975.
+(pdftex.def)             Requested size: 433.62059pt x 300.19887pt.
+
+
+[27 <./output/figures/exp1-plot.pdf>]
+
+[28]
+
+[29]
+Overfull \hbox (15.78pt too wide) in alignment at lines 1098--1103
+ [] [] 
+ []
+
+
+Overfull \hbox (15.78pt too wide) in alignment at lines 1103--1108
+ [] [] 
+ []
+
+
+Overfull \hbox (15.78pt too wide) in alignment at lines 1108--1110
+ [] [] 
+ []
+
+
+Overfull \hbox (15.78pt too wide) in alignment at lines 1110--1112
+ [] [] 
+ []
+
+
+Overfull \hbox (15.78pt too wide) in alignment at lines 1112--1173
+ [] [] 
+ []
+
+
+
+[30]
+pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.1173 \end{longtable}
+                      
+
+[31{/Users/jan/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
+<output/figures/exp2b-plot.pdf, id=373, 469.755pt x 325.215pt>
+File: output/figures/exp2b-plot.pdf Graphic file (type pdf)
+<use output/figures/exp2b-plot.pdf>
+Package pdftex.def Info: output/figures/exp2b-plot.pdf  used on input line 1237.
+(pdftex.def)             Requested size: 433.62059pt x 300.19887pt.
+
+
+[32]
+
+[33 <./output/figures/exp2b-plot.pdf>]
+
+[34]
+
+[35] (./manuscript.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2020/03/25>
  ***********
 
-LaTeX Warning: There were undefined references.
-
-
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 16181 strings out of 475178
- 263072 string characters out of 5765639
- 690837 words of memory out of 5000000
- 38801 multiletter control sequences out of 15000+600000
- 655018 words of font info for 120 fonts, out of 8000000 for 9000
+ 16425 strings out of 475178
+ 267832 string characters out of 5765639
+ 706049 words of memory out of 5000000
+ 38971 multiletter control sequences out of 15000+600000
+ 655383 words of font info for 121 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 83i,11n,93p,3188b,690s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb>
-Output written on paper.pdf (16 pages, 275877 bytes).
+ 83i,12n,93p,3193b,690s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb>
+Output written on manuscript.pdf (35 pages, 541332 bytes).
 PDF statistics:
- 321 PDF objects out of 1000 (max. 8388607)
- 281 compressed objects within 3 object streams
- 79 named destinations out of 1000 (max. 500000)
- 153 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 660 PDF objects out of 1000 (max. 8388607)
+ 582 compressed objects within 6 object streams
+ 147 named destinations out of 1000 (max. 500000)
+ 442 words of extra memory for PDF output out of 10000 (max. 10000000)
 

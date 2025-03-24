@@ -135,7 +135,7 @@ Do you agree with your friend? (Yes/No)
 
 We excluded all participants whose answer did not resemble "I pay attention".
 
-####
+#### Vignettes
 
 Table \@ref(tab:exp1b-stimuli) shows the vignettes used in Experiment 1b. Table \@ref(tab:exp1-exp1b-differences) highlights the differences in the archeology vignettes between Experiment 1 and 1b.
 
@@ -172,10 +172,12 @@ Sometimes entomologists study insects by observing them in the wild, sometimes t
 
 An entomologist often specializes in one type of insect in order to study it in depth. For example, an entomologist who specializes in ants is called a myrmecologist. "))
 
-#Use kable() to create the table and print it as Markdown
-kableExtra::kable(table,
+# Output the table
+if (knitr::is_latex_output() || knitr::is_html_output()) {
+  # For LaTeX or HTML: Use kable, column_spec, and kable_styling
+  table_output <- kableExtra::kable(table,
                   col.names = c("", "Impressive", "Basic"),
-                  caption = "Stimuli of Experiment 1",
+                  caption = "Stimuli of Experiment 1b",
                   align = "l",
                   booktabs = TRUE,
                   longtable = TRUE,
@@ -185,25 +187,23 @@ kableExtra::kable(table,
   kable_styling(latex_options = "repeat_header",
                 font_size = 8) %>%
   column_spec(1, width = "5em") %>%
-  column_spec(2, width = "25em") %>%
-  column_spec(3, width = "25em")
+    column_spec(2, width = "25em") %>%
+    column_spec(3, width = "25em")
+} else {
+  # For Word: Use flextable and rename columns
+  table_output <- flextable::flextable(table |> 
+                                         rename(`Impressive text` = impressive, 
+                                                `Basic text` = basic, 
+                                                `Discipline` = discipline)) %>%
+    flextable::set_caption(caption = "Stimuli of Experiment 1b") %>%
+    flextable::autofit() %>%
+    flextable::width(j = 1, width = 3) %>%
+    flextable::width(j = 2, width = 5) %>%
+    flextable::width(j = 3, width = 5)
+}
 
-# for word version
-# flextable::flextable(table) %>%
-#     flextable::set_caption(caption = "Stimuli of Experiment 1") %>%
-#     flextable::autofit() %>%
-#     flextable::width(j = 1, width = 3) %>%
-#     flextable::width(j = 2, width = 5) %>%
-#     flextable::width(j = 3, width = 5) 
+table_output
 
-# papaja::apa_table(
-#     table,
-#     caption = "Stimuli of Experiment 1",
-#     col.names = c("", "Impressive", "Basic"),
-#     # the p means vertically aligned at the top of each table cell, but there are other options
-#     align = c("p{1.5cm}", "p{7cm}", "p{7cm}"),
-#     font_size = "scriptsize"
-#   )
 ```
 
 ```{r exp1-exp1b-differences, echo=FALSE}
@@ -238,18 +238,38 @@ Archaeologists have also found remains of our more distant ancestors, showing th
 Archaeologists learn about the language that our ancestors or cousins might have had. For instance, the nerve that is used to control breathing is larger in humans than in apes, plausibly because we need more fine-grained control of our breathing in order to speak. As a result, the canal containing that nerve is larger in humans than in apes – and it is also enlarged in Neanderthals.
 Archaeologists can also tell, from an analysis of the tools they made, that most Neanderthals were right-handed. It’s thought that handedness is related to the evolution of language, another piece of evidence suggesting that Neanderthals likely possessed a form of language."))
 
-# Use kable() to create the table and print it as Markdown
-kableExtra::kable(table, 
-                  col.names = c("", "Experiment 1 (old)", "Experiment 2 (new)"),
-                  caption = "Stimuli for Experiment 2",
+
+# Output the table
+if (knitr::is_latex_output() || knitr::is_html_output()) {
+  # For LaTeX or HTML: Use kable, column_spec, and kable_styling
+  table_output <- kableExtra::kable(table, 
+                  col.names = c("", "Experiment 1b", "Experiment 1"),
+                  caption = "Differences in stimuli for Experiment 1 and 1b",
                   align = "l", 
-                  booktabs = T,
-                  longtable = TRUE) %>%
+                  booktabs = TRUE,
+                  longtable = TRUE,
+                  #full_width = TRUE,
+                  #format = "pandoc"
+                  ) %>%
   kable_styling(latex_options = "repeat_header",
                 font_size = 8) %>%
   column_spec(1, width = "5em") %>%
-  column_spec(2, width = "25em") %>%
-  column_spec(3, width = "25em")
+    column_spec(2, width = "25em") %>%
+    column_spec(3, width = "25em")
+} else {
+  # For Word: Use flextable and rename columns
+  table_output <- flextable::flextable(table |> 
+                                         rename(`Impressive text` = impressiveness, 
+                                                `Experiment 1b` = Experiment_1, 
+                                                `Experiment 1` = Experiment_2)) %>%
+    flextable::set_caption(caption = "Differences in stimuli for Experiment 1 and 1b") %>%
+    flextable::autofit() %>%
+    flextable::width(j = 1, width = 3) %>%
+    flextable::width(j = 2, width = 5) %>%
+    flextable::width(j = 3, width = 5)
+}
+
+table_output
 ```
 
 ## Results and discussion
@@ -282,7 +302,7 @@ exp1b %>%
 
 Fig. \@ref(fig:exp1b-plot) summarizes descriptive results.
 
-(ref:exp1b-plot) Overview of treatment effect on various outcomes
+(ref:exp1b-plot) Overview of treatment effect on various outcomes.
 
 ```{r exp1b-plot, fig.cap="(ref:exp1b-plot)"}
 plot_data <- exp1b %>% 
@@ -325,16 +345,37 @@ H2a_model <- lmer(trust ~ impressiveness + (1 | id), exp1b)
 # H2 b
 H2b_model <- lmer(trust ~ impressed + (1 | id), exp1b)
 
-modelsummary(list(
-                  "H1a (Competence)" = H1a_model,
-                  "H1b (Competence pooled)" = H1b_model,
-                  "H2a (Trust)" = H2a_model,
-                  "H2b (Trust pooled)" = H2b_model
-                  ), 
-             stars = TRUE, 
-             output = "kableExtra") %>%
-  # make smaller to fit
-  kable_styling(latex_options = "scale_down")
+
+# Generate the table with the correct format
+if (knitr::is_latex_output() || knitr::is_html_output()) {
+  modelsummary(list(
+    "H1a (Competence)" = H1a_model,
+    "H1b (Competence pooled)" = H1b_model,
+    "H2a (Trust)" = H2a_model,
+    "H2b (Trust pooled)" = H2b_model
+  ), 
+  stars = TRUE, 
+  caption = "The results of the models for the hypotheses",
+  output = "kableExtra") %>%
+    # make smaller to fit
+    kable_styling(latex_options = "scale_down")
+  
+} else {
+  
+  modelsummary(list(
+    "H1a (Competence)" = H1a_model,
+    "H1b (Competence pooled)" = H1b_model,
+    "H2a (Trust)" = H2a_model,
+    "H2b (Trust pooled)" = H2b_model
+  ), 
+  stars = TRUE,
+  caption = "The results of the models for the hypotheses",
+  output = "flextable") %>%
+    flextable::set_caption("The results of the models from the hypotheses") %>%
+    flextable::autofit() %>%  # Ensure proper column width
+    flextable::theme_booktabs()  # Use a professional-looking theme
+  
+}
 ```
 
 The results of the model from RQ1 and of the models from RQ2 (interaction between impressiveness and consensus on competence/trust) can be found in table \@ref(tab:exp1b-consensus-table).
@@ -351,14 +392,36 @@ RQ2_H1b_model <- lmer(trust ~ impressed*consensus + (1 | id), exp1b)
 RQ2_H2a_model <- lmer(competence ~ impressiveness*consensus + (1 | id), exp1b)
 RQ2_H2b_model <- lmer(competence~ impressed*consensus + (1 | id), exp1b)
 
-modelsummary(list("RQ 1" = RQ1_model,
-                  "H1a x Consensus" = RQ2_H1a_model,
-                  "H1b x Consensus" = RQ2_H1b_model,
-                  "H2a x Consensus" = RQ2_H2a_model,
-                  "H2b x Consensus" = RQ2_H2b_model
-), 
-stars = TRUE, 
-output = "kableExtra") %>%
-  # make smaller to fit
-  kable_styling(latex_options = "scale_down")
+
+# Generate the table with the correct format
+if (knitr::is_latex_output() || knitr::is_html_output()) {
+  modelsummary(list("RQ 1" = RQ1_model,
+                    "H1a x Consensus" = RQ2_H1a_model,
+                    "H1b x Consensus" = RQ2_H1b_model,
+                    "H2a x Consensus" = RQ2_H2a_model,
+                    "H2b x Consensus" = RQ2_H2b_model
+  ), 
+  stars = TRUE, 
+  caption = "The results of the model from RQ1 and of the models from RQ2 (interaction between impressiveness and consensus on competence/trust)",
+  output = "kableExtra") %>%
+    # make smaller to fit
+    kable_styling(latex_options = "scale_down")
+  
+} else {
+  
+  modelsummary(list("RQ 1" = RQ1_model,
+                    "H1a x Consensus" = RQ2_H1a_model,
+                    "H1b x Consensus" = RQ2_H1b_model,
+                    "H2a x Consensus" = RQ2_H2a_model,
+                    "H2b x Consensus" = RQ2_H2b_model
+  ), 
+  stars = TRUE, 
+  caption = "The results of the model from RQ1 and of the models from RQ2 (interaction between impressiveness and consensus on competence/trust)",
+  output = "flextable") %>%
+    flextable::set_caption("The results of the model from RQ1 and of the models from RQ2 (interaction between impressiveness and consensus on competence/trust)") %>%
+    flextable::autofit() %>%  # Ensure proper column width
+    flextable::theme_booktabs()  # Use a professional-looking theme
+  
+}
+
 ```

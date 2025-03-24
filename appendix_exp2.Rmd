@@ -1,5 +1,7 @@
 # Experiment 1 {#exp1}
 
+This is the experiment reported as Experiment 1 in the main article. Please note that on the OSF, all files related to this experiment are listed under "experiment_2", as this corresponded to the order in which our different experiments were run.
+
 ## Materials
 
 \FloatBarrier
@@ -87,16 +89,37 @@ H2a_model <- lmer(trust ~ impressiveness + (1 | id), exp1)
 # H2 b
 H2b_model <- lmer(trust ~ impressed + (1 | id), exp1)
 
-modelsummary(list(
-                  "H1a (Competence)" = H1a_model,
-                  "H1b (Competence pooled)" = H1b_model,
-                  "H2a (Trust)" = H2a_model,
-                  "H2b (Trust pooled)" = H2b_model
-                  ), 
-             stars = TRUE, 
-             output = "kableExtra") %>%
-  # make smaller to fit
-  kable_styling(latex_options = "scale_down")
+# Generate the table with the correct format
+if (knitr::is_latex_output() || knitr::is_html_output()) {
+  
+  modelsummary(list(
+    "H1a (Competence)" = H1a_model,
+    "H1b (Competence pooled)" = H1b_model,
+    "H2a (Trust)" = H2a_model,
+    "H2b (Trust pooled)" = H2b_model
+  ), 
+  stars = TRUE, 
+  caption = "The results of the models for the hypotheses",
+  output = "kableExtra") %>%
+    # make smaller to fit
+    kable_styling(latex_options = "scale_down")
+  
+} else {
+  
+  modelsummary(list(
+    "H1a (Competence)" = H1a_model,
+    "H1b (Competence pooled)" = H1b_model,
+    "H2a (Trust)" = H2a_model,
+    "H2b (Trust pooled)" = H2b_model
+  ), 
+  stars = TRUE, 
+  caption = "The results of the models for the hypotheses",
+  output = "flextable") %>%
+    flextable::set_caption("The results of the models for the hypotheses") %>%
+    flextable::autofit() %>%  # Ensure proper column width
+    flextable::theme_booktabs()  # Use a professional-looking theme
+  
+}
 ```
 
 The results of the model from RQ1 and of the models from RQ2 (interaction between impressiveness and consensus on competence/trust) can be found in table \@ref(tab:exp1-consensus-table).
@@ -113,14 +136,36 @@ RQ2_H1b_model <- lmer(trust ~ impressed*consensus + (1 | id), exp1)
 RQ2_H2a_model <- lmer(competence ~ impressiveness*consensus + (1 | id), exp1)
 RQ2_H2b_model <- lmer(competence~ impressed*consensus + (1 | id), exp1)
 
-modelsummary(list("RQ 1" = RQ1_model,
-                  "H1a x Consensus" = RQ2_H1a_model,
-                  "H1b x Consensus" = RQ2_H1b_model,
-                  "H2a x Consensus" = RQ2_H2a_model,
-                  "H2b x Consensus" = RQ2_H2b_model
-), 
-stars = TRUE, 
-output = "kableExtra") %>%
-  # make smaller to fit
-  kable_styling(latex_options = "scale_down")
+# Generate the table with the correct format
+if (knitr::is_latex_output() || knitr::is_html_output()) {
+  
+  modelsummary(list("RQ 1" = RQ1_model,
+                    "H1a x Consensus" = RQ2_H1a_model,
+                    "H1b x Consensus" = RQ2_H1b_model,
+                    "H2a x Consensus" = RQ2_H2a_model,
+                    "H2b x Consensus" = RQ2_H2b_model
+  ), 
+  stars = TRUE, 
+  caption = "The results of the models for the research questions",
+  output = "kableExtra") %>%
+    # make smaller to fit
+    kable_styling(latex_options = "scale_down")
+  
+} else {
+  
+  modelsummary(list("RQ 1" = RQ1_model,
+                    "H1a x Consensus" = RQ2_H1a_model,
+                    "H1b x Consensus" = RQ2_H1b_model,
+                    "H2a x Consensus" = RQ2_H2a_model,
+                    "H2b x Consensus" = RQ2_H2b_model
+  ), 
+  stars = TRUE, 
+  caption = "The results of the models for the research questions",
+  output = "flextable") %>%
+    flextable::set_caption("The results of the models for the research questions") %>%
+    flextable::autofit() %>%  # Ensure proper column width
+    flextable::theme_booktabs()  # Use a professional-looking theme
+  
+}
+
 ```
