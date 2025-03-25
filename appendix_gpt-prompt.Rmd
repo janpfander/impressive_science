@@ -1,5 +1,6 @@
 # Chat GPT Prompt for Experiment 2 {#gpt-prompt}
 
+\FloatBarrier
 
 We provided ChatGPT with the evaluation grid (Table \@ref(tab:knowledge-evaluation-grid)) and the following prompt:
 

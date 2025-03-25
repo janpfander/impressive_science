@@ -4,6 +4,8 @@ This experiment is not reported in the main article, but similar in Design to Ex
 
 ## Differences with Experiment 1 from the main article
 
+\FloatBarrier
+
 Experiment 1 reported in the main article is essentially a slightly improved version of Experiment 1b. Although we confirmed all our hypotheses, there were a couple of issues with Experiment 1b that make us feel that a replication was warranted: First, we made a technical mistake: In the entomology condition, our manipulation check question read: “How impressive do you think the findings of the archeologists described in the text are?”, whereas it should have read “… the findings of entomologists…”. Two participants brought this issue to our attention. While it should not have affected Hypotheses 1a and 2a, it might have distorted results on Hypotheses 1b and 2b which rely on the faulty question item. We corrected this mistake for Experiment 1. 
 
 Second, in Experiment 1b, participants who read the archeology vignettes--contrary to the findings of a pilot study--did not rate the impressive version as more impressive than the basic version. We therefore used slightly modified vignettes for archeology for Experiment 1, hoping to make the two conditions more distinguishable. We also shortened the text in both conditions to be more similar in length to (i) each other and (ii) to the entomology vignettes. Table \@ref(tab:exp1b-stimuli) shows the vignettes used in Experiment 1b. Table \@ref(tab:exp1-exp1b-differences) highlights the differences in the archeology vignettes between Experiment 1 and 1b. Third, for a minor issue, one participant remarked that we should have spelled “archaeology” instead of “archeology”. To avoid potential confusion, we changed the spelling accordingly in Experiment 1.

@@ -4,6 +4,8 @@ This experiment is not reported in the main article. Please note that on the OSF
 
 ## Difference with Experiment 2
 
+\FloatBarrier
+
 In contrast to Experiment 3, we used a more direct recall measure—an open-ended text answer—and an even shorter time lag.
 
 In Experiment 3, we quizzed participants about impressive scientific findings, either immediately after learning about them or after having gone through a distraction task. However, people's quiz performance did not vary between conditions--possibly because the quiz was generally too easy, and those questions which weren't easy were already hard to answer immediately after having read the text. In Experiment 4, we used a different design to overcome some of these issues.
@@ -95,6 +97,14 @@ H1: The difference in knowledge performance between treatment and control group 
 ### Participants
 
 We ran a power simulation to inform our choice of sample size. The power simulation suggested that with 150 participants, we would cross the power threshold of 90% for the interaction effect (power = 0.958). Due to uncertainty about our parameters for the simulations, and because our budget allowed for it, we aimed to recruit a sample of 200 participants. We ended up with a sample of `r exp2b_descriptives$n_subj` participants (`r exp2b_descriptives$gender$female$n` female, `r exp2b_descriptives$gender$male$n` male; $age_\text{mean}$: `r exp2b_descriptives$age$mean`, $age_\text{sd}$: `r exp2b_descriptives$age$sd`, $age_\text{median}$: `r exp2b_descriptives$age$median`), none of which failed our attention check.
+
+### Attention check
+
+Imagine you are playing video games with a friend and at some point your friend says: “I don’t want to play this game anymore! To make sure that you read the instructions, please write the three following words "I pay attention" in the box below. I really dislike this game, it's the most overrated game ever.”
+
+Do you agree with your friend? (Yes/No)
+
+We excluded all participants whose answer did not resemble "I pay attention".
 
 ### Procedure
 
@@ -243,23 +253,7 @@ Analyzing the effects of our treatment on all outcome variables of interest sepa
 
 Unsurprisingly, we do therefore not find evidence for our hypotheses, namely that our treatment--the distraction task--affected knowledge more than it did any of the other outcome variables ($\hat{b}_{\text{trust}}$ = `r exp2b_descriptives$model_trust$interaction$estimate` `r exp2b_descriptives$model_trust$interaction$ci`, p `r exp2b_descriptives$model_trust$interaction$p.value`; $\hat{b}_{\text{impressiveness}}$ = `r exp2b_descriptives$model_impressed$interaction$estimate` `r exp2b_descriptives$model_impressed$interaction$ci`, p `r exp2b_descriptives$model_impressed$interaction$p.value`; $\hat{b}_{\text{competence}}$ = `r exp2b_descriptives$model_competence$interaction$estimate` `r exp2b_descriptives$model_competence$interaction$ci`, p `r exp2b_descriptives$model_competence$interaction$p.value`).
 
-____________
-
-Old stuff
-
-## Materials
-
-\FloatBarrier
-
-## Attention check
-
-Imagine you are playing video games with a friend and at some point your friend says: “I don’t want to play this game anymore! To make sure that you read the instructions, please write the three following words "I pay attention" in the box below. I really dislike this game, it's the most overrated game ever.”
-
-Do you agree with your friend? (Yes/No)
-
-We excluded all participants whose answer did not resemble "I pay attention".
-
-## Descriptives
+Table \@ref(tab:exp2b-descriptives) provides a descriptive table of the results, and Figure \@ref(fig:exp2b-plot) illustrates them. The results of the models from the hypotheses can be found in table \@ref(tab:exp2b-hypotheses-table). The treatment effects by outcome can be found in table \@ref(tab:exp2b-treatment-effects).
 
 ```{r exp2b-descriptives}
 # by discipline
@@ -291,10 +285,6 @@ output_table <- table %>%
 output_table
 ```
 
-## Results
-
-Fig. \@ref(fig:exp2b-plot) illustrates the results.
-
 (ref:exp2b-plot) Overview of treatment effect on various outcomes
 
 ```{r exp2b-plot, fig.cap="(ref:exp2b-plot)"}
@@ -318,8 +308,6 @@ ggplot(plot_data, aes(x=outcome, y=value, fill = treatment)) +
 
 
 ```
-
-The results of the models from the hypotheses can be found in table \@ref(tab:exp2b-hypotheses-table).
 
 ```{r exp2b-hypotheses-table}
 # H1 a
@@ -363,8 +351,6 @@ if (knitr::is_latex_output() || knitr::is_html_output()) {
 }
 
 ```
-
-The treatment effects by outcome can be found in table \@ref(tab:exp2b-treatment-effects).
 
 ```{r exp2b-treatment-effects}
 # Isolated Treatment effects

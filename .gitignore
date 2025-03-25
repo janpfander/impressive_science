@@ -4,10 +4,11 @@
 .RData
 .Ruserdata
 
-# Ignore all elements in subfolders called "data"
-**/data/*
-
+# Ignore all elements in the *no_git folder
 no_git/
+
+# Ignore gss data
+gss_cross/data/*
 
 # Ignore Word files
 *.doc
@@ -28,3 +29,6 @@ no_git/
 
 # Ignore figures
 *output/
+
+# Ignore preprint files for annonymized peer review
+preprint*

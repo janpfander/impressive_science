@@ -1,8 +1,8 @@
 # Inter-Coder Agreement  {#inter-coder}
 
+\FloatBarrier
 
 In the paper, we report the ICC. Here, we additionally show the descriptive agreement rates for different pairs of coders for each knowledge element. 
-
 
 ```{r}
 caption <-  "Average agreement rates between different pairs of raters by knowledge element"

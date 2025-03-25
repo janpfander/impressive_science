@@ -1,5 +1,7 @@
 # Stability of trust in science in the US {#stability}
 
+\FloatBarrier
+
 Figure \@ref(fig:gss-trend) shows how, since the 1970s, on average `r top_intitutions_great_deal$consci$mean_share` of Americans say they have a great deal of confidence in the scientific community, the second highest score among `r n_institutions` institutions included in the US General Social Survey (GSS), just behind the military.
 
 Figure \@ref(fig:gss-trend-confidence) shows that the trend of stability for the share of Americans having a "great deal of confidence" in the scientific community also holds for those who have "only some" or "hardly any" confidence.
@@ -71,6 +73,12 @@ gss_summary_polarization <- gss |>
       share = n_responses_in_category/n_responses_in_year,
       # remove 0s
       share = ifelse(share == 0, NA, share)) |> 
+  # make confidence_factor a factor with levels
+  mutate(confidence_factor = factor(confidence_factor, 
+                                    levels = c("Hardly any confidence at all", 
+                                               "Only some confidence", 
+                                               "A great deal confidence"),
+                                    ordered = TRUE)) |> 
 drop_na(share)
 ```
 
@@ -88,23 +96,8 @@ gss_summary_polarization |>
   scale_x_continuous(breaks = c(seq(min(gss_summary_polarization$year), max(gss_summary_polarization$year), by = 5), max(gss_summary_polarization$year))) +  
 
   labs(x = "Year", y = "Americans Confidence in Scientific Community", 
-       caption = "Data source: GSS by NORC") +
+       caption = "Data source: GSS by NORC", color = "Level of Confidence") +
   theme_minimal() +  
-  theme(legend.position = "none") +
-
-  # Institution name nudged to the right
-  geom_text_repel(
-    data = gss_summary_polarization  |> 
-      group_by(confidence_factor) |> 
-      slice_max(year, n = 1, with_ties = FALSE),  
-    aes(label = confidence_factor),  
-    hjust = 0,  
-    nudge_x = 11,  
-    size = 3,  
-    direction = "both",
-    fontface = "bold",  
-    segment.color = "grey50"  
-  ) +
   scale_alpha_identity()
 ```
 

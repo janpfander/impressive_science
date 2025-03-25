@@ -254,9 +254,17 @@ While the rational impression model, we have argued, can reconcile well-establis
 
 \section{The present studies}\label{the-present-studies}
 
-We tested the predictions of the rational impression model in two experiments (total n = 696): Experiment 1 tests whether impressive scientific findings lead people to think of the scientists as more competent and more trustworthy. Experiment 2 tests whether that impression persists even if specific content is forgotten.
 
-Both experiments were preregistered, and the choice of sample size was informed by power simulations. All materials, data, and code can be found on Open Science Framework \href{https://osf.io/j3bk4/}{project page} (\url{https://osf.io/j3bk4/}). All analyses were conducted in R (version 4.2.2) using R Studio. We used two-sided tests for all hypotheses. Unless mentioned otherwise, we report unstandardized estimates that can be interpreted in units of the original scales.
+
+\begin{figure}
+\centering
+\includegraphics{output/figures/overview-plot.pdf}
+\caption{\label{fig:overview-plot}\textbf{A.} An overview of the differences in trust, according to whether the participants had read a basic, an impressive, or another participant's recalled version of the impressive vignette. The density plots show the distributions of participants' trust scores. The dots represent model estimates, and the vertical bars the 95\% confidence intervals of the model predictions. \textbf{B.} The distribution of knowledge scores (ranging from 0\% to 100\% retained information) in the recall study of Experiment 2. Each dot corresponds to one participant. For the boxplot, the box represents the interquartile range (IQR), that is, the distance between the first and third quartiles, the center line indicates the median, and the outer lines (whiskers) extend to 1.5 times the IQR or the most extreme values within this range.}
+\end{figure}
+
+We tested the predictions of the rational impression model in two experiments (total n = 696): Experiment 1 tests whether impressive scientific findings lead people to think of the scientists as more competent and more trustworthy. Experiment 2 tests whether that impression persists even if specific content is forgotten. Figure \ref{fig:overview-plot} provides an overview of the main results of the two experiments.
+
+Both experiments were preregistered, and the choice of sample size was informed by power simulations. All materials, data, and code can be found on Open Science Framework \href{https://osf.io/j3bk4/?view_only=0c11d7720fe2450e8d205975fa3e47d5}{project page} (\url{https://osf.io/j3bk4/?view_only=0c11d7720fe2450e8d205975fa3e47d5}). All analyses were conducted in R (version 4.2.2) using R Studio. We used two-sided tests for all hypotheses. Unless mentioned otherwise, we report unstandardized estimates that can be interpreted in units of the original scales.
 
 As part of this project, we conducted two additional experiments which we present in detail in the ESM. The first experiment (`Experiment 1b' in the ESM) is almost identical to Experiment 1, but suffered from a minor technical error during the implementation. Nonetheless, its findings are identical to those of Experiment 1. The second experiment (`Experiment 2b') was supposed to test the same hypothesis as Experiment 2, but the treatment--a very short distraction task--did not alter any of the outcome variables, suggesting that our outcome measures, a set of multiple-choice questions, was not sufficiently sensitive.
 
@@ -382,7 +390,7 @@ Next, as an open-ended question, participants were asked to recall as much infor
 
 \paragraph{Evaluation study}\label{evaluation-study}
 
-After consenting to taking part in the study and passing an attention check (see ESM), participants read either one of the original vignettes, or a text produced as part of the recall task from the recall study. For those participants assigned to read a recall text, the text was randomly sampled (with replacement) from a pool of recall answers. Orthographic and grammatical mistakes in these texts were corrected with the help of ChatGPT beforehand. We had preregistered to sample among all recall answers from participants of the recall study. However, checking recall scores after the recall study and before launching the evaluation study, we found them to be very low on average (see ESM section \ref{above-median}). To avoid having the answers of less motivated participants in our sample, we decided to only select answers that scored above median in the recall measure of the evaluation study. This selection is conservative in that it makes it harder to confirm our predictions under H4.
+After consenting to taking part in the study and passing an attention check (see ESM), participants read either one of the original vignettes, or a text produced as part of the recall task from the recall study. For those participants assigned to read a recall text, the text was randomly sampled (with replacement) from a pool of recall answers. Orthographic and grammatical mistakes in these texts were corrected with the help of ChatGPT beforehand. We had preregistered to sample among all recall answers from participants of the recall study. However, checking recall scores after the recall study and before launching the evaluation study, we found them to be very low on average (see ESM section \ref{above-median}). To avoid having the answers of less motivated participants in our sample, we decided to only select answers that scored at least as well as the median in the recall measure of the evaluation study. This selection is conservative in that it makes it harder to confirm our predictions under H4.
 
 After reading the text, just as in the recall study, participants were asked about changes in their perception of the scientists' competence, trust in the scientists' discipline, and the impressiveness of the text they read. The order of these questions was randomized. Finally, participants were asked about their education level.
 
@@ -415,7 +423,7 @@ As shown in Table \ref{tab:knowledge-evaluation-grid}, the texts were divided in
 
 The coding was done with the help of ChatGPT (see ESM section \ref{gpt-prompt} for the exact prompt). The instructions were: to code 0 if a piece of knowledge was not mentioned or was mentioned with significant errors (e.g., writing ``the nerve controlling fine hand movement is bigger in humans'' instead of ``the nerve controlling breathing is bigger in humans''); to code 1 if the piece of knowledge was mentioned, but some important elements were missing (e.g., writing ``Archaeologists can determine at what age someone stopped drinking their mother's milk'' instead of ``Archaeologists can determine at what age someone stopped drinking their mother's milk from the composition of their teeth''), and/or there were some mistakes (e.g., writing ``Archaeologists can determine at what age someone stopped drinking their mother's milk, based on the bones'' instead of ``Archaeologists can determine at what age someone stopped drinking their mother's milk based on the teeth''); to code 2 if the piece of knowledge was mentioned with all the main content, even if the participant had not used the precise technical words (e.g., ``neanderthals,'' ``laser-Doppler velocimetry'') or had changed the phrasing in other ways. These instructions were intended to produce relatively generous recall scores.
 
-Since the two vignettes contained a different number of total knowledge elements according to our evaluation grid (8 for archaeology, 7 for entomology), we used a relative measure for the final recall score, namely the share of obtained points among all possible points (possible range from 0 to 1, below the results are presented in percentages recalled for clarity). Practically, for all tests on recall, we computed a forgetting score (1-recall score), and tested whether it was significantly different from zero.
+Since the two vignettes contained a different number of total knowledge elements according to our evaluation grid (8 for archaeology, 7 for entomology), we used a relative measure for the final recall score, namely the share of obtained points among all possible points (possible range from 0 to 1, below the results are presented in percentages recalled for clarity). Practically, for all tests on recall, we computed a forgetting score (1-recall score), and tested whether it was statistically significantly different from zero.
 
 To validate the scores assigned by ChatGPT, they were compared to scores assigned by two human coders for a subsample of 80 randomly chosen texts (half on archaeology, half on entomology). The human coders were unaware of the study context and the hypotheses. They were provided with the prompt given to ChatGPT. To measure the agreement between ChatGPT and the human coders, we calculated an intraclass correlation coefficient (ICC) for two-way designs with random raters (Ten Hove, Jorgensen, \& Ark, 2024). Following the guidelines in Heyman, Lorber, Eddy, and West (2014), we preregistered taking 0.7 as a threshold for acceptable reliability. In our sample, we observe an ICC of 0.84 {[}se = 0.03{]}. Human coders and ChatGPT, on average, assigned exactly the same score in 72.9\% of all rating instances (compared to 73.5\% of exact agreement between the two human coders). Following our preregistration, we consider the high agreement as suggested by the ICC a validation of the use of ChatGPT.
 
@@ -453,11 +461,11 @@ The present experiments have a number of limitations: First, they were conducted
 
 \subsubsection{Data availability}\label{data-availability}
 
-Data for all experiments and the simulations is available on the OSF project page (\url{https://osf.io/j3bk4/}). Note that on the project page, all materials related to what is referred to as ``Experiment 1'' in this paper are stored under ``experiment\_2'', and all materials related to ``Experiment 2'' in this paper are stored under ``experiment\_4''. This numbering is due to the original order in which experiments for this project were conducted. For a detailed report on the other experiments conducted as part of this project, see the ESM.
+Data for all experiments and the simulations is available on the OSF project page (\url{https://osf.io/j3bk4/?view_only=0c11d7720fe2450e8d205975fa3e47d5}). Note that on the project page, all materials related to what is referred to as ``Experiment 1'' in this paper are stored under ``experiment\_2'', and all materials related to ``Experiment 2'' in this paper are stored under ``experiment\_4''. This numbering is due to the original order in which experiments for this project were conducted. For a detailed report on the other experiments conducted as part of this project, see the ESM.
 
 \subsubsection{Code availability}\label{code-availability}
 
-The code used to create all results (including tables and figures) of this manuscript is also available on the OSF project page (\url{https://osf.io/j3bk4/}).
+The code used to create all results (including tables and figures) of this manuscript is also available on the OSF project page (\url{https://osf.io/j3bk4/?view_only=0c11d7720fe2450e8d205975fa3e47d5}).
 
 \subsubsection{Competing interest}\label{competing-interest}
 
@@ -583,23 +591,35 @@ Wellcome Global Monitor. (2020). \emph{Wellcome Global Monitor 2020: Covid-19}. 
 
 \section{Chat GPT Prompt for Experiment 2}\label{gpt-prompt}
 
+\FloatBarrier
+
 We provided ChatGPT with the evaluation grid (Table \ref{tab:knowledge-evaluation-grid}) and the following prompt:
 
 \begin{quote}
 \textbf{Prompt ChatGPT}: \emph{``In an experiment, participants read the following vignette : {[}\ldots{]}. Then, participants are asked to write what they recall from the vignette. Evaluate whether the following piece of information is included in the participant's text : {[}\ldots{]}. You should give one of three grades : 0 = the piece of knowledge is not mentioned, or it is mentioned with very important mistakes (e.g.~writing ``the nerve controlling fine hand movement is bigger in humans'' instead of ``the nerve controlling breathing is bigger in humans''). 1 = the piece of knowledge is mentioned, but some important elements are missing (e.g.~writing ``Archaeologists can determine at what age someone stopped drinking their mother's milk'' instead of « Archaeologists can determine at what age someone stopped drinking their mother's milk from the composition of their teeth »), and/or there are some mistakes (e.g.~writing ``Archaeologists can determine at what age someone stopped drinking their mother's milk, based on the bones'' instead of ``Archaeologists can determine at what age someone stopped drinking their mother's milk based on the teeth''). 2 = the piece of knowledge is mentioned with all the main elements. Note: a grade of 2 is attributed even if the participant has not used the precise technical words (e.g.~``neanderthals'', ``laser-Doppler velocimetry'') or has changed the phrasing of the information in other ways. Provide a brief explanation, and conclude the explanation with the score formatted as Score= followed by the numerical value, with no text or symbol after the score. Here is the participant's text: {[}\ldots{]}.''}
 \end{quote}
 
+\clearpage
+
 \section{Selection of above-median recall scores in Experiment 2}\label{above-median}
 
-Checking recall scores after the main study and before launching the validation study, we found them to be very low on average.
+\FloatBarrier
 
-MAKE OVERVIEW HERE
+Checking recall scores after the main study and before launching the validation study, we found them to be very low on average (see Figure \ref{fig:distribution-knowledge}). For our hypothesis test, we therefore only kept above median responses, to have a more conservative test for our hypotheses.
 
-To avoid having the answers of ``lazy'' participants--who might have recalled more, but were not motivated to type what they remembered--in our sample, we decided to only selected answers that scored above median in our recall measure for the validation study
 
-MAKE OVERVIEW HERE
+
+\begin{figure}
+\centering
+\includegraphics{output/figures/distribution-knowledge.pdf}
+\caption{\label{fig:distribution-knowledge}\emph{Distribution of knowledge score in Experiment 2}.}
+\end{figure}
+
+\clearpage
 
 \section{Stability of trust in science in the US}\label{stability}
+
+\FloatBarrier
 
 Figure \ref{fig:gss-trend} shows how, since the 1970s, on average 40\% of Americans say they have a great deal of confidence in the scientific community, the second highest score among 13 institutions included in the US General Social Survey (GSS), just behind the military.
 
@@ -621,19 +641,23 @@ Figure \ref{fig:gss-trend-confidence} shows that the trend of stability for the 
 \caption{\label{fig:gss-trend-confidence}\emph{Confidence in Scientific Community in the US}. The plot shows the variation of confidence in the Scientific Community in the US over time, for all answer options. The data for this plot is from the cumulative file of the US General Social Survey (GSS).}
 \end{figure}
 
+\clearpage
+
 \section{Inter-Coder Agreement}\label{inter-coder}
+
+\FloatBarrier
 
 In the paper, we report the ICC. Here, we additionally show the descriptive agreement rates for different pairs of coders for each knowledge element.
 
 \begingroup\fontsize{8}{10}\selectfont
 
 \begin{longtable}[t]{llll}
-\caption{\label{tab:unnamed-chunk-29}Average agreement rates between different pairs of raters by knowledge element}\\
+\caption{\label{tab:unnamed-chunk-32}Average agreement rates between different pairs of raters by knowledge element}\\
 \toprule
 Element & Coder 1 - ChatGPT & Coder 1 - ChatGPT & Coder 1 - Coder 2\\
 \midrule
 \endfirsthead
-\caption[]{\label{tab:unnamed-chunk-29}Average agreement rates between different pairs of raters by knowledge element \textit{(continued)}}\\
+\caption[]{\label{tab:unnamed-chunk-32}Average agreement rates between different pairs of raters by knowledge element \textit{(continued)}}\\
 \toprule
 Element & Coder 1 - ChatGPT & Coder 1 - ChatGPT & Coder 1 - Coder 2\\
 \midrule
@@ -662,11 +686,15 @@ entom7 & 62.5\% & 60\% & 92.5\%\\*
 \end{longtable}
 \endgroup{}
 
+\clearpage
+
 \section{Experiment 1b}\label{exp1b}
 
 This experiment is not reported in the main article, but similar in Design to Experiment 1 reported in the article, which is why we refer to it as Experiment 1b. Please note that on the OSF, all files related to this Experiment 1 are under ``experiment\_2'' and files related to Experiment 1b under ``experiment\_1'', as this was the order in which experiments were run.
 
 \subsection{Differences with Experiment 1 from the main article}\label{differences-with-experiment-1-from-the-main-article}
+
+\FloatBarrier
 
 Experiment 1 reported in the main article is essentially a slightly improved version of Experiment 1b. Although we confirmed all our hypotheses, there were a couple of issues with Experiment 1b that make us feel that a replication was warranted: First, we made a technical mistake: In the entomology condition, our manipulation check question read: ``How impressive do you think the findings of the archeologists described in the text are?'', whereas it should have read ``\ldots{} the findings of entomologists\ldots{}''. Two participants brought this issue to our attention. While it should not have affected Hypotheses 1a and 2a, it might have distorted results on Hypotheses 1b and 2b which rely on the faulty question item. We corrected this mistake for Experiment 1.
 
@@ -917,6 +945,8 @@ RMSE & 0.66 & 0.53 & 0.56 & 0.69 & 0.72\\
 \end{tabular}}
 \end{table}
 
+\clearpage
+
 \section{Experiment 1}\label{exp1}
 
 This is the experiment reported as Experiment 1 in the main article. Please note that on the OSF, all files related to this experiment are listed under ``experiment\_2'', as this corresponded to the order in which our different experiments were run.
@@ -1046,11 +1076,15 @@ RMSE & 0.67 & 0.43 & 0.44 & 0.53 & 0.57\\
 \end{tabular}}
 \end{table}
 
+\clearpage
+
 \section{Experiment 2b}\label{exp2b}
 
 This experiment is not reported in the main article. Please note that on the OSF, all files related to this experiment are listed under ``experiment\_3'', as this corresponded to the order in which our different experiments were run.
 
 \subsection{Difference with Experiment 2}\label{difference-with-experiment-2}
+
+\FloatBarrier
 
 In contrast to Experiment 3, we used a more direct recall measure---an open-ended text answer---and an even shorter time lag.
 
@@ -1076,6 +1110,14 @@ H1: The difference in knowledge performance between treatment and control group 
 \subsubsection{Participants}\label{participants-3}
 
 We ran a power simulation to inform our choice of sample size. The power simulation suggested that with 150 participants, we would cross the power threshold of 90\% for the interaction effect (power = 0.958). Due to uncertainty about our parameters for the simulations, and because our budget allowed for it, we aimed to recruit a sample of 200 participants. We ended up with a sample of 202 participants (101 female, 100 male; \(age_\text{mean}\): 42.33, \(age_\text{sd}\): 13.74, \(age_\text{median}\): 41), none of which failed our attention check.
+
+\subsubsection{Attention check}\label{attention-check-2}
+
+Imagine you are playing video games with a friend and at some point your friend says: ``I don't want to play this game anymore! To make sure that you read the instructions, please write the three following words''I pay attention'' in the box below. I really dislike this game, it's the most overrated game ever.''
+
+Do you agree with your friend? (Yes/No)
+
+We excluded all participants whose answer did not resemble ``I pay attention''.
 
 \subsubsection{Procedure}\label{procedure-3}
 
@@ -1191,23 +1233,7 @@ Analyzing the effects of our treatment on all outcome variables of interest sepa
 
 Unsurprisingly, we do therefore not find evidence for our hypotheses, namely that our treatment--the distraction task--affected knowledge more than it did any of the other outcome variables (\(\hat{b}_{\text{trust}}\) = -0.37 {[}-0.759, 0.023{]}, p = 0.065; \(\hat{b}_{\text{impressiveness}}\) = -0.01 {[}-0.389, 0.375{]}, p = 0.972; \(\hat{b}_{\text{competence}}\) = -0.13 {[}-0.515, 0.251{]}, p = 0.497).
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-Old stuff
-
-\subsection{Materials}\label{materials-5}
-
-\FloatBarrier
-
-\subsection{Attention check}\label{attention-check-2}
-
-Imagine you are playing video games with a friend and at some point your friend says: ``I don't want to play this game anymore! To make sure that you read the instructions, please write the three following words''I pay attention'' in the box below. I really dislike this game, it's the most overrated game ever.''
-
-Do you agree with your friend? (Yes/No)
-
-We excluded all participants whose answer did not resemble ``I pay attention''.
-
-\subsection{Descriptives}\label{descriptives-1}
+Table \ref{tab:exp2b-descriptives} provides a descriptive table of the results, and Figure \ref{fig:exp2b-plot} illustrates them. The results of the models from the hypotheses can be found in table \ref{tab:exp2b-hypotheses-table}. The treatment effects by outcome can be found in table \ref{tab:exp2b-treatment-effects}.
 
 \begin{table}
 \centering\centering
@@ -1226,10 +1252,6 @@ entom & distraction & 2.88 & 4.12 & 4.65 & 4.16\\
 \end{tabular}}
 \end{table}
 
-\subsection{Results}\label{results-1}
-
-Fig. \ref{fig:exp2b-plot} illustrates the results.
-
 
 
 \begin{figure}
@@ -1237,8 +1259,6 @@ Fig. \ref{fig:exp2b-plot} illustrates the results.
 \includegraphics{output/figures/exp2b-plot.pdf}
 \caption{\label{fig:exp2b-plot}Overview of treatment effect on various outcomes}
 \end{figure}
-
-The results of the models from the hypotheses can be found in table \ref{tab:exp2b-hypotheses-table}.
 
 \begin{table}
 \centering\centering
@@ -1272,8 +1292,6 @@ RMSE & 0.95 & 0.99 & 0.95\\
 \end{tabular}}
 \end{table}
 
-The treatment effects by outcome can be found in table \ref{tab:exp2b-treatment-effects}.
-
 \begin{table}
 \centering\centering
 \caption{\label{tab:exp2b-treatment-effects}Treatment effects by outcome}
@@ -1300,7 +1318,11 @@ RMSE & 0.99 & 0.99 & 0.99 & 1.00\\
 \end{tabular}}
 \end{table}
 
+\clearpage
+
 \section{Experiment 2}\label{exp2}
+
+\FloatBarrier
 
 This is the experiment reported as Experiment 2 in the main article. Please note that on the OSF, all files related to this experiment are listed under ``experiment\_4'', as this corresponded to the order in which our different experiments were run.
 

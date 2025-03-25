@@ -25,9 +25,9 @@ tablelist         : no
 footnotelist      : no
 classoption       : "doc" # "doc" for nice look, "man" for manuscripty
 output: 
+  papaja::apa6_docx: default
   papaja::apa6_pdf: 
     keep_tex: true
-  papaja::apa6_docx: default
 always_allow_html: true
 appendix:
   - "appendix_gpt-prompt.Rmd"
@@ -598,9 +598,167 @@ exp2_descriptives_validation <- list(
 )
 ```
 
-We tested the predictions of the rational impression model in two experiments (total n = `r exp2_descriptives_everyone$n_subj + exp1_descriptives$n_subj + exp2_descriptives_validation$n_subj`): Experiment 1 tests whether impressive scientific findings lead people to think of the scientists as more competent and more trustworthy. Experiment 2 tests whether that impression persists even if specific content is forgotten.
+```{r combined-data}
+# combine data of all three studies
 
-Both experiments were preregistered, and the choice of sample size was informed by power simulations. All materials, data, and code can be found on Open Science Framework [project page](https://osf.io/j3bk4/) (<https://osf.io/j3bk4/>). All analyses were conducted in R (version 4.2.2) using R Studio. We used two-sided tests for all hypotheses. Unless mentioned otherwise, we report unstandardized estimates that can be interpreted in units of the original scales.
+variables <- c("study", "id", "impressed", "competence", "trust", "discipline", "impressiveness")
+
+combined_data <- bind_rows(exp1 %>% 
+                             mutate(study = "Experiment 1", 
+                                    # use clearer value labels
+                                    impressiveness = ifelse(impressiveness == "basic", "basic", "impressive")) |> 
+                             select(any_of(variables)), 
+                           exp2 %>% 
+                             mutate(study = "Experiment 2 (recall)", 
+                                    impressiveness = "impressive") |> 
+                             # use naming coherent with Experiment 1
+                             rename(impressed = global_impressiveness) |> 
+                             select(any_of(variables)), 
+                           exp2_validation %>% 
+                             mutate(study = "Experiment 2 (evaluation)", 
+                                    condition = ifelse(condition == "recall", "recall", "impressive")) |> 
+                             # use naming coherent with Experiment 1
+                             rename(impressed = impressiveness, 
+                                    impressiveness = condition) |> 
+                             select(any_of(variables))
+                           ) |>  
+  # make a unique id variable
+  mutate(id = paste0("study", study, "_", id), 
+         study = factor(study, levels = c("Experiment 1", 
+                                          "Experiment 2 (recall)",
+                                          "Experiment 2 (evaluation)"))
+         )
+```
+
+
+(ref:overview-plot) **A.** An overview of the differences in trust, according to whether the participants had read a basic, an impressive, or another participant's recalled version of the impressive vignette. The density plots show the distributions of participants' trust scores. The dots represent model estimates, and the vertical bars the 95% confidence intervals of the model predictions. **B.** The distribution of knowledge scores (ranging from 0% to 100% retained information) in the recall study of Experiment 2. Each dot corresponds to one participant. For the boxplot, the box represents the interquartile range (IQR), that is, the distance between the first and third quartiles, the center line indicates the median, and the outer lines (whiskers) extend to 1.5 times the IQR or the most extreme values within this range.
+
+```{r overview-plot, fig.cap="(ref:overview-plot)"}
+# make a recall plot
+
+# Define colors
+fox_palette <- wes_palette("FantasticFox1")
+
+recall_plot <- exp2 |> 
+  ggplot(aes(x = 0, y = knowledge_score)) +  
+  # Half-boxplot
+  geom_half_boxplot(side = "l", width = 0.1, outlier.shape = NA, 
+                    alpha = 0.7, fill = fox_palette[2], color = fox_palette[2]) +  
+  # Jittered points
+  geom_half_point(side = "l", transformation = position_jitter(width = 0.05, height = 0), 
+                  alpha = 0.7, color = fox_palette[2]) +  
+  # Small dotted tick mark at maximum knowledge score
+  geom_segment(aes(x = -0.5, xend = 0.1, y = 1, yend = 1), 
+               color = fox_palette[5], linewidth = 0.6, linetype = "dotted") +  
+  # Label for maximum knowledge score
+  annotate("text", x = -0.5, y = 1.02, label = "Perfect recall", 
+           hjust = 0, vjust = 0, color = fox_palette[5], size = 3.5) + 
+  labs(y = "Recall Score", x = NULL) +
+  scale_y_continuous(labels = scales::percent, limits = c(0, 1.05)) +  
+  plot_theme +
+  theme(axis.text.x = element_blank(),   # Removes x-axis text labels
+        axis.ticks.x = element_blank(),  # Removes x-axis ticks
+        axis.title.x = element_blank())  # Removes x-axis title
+
+
+
+# get model predictions
+
+# for Experiment 1
+intercept_exp1 <- tidy(H2a_model) |> 
+  select(estimate) |> 
+  slice(1) |> 
+  pull()
+
+predictions_exp1 <- H2a_model |> 
+  tidy(conf.int = TRUE) |> 
+  mutate(impressiveness = ifelse(term == "(Intercept)", "basic", "impressive"), 
+      # make sure to add the value of the intercept to have the predicted value
+      # instead of the differential
+      across(c(estimate, conf.low, conf.high), ~ifelse(term == "(Intercept)", .x, 
+                                                       .x + intercept_exp1)), 
+      study = "Experiment 1") |> 
+  filter(effect == "fixed") |> 
+  select(study, impressiveness, estimate, conf.low, conf.high)
+
+# for Experiment 2 recall
+predictions_exp2_recall <- combined_data |>
+  filter(study == "Experiment 2 (recall)") |> 
+  group_by(study, impressiveness) |> 
+  summarise(
+    estimate = mean(trust, na.rm = TRUE),
+    se_trust = sd(trust, na.rm = TRUE) / sqrt(n()),  # Standard Error
+    conf.low = estimate - 1.96 * se_trust,  # 95% CI Lower Bound
+    conf.high = estimate + 1.96 * se_trust   # 95% CI Upper Bound
+  ) |> 
+  select(-se_trust)
+
+# for Experiment 2 evaluation 
+# instead of using the t-test from h4c, we will run a linear regression (in order to get a prediction for the intercept)
+h4c_as_linear_model <- lm(trust ~ condition, exp2_validation)
+
+intercept_exp2_evaluation <- tidy(h4c_as_linear_model ) |> 
+  select(estimate) |> 
+  slice(1) |> 
+  pull()
+
+predictions_exp2_evaluation <- h4c_as_linear_model |> 
+  tidy(conf.int = TRUE) |> 
+  mutate(impressiveness = ifelse(term == "(Intercept)", "impressive", "recall"), 
+         # make sure to add the value of the intercept to have the predicted value
+         # instead of the differential
+         across(c(estimate, conf.low, conf.high), ~ifelse(term == "(Intercept)", .x, 
+                                                          .x + intercept_exp2_evaluation )), 
+         study = "Experiment 2 (evaluation)") |> 
+  select(study, impressiveness, estimate, conf.low, conf.high)
+
+
+predictions <- bind_rows(predictions_exp1, 
+                         predictions_exp2_recall,
+                         predictions_exp2_evaluation) |>  
+  # have study being a factor
+  mutate(study = factor(study, levels = c("Experiment 1", 
+                                          "Experiment 2 (recall)",
+                                          "Experiment 2 (evaluation)"))
+         )
+
+# Plot
+impressiveness_plot <- combined_data |> 
+  ggplot(aes(x = impressiveness, y = trust, fill = study, color = study)) +   
+  geom_half_violin(side = "r", nudge = 0.05, alpha = 0.5, adjust = 0.6) + 
+  geom_pointrange(data = predictions, 
+                  aes(x = impressiveness, y = estimate, color = study, 
+                      ymin = conf.low, ymax = conf.high), 
+                  position = position_dodge(width = 0.7), 
+                  alpha = 1
+  ) +
+  scale_fill_manual(values = wes_palette("FantasticFox1")) +  
+  scale_color_manual(values = wes_palette("FantasticFox1")) +  
+  labs(x = NULL, y = "Trust", fill = "Impressiveness", color = "Impressiveness") +  # Remove x-axis title
+  plot_theme +
+  theme(
+    legend.position = "top",           # Position the legend at the top of the plot
+    legend.justification = "left",   # Right-align the legend
+    legend.title = element_blank()    # Remove the legend title
+  ) + 
+  guides(colour = guide_legend(nrow = 2), 
+         fill = guide_legend(nrow = 2))
+
+# combined plot
+combined_plot <- impressiveness_plot + recall_plot +
+  plot_annotation(
+    tag_levels = 'A'
+  ) +
+  plot_layout(
+    widths = c(0.6, 0.4)  # Adjust the ratio of the two plots
+  )
+
+combined_plot
+```
+
+We tested the predictions of the rational impression model in two experiments (total n = `r exp2_descriptives_everyone$n_subj + exp1_descriptives$n_subj + exp2_descriptives_validation$n_subj`): Experiment 1 tests whether impressive scientific findings lead people to think of the scientists as more competent and more trustworthy. Experiment 2 tests whether that impression persists even if specific content is forgotten. Figure \@ref(fig:overview-plot) provides an overview of the main results of the two experiments.
+
+Both experiments were preregistered, and the choice of sample size was informed by power simulations. All materials, data, and code can be found on Open Science Framework [project page](https://osf.io/j3bk4/?view_only=0c11d7720fe2450e8d205975fa3e47d5) (<https://osf.io/j3bk4/?view_only=0c11d7720fe2450e8d205975fa3e47d5>). All analyses were conducted in R (version 4.2.2) using R Studio. We used two-sided tests for all hypotheses. Unless mentioned otherwise, we report unstandardized estimates that can be interpreted in units of the original scales.
 
 As part of this project, we conducted two additional experiments which we present in detail in the ESM. The first experiment ('Experiment 1b' in the ESM) is almost identical to Experiment 1, but suffered from a minor technical error during the implementation. Nonetheless, its findings are identical to those of Experiment 1. The second experiment ('Experiment 2b') was supposed to test the same hypothesis as Experiment 2, but the treatment--a very short distraction task--did not alter any of the outcome variables, suggesting that our outcome measures, a set of multiple-choice questions, was not sufficiently sensitive.
 
@@ -748,7 +906,7 @@ Next, as an open-ended question, participants were asked to recall as much infor
 
 #### Evaluation study
 
-After consenting to taking part in the study and passing an attention check (see ESM), participants read either one of the original vignettes, or a text produced as part of the recall task from the recall study. For those participants assigned to read a recall text, the text was randomly sampled (with replacement) from a pool of recall answers. Orthographic and grammatical mistakes in these texts were corrected with the help of ChatGPT beforehand. We had preregistered to sample among all recall answers from participants of the recall study. However, checking recall scores after the recall study and before launching the evaluation study, we found them to be very low on average (see ESM section \@ref(above-median)). To avoid having the answers of less motivated participants in our sample, we decided to only select answers that scored above median in the recall measure of the evaluation study. This selection is conservative in that it makes it harder to confirm our predictions under H4.
+After consenting to taking part in the study and passing an attention check (see ESM), participants read either one of the original vignettes, or a text produced as part of the recall task from the recall study. For those participants assigned to read a recall text, the text was randomly sampled (with replacement) from a pool of recall answers. Orthographic and grammatical mistakes in these texts were corrected with the help of ChatGPT beforehand. We had preregistered to sample among all recall answers from participants of the recall study. However, checking recall scores after the recall study and before launching the evaluation study, we found them to be very low on average (see ESM section \@ref(above-median)). To avoid having the answers of less motivated participants in our sample, we decided to only select answers that scored at least as well as the median in the recall measure of the evaluation study. This selection is conservative in that it makes it harder to confirm our predictions under H4.
 
 After reading the text, just as in the recall study, participants were asked about changes in their perception of the scientists’ competence, trust in the scientists’ discipline, and the impressiveness of the text they read. The order of these questions was randomized. Finally, participants were asked about their education level.
 
@@ -818,7 +976,7 @@ As shown in Table \@ref(tab:knowledge-evaluation-grid), the texts were divided i
 
 The coding was done with the help of ChatGPT (see ESM section \@ref(gpt-prompt) for the exact prompt). The instructions were: to code 0 if a piece of knowledge was not mentioned or was mentioned with significant errors (e.g., writing “the nerve controlling fine hand movement is bigger in humans” instead of “the nerve controlling breathing is bigger in humans”); to code 1 if the piece of knowledge was mentioned, but some important elements were missing (e.g., writing “Archaeologists can determine at what age someone stopped drinking their mother’s milk” instead of "Archaeologists can determine at what age someone stopped drinking their mother’s milk from the composition of their teeth"), and/or there were some mistakes (e.g., writing “Archaeologists can determine at what age someone stopped drinking their mother’s milk, based on the bones” instead of “Archaeologists can determine at what age someone stopped drinking their mother’s milk based on the teeth”); to code 2 if the piece of knowledge was mentioned with all the main content, even if the participant had not used the precise technical words (e.g., “neanderthals,” “laser-Doppler velocimetry”) or had changed the phrasing in other ways. These instructions were intended to produce relatively generous recall scores.
 
-Since the two vignettes contained a different number of total knowledge elements according to our evaluation grid (8 for archaeology, 7 for entomology), we used a relative measure for the final recall score, namely the share of obtained points among all possible points (possible range from 0 to 1, below the results are presented in percentages recalled for clarity). Practically, for all tests on recall, we computed a forgetting score (1-recall score), and tested whether it was significantly different from zero.
+Since the two vignettes contained a different number of total knowledge elements according to our evaluation grid (8 for archaeology, 7 for entomology), we used a relative measure for the final recall score, namely the share of obtained points among all possible points (possible range from 0 to 1, below the results are presented in percentages recalled for clarity). Practically, for all tests on recall, we computed a forgetting score (1-recall score), and tested whether it was statistically significantly different from zero.
 
 To validate the scores assigned by ChatGPT, they were compared to scores assigned by two human coders for a subsample of 80 randomly chosen texts (half on archaeology, half on entomology). The human coders were unaware of the study context and the hypotheses. They were provided with the prompt given to ChatGPT. To measure the agreement between ChatGPT and the human coders, we calculated an intraclass correlation coefficient (ICC) for two-way designs with random raters [@tenhoveUpdatedGuidelinesSelecting2024]. Following the guidelines in @heymanBehavioralObservationCoding2014, we preregistered taking 0.7 as a threshold for acceptable reliability. In our sample, we observe an ICC of `r ICC$ICC` [se = `r ICC$se`]. Human coders and ChatGPT, on average, assigned exactly the same score in `r agreement_human_gpt` of all rating instances (compared to `r agreement_human` of exact agreement between the two human coders). Following our preregistration, we consider the high agreement as suggested by the ICC a validation of the use of ChatGPT.
 
@@ -858,11 +1016,11 @@ The present experiments have a number of limitations: First, they were conducted
 
 ### Data availability
 
-Data for all experiments and the simulations is available on the OSF project page (https://osf.io/j3bk4/). Note that on the project page, all materials related to what is referred to as "Experiment 1" in this paper are stored under "experiment_2", and all materials related to "Experiment 2" in this paper are stored under "experiment_4". This numbering is due to the original order in which experiments for this project were conducted. For a detailed report on the other experiments conducted as part of this project, see the ESM.
+Data for all experiments and the simulations is available on the OSF project page (https://osf.io/j3bk4/?view_only=0c11d7720fe2450e8d205975fa3e47d5). Note that on the project page, all materials related to what is referred to as "Experiment 1" in this paper are stored under "experiment_2", and all materials related to "Experiment 2" in this paper are stored under "experiment_4". This numbering is due to the original order in which experiments for this project were conducted. For a detailed report on the other experiments conducted as part of this project, see the ESM.
 
 ### Code availability
 
-The code used to create all results (including tables and figures) of this manuscript is also available on the OSF project page (https://osf.io/j3bk4/).
+The code used to create all results (including tables and figures) of this manuscript is also available on the OSF project page (https://osf.io/j3bk4/?view_only=0c11d7720fe2450e8d205975fa3e47d5).
 
 ### Competing interest
 
@@ -878,26 +1036,41 @@ The authors declare having no competing interests.
 \newpage
 
 # (APPENDIX) Appendix {.unnumbered}
+
 ```{r child = "appendix_gpt-prompt.Rmd"}
 ```
+
+\clearpage
 
 ```{r child = "appendix_above-median-recall.Rmd"}
 ```
 
+\clearpage
+
 ```{r child = "appendix_stability.Rmd"}
 ```
+
+\clearpage
 
 ```{r child = "appendix_inter-coder.Rmd"}
 ```
 
+\clearpage
+
 ```{r child = "appendix_exp1.Rmd"}
 ```
+
+\clearpage
 
 ```{r child = "appendix_exp2.Rmd"}
 ```
 
+\clearpage
+
 ```{r child = "appendix_exp3.Rmd"}
 ```
+
+\clearpage
 
 ```{r child = "appendix_exp4.Rmd"}
 ```

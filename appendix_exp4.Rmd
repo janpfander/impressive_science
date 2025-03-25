@@ -1,5 +1,7 @@
 # Experiment 2 {#exp2}
 
+\FloatBarrier
+
 This is the experiment reported as Experiment 2 in the main article. Please note that on the OSF, all files related to this experiment are listed under "experiment_4", as this corresponded to the order in which our different experiments were run.
 
 This appendix only contains the attention check, as all analyses that were run are reported in the main article. 
