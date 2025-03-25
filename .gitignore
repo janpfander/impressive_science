@@ -32,3 +32,6 @@ gss_cross/data/*
 
 # Ignore preprint files for annonymized peer review
 preprint*
+
+# ignore title page with author details
+title_page*
