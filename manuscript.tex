@@ -38,15 +38,17 @@
 \usepackage{xcolor}
 \usepackage{graphicx}
 \makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
 % Set default figure placement to htbp
-\makeatletter
 \def\fps@figure{htbp}
 \makeatother
 \setlength{\emergencystretch}{3em} % prevent overfull lines
@@ -118,6 +120,9 @@
 % get rid of language-specific shorthands (see #6817):
 \let\LanguageShortHands\languageshorthands
 \def\languageshorthands#1{}
+\ifLuaTeX
+  \usepackage[english]{selnolig} % disable illegal ligatures
+\fi
 % Manuscript styling
 \usepackage{upgreek}
 \captionsetup{font=singlespacing,justification=justified}
@@ -187,9 +192,6 @@
 \usepackage{csquotes}
 \usepackage{placeins} 
 
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
@@ -210,7 +212,7 @@
 \affiliation{\vspace{0.5cm}\textsuperscript{} }
 
 \abstract{%
-Trust in science is associated with significant outcomes such as intent to vaccinate and belief in climate change. Around the globe, most people trust science at least to some extent. However, the causes of this trust aren't well understood. Here we propose a `rational impression' model of trust in science. In this model, people trust scientists because they are impressed by their findings, and this impression of trust persists even after knowledge of the specific content has vanished. We present evidence for this model in two experiments (total n = 696) with UK participants. In Experiment 1, impressive scientific findings lead participants to think of the scientists as more competent and their scientific discipline as more trustworthy. In Experiment 2, we show that participants have these impressions despite forgetting the content that generated them. The rational impression model can explain why people trust science without remembering much of it. It also stresses the relevance of science communication.
+Cultural beliefs and practices often spread because they appeal to existing cognitive mechanisms. This perspective has explained the cultural success of religion, fiction, rituals, and even medical practices. Science, however, appears to be an exception. Scientific concepts are highly counterintuitive, and people know very little about science, yet it is among the most trusted institutions. Here, we test a cognitive model of trust in science that is compatible with these observations: the rational impression account. According to this account, people trust scientists because they are impressed by their findings (even if they do not understand how they were generated), and this impression persists after specific knowledge has vanished. We present evidence for this model in two experiments (total n = 696) with UK participants. In Experiment 1, participants perceived some scientific findings as more impressive than others, and exposure to the more scientific findings led participants to think of the relevant scientists as more competent and their scientific discipline as more trustworthy. In Experiment 2, we show that participants have these impressions despite almost immediately forgetting relevant content. The rational impression model can explain why people trust science without remembering much of it.
 }
 
 
@@ -220,37 +222,29 @@ Trust in science is associated with significant outcomes such as intent to vacci
 
 \section{Introduction}\label{introduction}
 
-Jon D. Miller, a pioneer in measuring science literacy, found that at the end of the 20th century, approximately 17\% of Americans qualified as scientifically literate--a measure he described as the ``level of skill required to read most of the articles in the Tuesday science section of The New York Times'' (Miller, 2004). His estimate for the early 1990s had been even lower, around 10\%. By contrast, the level of trust in science in the US has been relatively high and remarkably stable (Funk \& Kennedy, 2020; Funk, Tyson, Kennedy, \& Johnson, 2020; Smith \& Son, 2013): Since the 1970s, on average 40\% of Americans say they have a great deal of confidence in the scientific community, the second highest score among 13 institutions included in the US General Social Survey (GSS). How can we explain this gap between knowing science and trusting it? Here, we argue that people might trust science in large part because they have been impressed by it.
+Scholars have suggested that culturally widespread beliefs often owe their success to their ability to tap into existing cognitive mechanisms (for a general exposition, see Sperber, 1996). This idea has been applied, for instance, to religion (Boyer, 1994; Lawson \& McCauley, 1990), fiction (Dubourg \& Baumard, 2022; Gottschall, 2012), music (Fitch, 2006), rituals (Liénard \& Boyer, 2006), or medical practices (Miton, Claidière, \& Mercier, 2015). In each case, cognitive mechanisms render some cultural elements more likely to draw our attention, be remembered, or be passed along. When a cultural element violates the expectations raised by our cognitive mechanisms, it is supposed to be only in a minimal manner that maximises attraction or memorization, as in the case minimally counter-intuitive religious beliefs (Boyer, 1994; Norenzayan, Atran, Faulkner, \& Schaller, 2006).
 
-We begin by presenting global evidence that most people trust science at least to some extent. We then review existing explanations for why people trust science, as well as empirical observations that seem to violate their predictions. As an alternative explanation, we propose the `rational impression model'. Two experiments provide evidence in favor of this model.
+In these models of culture, it is the ability to produce cultural elements that people find appealing that would largely explain the status of their creators, from successful fiction authors to religious figures (André, Baumard, \& Boyer, 2023; see, e.g., Boyer, 2021; Singh, 2018). In this context, science seems to stand out as an exception. By contrast with fiction, which people (in the US) consume for several hours a day on average, consumption of science-related materials (news, popular science, etc.) is minimal, with only a small minority consuming scientific content several times a week (Funk, Gottfried, \& Mitchell, 2017). By contrast with the ``naturalness of religious ideas'' (Boyer, 1994), many researchers have pointed out the ``unnatural nature of science,'' (Wolpert, 1994; see Cromer, 1995; McCauley, n.d.; Shtulman, 2017): how counterintuitive many fundamental scientific concepts are, from Newton's first law of motion (which violates our intuitions about physics, McCloskey, Caramazza, \& Green, 1980), to evolution by natural selection (which violates, inter alia, our intuitions about reproduction, Ronfard, Brown, Doncaster, \& Kelemen, 2021). Given that most people do not consume much scientific content, it is not surprising that average levels of science knowledge are very low (National Academies of Sciences, Engineering, and Medicine, 2016). What \emph{is} surprising is that, in spite of this lack of knowledge, and of the ``unnaturalness'' of much of science, people worldwide tend to trust science (Cologna et al., 2025; Wellcome Global Monitor, 2018). In the US, where survey data allows for comparison, science is among the most trusted institutions (Funk \& Kennedy, 2020).
 
-Trust in science matters. It is related to many desirable outcomes, from acceptance of anthropogenic climate change (Cologna \& Siegrist, 2020) or vaccination (Lindholt, Jørgensen, Bor, \& Petersen, 2021; Sturgis, Brunton-Smith, \& Jackson, 2021) to following recommendations during COVID (Algan, Cohen, Davoine, Foucault, \& Stantcheva, 2021).
+We start by briefly reviewing existing models of trust in science, pointing out that most do not have much to say about the cognitive foundations of trust in science, being chiefly interested in explaining mistrust of science. One of these models, the deficit model, offers a potential cognitive explanation of trust in science, in that trust in science would be grounded in an understanding and knowledge of science. However, as mentioned above, this is difficult to reconcile with the fact that trust in science tends to be much higher than understanding or knowledge of science. The recently developed rational impression account of trust in science {[}REF TO THEORY PAPER{]} can reconcile high levels of trust in science with lack of science knowledge and understanding. This article offers a direct experimental test of two central tenets of this rational impression account: (i) that people trust impressive science, and (ii) that they promptly forget what had impressed them.
 
-Across the globe, most people report trusting science at least to some extent (Wellcome Global Monitor, 2018, 2020). Recently, a large survey in 68 countries found trust in scientists to be ``moderately high'' across all countries (mean = 3.62; sd= 0.70; Scale: 1 = very low, 2 = somewhat low, 3 = neither high nor low, 4 = somewhat high, 5 = very high), with not a single country below midpoint trust. A recent study in the US found that participants almost always accepted the scientific consensus on basic, non-politicized knowledge questions (e.g.~`Are electrons are smaller than atoms?'), even those participants who said they do not trust science and who believed anti-science conspiracy theories, e.g.~that the earth is flat (Pfänder, Kerzreho, \& Mercier, 2024).
+\section{Theoretical background}\label{theoretical-background}
 
-How can we explain trust in science? The literature on the public understanding of science has generally focused not on explaining trust, but distrust, and more generally negative attitudes towards science (Bauer, Allum, \& Miller, 2007).
+Much of the literature on public trust in science has focused on explaining why some people do not trust science (Bauer, Allum, \& Miller, 2007). The deficit model assumes that trust deficits among the public are due to a lack of scientific knowledge (Sturgis \& Allum, 2004). Motivated reasoning accounts argue that people reject science to maintain coherence with certain prior beliefs and worldviews (Lewandowsky \& Oberauer, 2021). Other psychological accounts highlight ideologies, conspiratorial thinking, or personality as root causes of mistrust (Hornsey \& Fielding, 2017). In the sociological literature, the alienation model suggests that mistrust in science is only one symptom of a broader alienation of people from modern institutions (Gauchat, 2011). These accounts take trust in science for granted, as a normatively rational default, and do not attempt to explain the elevated level of public trust in science.
 
-One explanation for distrust towards science is the \emph{alienation model} (Gauchat, 2011). According to this model, the ``public disassociation with science is a symptom of a general disenchantment with late modernity, mainly, the limitations associated with codified expertise, rational bureaucracy, and institutional authority'' (Gauchat, 2011, p. 2). This explanation builds on the work of social theorists (Beck, 1992; Giddens, 1991; Habermas, 1989; see Gauchat, 2011 for an overview) who suggested that a modern, complex world increasingly requires expertise, and thus shapes institutions of knowledge elites. People who are not part of these institutions experience a lack of agency, resulting in a feeling of alienation. If the alienation model might account for some of the distrust towards science, its goal is not to explain why most people still trust science.
+Recently, a large survey project in 68 countries found trust in scientists to be ``moderately high'' across all countries (mean = 3.62; sd= 0.70; Scale: 1 = very low, 2 = somewhat low, 3 = neither high nor low, 4 = somewhat high, 5 = very high), with not a single country below midpoint trust (Cologna et al., 2025). This is in line with past global surveys, which found that most people trust science at least to some extent (Wellcome Global Monitor, 2018, 2020). In the US, the General Social Survey (GSS) allows to compare trust in science with trust in other institutions. Combining data from 1973 to 2022, the largest available time span, on average 43\% of Americans say they have a great deal of confidence in the scientific community, the second highest score among 13 institutions, and surpassing religion by far (26\%)\footnote{Numbers are based on our own calculations using on the publicly available GSS cumulative data}. These surveys might still underestimate public trust in scientific knowledge: A recent study in the US found that participants almost always accepted the scientific consensus on basic, non-politicized knowledge questions (e.g.~`Are electrons are smaller than atoms?'), even those participants who said they do not trust science and who believed anti-science conspiracy theories, e.g.~that the earth is flat (Pfänder, Kerzreho, \& Mercier, 2024).
 
-A second explanation which has dominated the literature on public understanding of science for decades (Bauer et al., 2007), is the deficit model. According to the deficit model, people do not trust science enough, because they do not know enough about it. The deficit model implies that when people trust science, it is because they are knowledgeable about it (Bauer et al., 2007).
+While existing accounts focus on explaining mistrust, the deficit model implicitly offers an explanation for trust: if a lack of knowledge is the main reason for a lack of trust, then knowledge should be the main cause of trust. The issue with this explanation is that, while people tend to trust science, they do not know much about it (National Academies of Sciences, Engineering, and Medicine, 2016). A recent global study on 68 countries found no association between the countries' Program for International Student Assessment (PISA) scores, and the national average trust in scientists (Cologna et al., 2025). A seminal meta analysis found that science knowledge, more generally, was only weakly correlated to attitudes towards science (Allum, Sturgis, Tabourazi, \& Brunton-Smith, 2008).
 
-In line with that view, large scale survey studies consistently identify education, and in particular science education, to be the strongest correlate of trust in science (Bak, 2001; Noy \& O'Brien, 2019; Wellcome Global Monitor, 2018, 2020): More educated people tend to trust science more. The deficit model provides a straightforward causal explanation for this correlation: education fosters trust in science by transmitting knowledge and improving understanding of science.
+Recently, a cognitive explanation for public trust in science has been proposed: the rational impression account {[}REF TO THEORY PAPER{]}. According to this account, people do not need a profound understanding or detailed knowledge of science, to rationally perceive it as trustworthy. Instead, people can come to this conclusion by using basic cognitive mechanisms of information evaluation. The rational impression account comprises three such mechanisms: First, in many situations, we infer accuracy from consensus--i.e.~if something is highly consensual, it is likely to be true. The literature on the wisdom of crowds has shown that this inference is often appropriate (see e.g., Hastie \& Kameda, 2005). In non-science related contexts, it has been shown that people go even further and infer that convergent answers are likely accurate, and those who made them competent, even if they had no priors about their competence(Pfänder, De Courson, \& Mercier, 2025).
 
-Evidence for the role of knowledge in trust in science, however, is far from conclusive. While there is no consensus among researchers on how to measure understanding of science (Gauchat \& Andrews, 2018), a widely used measure consists of asking people a set of basic science knowledge questions (see e.g. Durant, Evans, \& Thomas, 1989; Miller, 1998). Past research has found science knowledge to be alarmingly low (Miller, 2004; National Academies of Sciences, Engineering, and Medicine, 2016), contrasting with the relatively high levels of trust in science. Moreover, science knowledge is only weakly associated with attitudes towards science (Allum, Sturgis, Tabourazi, \& Brunton-Smith, 2008). Other research has shown that the correlation between education and positive attitudes towards science holds even after controlling for science knowledge, which led the researchers to conclude that only part of the effect of education could be explained by transmitting enduring knowledge of science (Bak, 2001).
+Second, we infer competence from possessing rare knowledge-if someone knows something that is difficult to know, we are impressed, and deem that individual competent. People perceive others who share valuable ideas as more competent (Altay, Majima, \& Mercier, 2020). Outside the realm of science, with trivia questions, it has been shown that people have accurate perceptions of whether something is hard to know or not, and that they use this information to infer someone's competence (Dubourg, Dheilly, Mercier, \& Morin, 2025).
 
-\section{The rational impression model}\label{the-rational-impression-model}
+Third, we are likely to forget the specific knowledge that generated our impressions of competence. Relevant evidence comes from memory research: Some research has shown that implicit memory is more stable than explicit memory (Parkin, Reid, \& Russo, 1990; e.g., Sloman, Hayman, Ohta, Law, \& Tulving, 1988). Other research has argued that memory encodes information both as ``verbatim'' details--exact words or numbers--information and ``gist'' representations--the essence or bottom-line meaning (Reyna, 2021), and that the verbatim memory tends to fade faster (Murphy \& Shapiro, 1994). As an extreme example, patients with severe amnesia can continue to experience emotions linked to events they could not recall (Feinstein, Duff, \& Tranel, 2010). In the case of science, people might forget the specific content of science knowledge (explicit memory) they have been exposed to, but retain an abstract impression of scientists' trustworthiness (implicit memory). In line with this, it has been shown that people find some science-related explanations more satisfying than others, this did not predict how well they could recall the explanations shortly after (Liquin \& Lombrozo, 2022), suggesting that processes of impression formation and knowledge retention can be quite detached.
 
-Here, we seek to explain the following stylized facts: (i) Globally, most people have at least some trust in science, and essentially everyone, at least in the US, trusts nearly all of basic science; (ii) Education, and in particular science education, is the strongest predictor of trust in science; (iii) Levels of science knowledge are relatively low, and the association between science knowledge and trust in science is weak.
+The rational impression account of trust in science can reconcile high levels of trust in science with the fact that people aren't very interested in science (it's enough that they have been exposed to science at school, even if they forget much of what they learnt), and that science is counterintuitive (a finding doesn't have to be intuitive to be impressive--to some extent, the contrary could be true, provided we believe in the finding). Moreover, it grounds trust in science in the operation of well-studied cognitive mechanisms. If the general operation of these mechanisms has been studied, their specific application to scientific information and trust in science hasn't
 
-All of these observations are compatible with a model of trust in science which we dub the \emph{rational impression model}. According to this model, people trust science because they are impressed by it, but they forget about the findings that impressed them.
-
-For an information to be impressive, at least two criteria should be met: (i) it is perceived as hard to uncover and (ii) there is reason to believe it true. By (i), we mean information that most people would have no idea how to find out themselves. For example, most people would probably only be mildly impressed by someone telling them that a given tree has exactly 110,201 leaves. Even though obtaining this information implies an exhausting counting effort, everyone in principle knows how to do it. By contrast, finding out that it takes light \href{https://imagine.gsfc.nasa.gov/features/cosmic/milkyway_info.html}{approximately 100,000 years to travel from one end of the Milky Way to the other} is probably impressive to most people, as they would not know how such a distance can be measured. Regarding (ii), people can sometimes judge the accuracy of scientific findings for themselves, for example when they are exposed to accessible and convincing explanations in school, e.g.~simple explanations that have a broad explanatory scope (Lombrozo, 2007; Read \& Marcus-Newhall, 1993; for a review, see Lombrozo, 2006). When people cannot evaluate the quality of the information for themselves, they need to rely on other cues to establish whether it might be true or not. One such cue is the degree of consensus between different sources. It has been shown that when they lack relevant background knowledge, people rely on social consensus as a heuristic to judge the accuracy of a piece of information and the competence of its source (Pfänder, De Courson, \& Mercier, 2025). This heuristic is rational, in the sense that it leads to sound inferences if the sources are independent and unbiased. As a result, unless we suspect a conspiracy among scientists, we should be impressed when they agree on something like the length of the Milky Way, and think of the scientists as competent, even if we have no idea how they got to agree on this measure.
-
-Once people are impressed, that impression tends to stick, even if specific content is forgotten. We commonly form impressions of the people around us while forgetting the details of how we formed these impressions: If a colleague fixes our computer, we might forget exactly how they fixed it, yet remember that they are good at fixing computers. As an extreme example, patients with severe amnesia can continue to experience emotions linked to events they could not recall (Feinstein, Duff, \& Tranel, 2010). More relevantly here, a study has shown that while people find some science-related explanations more satisfying than others, this did not predict how well they could recall the explanations shortly after (Liquin \& Lombrozo, 2022), suggesting that that impressions and knowledge formation can be quite detached.
-
-The rational impression model of trust in science reconciles the stylized facts outlined above: If most people trust science (i), it is because most people receive at least some basic education that exposes them to impressive scientific findings, setting up a baseline of trust in science. If education is the main predictor of trust in science (ii), it is because education is the primary mean through which people are exposed to science. If the levels of science knowledge are low while trust in science is high (iii), it is because specific knowledge of science is forgotten, while the impression of competence and trust is maintained.
-
-While the rational impression model, we have argued, can reconcile well-established facts about trust in science and science knowledge, there is no experimental evidence directly testing its central mechanism. This is the goal of the present studies.
+Here, we test two key predictions from the rational impression account: People trust more science they perceive as more impressive (H1, tested in Experiment 1), and they forget most of what had impressed them (H2, tested in Experiment 2).
 
 \section{The present studies}\label{the-present-studies}
 
@@ -258,15 +252,13 @@ While the rational impression model, we have argued, can reconcile well-establis
 
 \begin{figure}
 \centering
-\includegraphics{output/figures/overview-plot.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{output/figures/overview-plot.pdf}}
 \caption{\label{fig:overview-plot}\textbf{A.} An overview of the differences in trust, according to whether the participants had read a basic, an impressive, or another participant's recalled version of the impressive vignette. The density plots show the distributions of participants' trust scores. The dots represent model estimates, and the vertical bars the 95\% confidence intervals of the model predictions. \textbf{B.} The distribution of knowledge scores (ranging from 0\% to 100\% retained information) in the recall study of Experiment 2. Each dot corresponds to one participant. For the boxplot, the box represents the interquartile range (IQR), that is, the distance between the first and third quartiles, the center line indicates the median, and the outer lines (whiskers) extend to 1.5 times the IQR or the most extreme values within this range.}
 \end{figure}
 
-We tested the predictions of the rational impression model in two experiments (total n = 696): Experiment 1 tests whether impressive scientific findings lead people to think of the scientists as more competent and more trustworthy. Experiment 2 tests whether that impression persists even if specific content is forgotten. Figure \ref{fig:overview-plot} provides an overview of the main results of the two experiments.
+Both experiments were preregistered, and the choice of sample size was informed by power simulations. The preregistrations, along with all materials, data, and code, can be found on Open Science Framework \href{https://osf.io/j3bk4/?view_only=0c11d7720fe2450e8d205975fa3e47d5}{project page} (\url{https://osf.io/j3bk4/?view_only=0c11d7720fe2450e8d205975fa3e47d5}). All analyses were conducted in R (version 4.2.2) using R Studio. We used two-sided tests for all hypotheses. Unless mentioned otherwise, we report unstandardized estimates that can be interpreted in units of the original scales.
 
-Both experiments were preregistered, and the choice of sample size was informed by power simulations. All materials, data, and code can be found on Open Science Framework \href{https://osf.io/j3bk4/?view_only=0c11d7720fe2450e8d205975fa3e47d5}{project page} (\url{https://osf.io/j3bk4/?view_only=0c11d7720fe2450e8d205975fa3e47d5}). All analyses were conducted in R (version 4.2.2) using R Studio. We used two-sided tests for all hypotheses. Unless mentioned otherwise, we report unstandardized estimates that can be interpreted in units of the original scales.
-
-As part of this project, we conducted two additional experiments which we present in detail in the ESM. The first experiment (`Experiment 1b' in the ESM) is almost identical to Experiment 1, but suffered from a minor technical error during the implementation. Nonetheless, its findings are identical to those of Experiment 1. The second experiment (`Experiment 2b') was supposed to test the same hypothesis as Experiment 2, but the treatment--a very short distraction task--did not alter any of the outcome variables, suggesting that our outcome measures, a set of multiple-choice questions, was not sufficiently sensitive.
+As part of this project, we conducted two additional experiments which we present in detail in the ESM. The first experiment (`Experiment 1b' in the ESM) is almost identical to Experiment 1, but suffered from a minor technical error during the implementation. Nonetheless, its findings are identical to those of Experiment 1. The second experiment (`Experiment 2b') was supposed to test the same hypothesis as Experiment 2, but the treatment--a very short distraction task--did not alter any of the outcome variables, suggesting that either the distraction task was too short, or that our outcome measure, a set of multiple-choice questions, was not sufficiently sensitive.
 
 \section{Experiment 1}\label{experiment-1}
 
@@ -340,7 +332,7 @@ An entomologist often specializes in one type of insect in order to study it in 
 
 As a manipulation check, we find that participants perceived the impressive texts to be more impressive (mean = 4.01, sd = 0.87; \(\hat{b}\) = 0.81 {[}0.569, 1.048{]}, p \textless{} .001) than the basic texts (mean = 3.20, sd = 1.13).
 
-Participants perceived scientists as more competent after having read an impressive text (H1a: \(\hat{b}_{\text{Competence}}\) = 0.50 {[}0.314, 0.676{]}, p \textless{} .001; mean = 3.76, sd = 0.90) than after having read a basic one (mean = 3.26, sd = 0.80). Pooled across both conditions, participants' impressiveness ratings were positively associated with competence: When participants reported being more impressed, they evaluated scientist\#s as more competent (H1b: \(\hat{b}\) = 0.41 {[}0.312, 0.502{]}, p \textless{} .001).
+Participants perceived scientists as more competent after having read an impressive text (H1a: \(\hat{b}_{\text{Competence}}\) = 0.50 {[}0.314, 0.676{]}, p \textless{} .001; mean = 3.76, sd = 0.90) than after having read a basic one (mean = 3.26, sd = 0.80). Pooled across both conditions, participants' impressiveness ratings were positively associated with competence: When participants reported being more impressed, they evaluated scientist\#s as more competent (H1b: \(\hat{b}\) = 0.41 {[}0.312, 0.502{]}, p \textless{} .001). Figure \ref{fig:overview-plot} provides an overview of the main results of both Experiment 1, and Experiment 2.
 
 Participants also trusted a discipline more after having read an impressive text (H2a: \(\hat{b}_{\text{trust}}\) = 0.32 {[}0.17, 0.476{]}, p \textless{} .001; mean = 3.68, sd = 0.87) than after having read a basic one. Participants' impressiveness ratings were positively associated with trust when pooling across all conditions (H2b: \(\hat{b}\) = 0.30 {[}0.206, 0.385{]}, p \textless{} .001).
 
@@ -447,17 +439,21 @@ For H4a, b and c, trust, competence and impressiveness ratings were compared bet
 
 \section{Discussion}\label{discussion}
 
-It has long been a puzzle to the deficit model--which suggests that trust in science is primarily driven by science knowledge--that knowledge of science is at best weakly associated with science attitudes (Allum et al., 2008; National Academies of Sciences, Engineering, and Medicine, 2016). The rational impression model makes sense of this: It predicts that people trust science primarily because they have been impressed by it, not because they remember much of the knowledge that impressed them.
+From a perspective of cultural evolution, the fact that people around the globe tend to trust science is puzzling: people aren't very interested in science, they struggle to understand its counterintuitive concepts, and yet they tend to trust it. A common explanation of trust in science, the deficit model, postulates that trust in science is grounded in knowledge and understanding--yet, people's science literacy is generally low and at best weakly correlated to trust in science.
 
-Two experiments provide evidence for this model. Experiment 1 showed that impressive scientific findings lead people to think of scientists as more competent and trust science more. Experiment 2 showed that these impressions are formed even though participants forget the content that generated them almost immediately after reading it.
+Recently, a cognitive account of trust in science has been proposed to make sense of this puzzle: the rational impression account. According to this account, people are impressed by science--in particular when they encounter it in their education--which leads them to trust it, but they then forget most of what they've learnt.
 
-How can this model be rational, if it posits that trust is largely detached from knowledge? It is rational in that the heuristics it builds on lead to sound inferences in many contexts. If someone discovers something that is hard to know, such as the size of the Milky Way, and there appears to be a consensus, we should expect them to be competent, even without knowing the details of how they made this discovery. Even forgetting specific knowledge is not irrational: It has been argued that one of the main functions of episodic memory is to justify our beliefs in communication with others (Mahr \& Csibra, 2018). As a result, we should be particularly good at remembering things we might need to convince others of. In this regard, incentives of remembering science seem to be weak: Most exposure to science happens at school, and there is little reason for young learners' minds to anticipate having to convince others of the merits of specific scientific findings, which are typically of little practical relevance to them, and which appear to be consensually accepted.
+Recently, a cognitive account of trust in science has been proposed to make sense of this puzzle: the rational impression account. In two experiments, we tested two central predictions of this account. Experiment 1 showed that participants perceived some scientific findings as more impressive than others, and that exposure to the more impressive findings lead people to think of scientists as more competent and to trust science more. Experiment 2 showed that these impressions are formed even though participants forget most specific knowledge--including knowledge that can be assumed to have generated the impressions--almost immediately after reading it.
 
-Does this mean that scientific education should focus on impressive but potentially hard to grasp findings, instead of fostering a proper understanding of more basic discoveries? No, for at least two reasons. First, for some students at least, this knowledge will be remembered, and will prove important in their lives. Second, positive impressions of science can also be created by a proper understanding of its explanations, methods, etc. -- even if, once again, that understanding is then often lost. However, our findings do suggest that science educators should not despair when they observe the low rates of science knowledge in adults, since the exposure to science they provided is arguably responsible for creating a bedrock of trust in science.
+Beyond its theoretical contribution, the account has practical implications, as it stresses the vital role that can be played by science communication. The relationship between science communication and trust in science has already been explored in depth (e.g., Weingart \& Guenther, 2016; for a recent review see König et al., 2023), but we believe the rational impression account tested here makes a useful contribution. In particular, it suggests that, even though more understanding of the underlying methods is always preferable (König et al., 2023), even a relatively superficial exposure to impressive findings can bolster trust in science. An important caveat is that impressive findings that haven't yet gained the approval of the community might be particularly likely to backfire if people learn they have been disproven (on the importance of presenting a measure of consensus alongside scientific information, see König et al., 2023).
 
-The present framework also stresses the vital role that can be played by science communication. The relationship between science communication and trust in science has already been explored in depth (e.g., Weingart \& Guenther, 2016; for a recent review see König et al., 2023), but we believe the present model might make a useful contribution. In particular, it suggests that, even though more understanding of the underlying methods is always preferable (König et al., 2023), even a relatively superficial exposure to impressive findings can bolster trust in science. An important caveat is that impressive findings that haven't yet gained the approval of the community might be particularly likely to backfire if people learn they have been disproven (on the importance of presenting a measure of consensus alongside scientific information, see König et al., 2023).
+The present experiments have a number of limitations: First, we did not determine which features exactly made some scientific findings more impressive than others to the participants. This is not essential for the rational impression account--what matters is that participants are more impressed by some. But uncovering impressive features would be both of theoretical and practical interest.
 
-The present experiments have a number of limitations: First, they were conducted on convenience samples recruited in a single country, the UK. Second, they were conducted within a very short time frame. While we can show that participants almost immediately forget about impressive content, it is not clear from our study for how long the impressions persist (although in other contexts impressions formed on the basis of a much more superficial exposure have been shown to last for months, Gunaydin, Selcuk, \& Zayas, 2017). Future studies could extend our findings to other populations and to longer time frames.
+Second, in Experiment 2, we had to rely on an imperfect research design for testing whether impressions persisted more than specific knowledge. However, we believe that the study still presents convincing evidence that participants forgot some--or most--of the knowledge that generated their impressions, even immediately after forming the impressions. Two lines of evidence from Experiment 2 support this argument: First, the participants of the recall study rated the impressiveness of different passages after their recall. Even when looking only at the subjective sample of the information each participant, they still forgot most of it. Second, a validation study with a different set of participants found that these participants rated the recalled texts from participants of the recall study as less impressive than the original impressive texts. If the participants of the recalled texts had only forgotten irrelevant bits of information, but not impressive bits, we should have expected no difference.
+
+As a third limitation, our studies were conducted on convenience samples recruited in a single country, the UK. Fourth, they were conducted within a very short time frame. While we can show that participants almost immediately forget about impressive content, it is not clear from our study for how long the impressions persist (although in other contexts impressions formed on the basis of a much more superficial exposure have been shown to last for months, Gunaydin, Selcuk, \& Zayas, 2017). Future studies could extend our findings to other populations and to longer time frames.
+
+Besides providing support for the rational account of trust in science, we hope that our findings, and the research question that prompted them, will draw more research to the grounding of trust in science in cultural evolution.
 
 \subsubsection{Data availability}\label{data-availability}
 
@@ -477,83 +473,101 @@ The authors declare having no competing interests.
 
 \phantomsection\label{refs}
 \begin{CSLReferences}{1}{0}
-\bibitem[\citeproctext]{ref-alganTrustScientistsTimes2021}
-Algan, Y., Cohen, D., Davoine, E., Foucault, M., \& Stantcheva, S. (2021). Trust in scientists in times of pandemic: Panel evidence from 12 countries. \emph{Proceedings of the National Academy of Sciences}, \emph{118}(40), e2108576118. \url{https://doi.org/10.1073/pnas.2108576118}
-
 \bibitem[\citeproctext]{ref-allumScienceKnowledgeAttitudes2008}
 Allum, N., Sturgis, P., Tabourazi, D., \& Brunton-Smith, I. (2008). Science knowledge and attitudes across cultures: a meta-analysis. \emph{Public Understanding of Science}, \emph{17}(1), 35--54. \url{https://doi.org/10.1177/0963662506070159}
 
-\bibitem[\citeproctext]{ref-bakEducationPublicAttitudes2001}
-Bak, H.-J. (2001). Education and Public Attitudes toward Science: Implications for the {``}Deficit Model{''} of Education and Support for Science and Technology. \emph{Social Science Quarterly}, \emph{82}(4), 779--795. \url{https://doi.org/10.1111/0038-4941.00059}
+\bibitem[\citeproctext]{ref-altayItMyIdea2020}
+Altay, S., Majima, Y., \& Mercier, H. (2020). It's my idea! Reputation management and idea appropriation. \emph{Evolution and Human Behavior}, \emph{41}(3), 235--243. \url{https://doi.org/10.1016/j.evolhumbehav.2020.03.004}
+
+\bibitem[\citeproctext]{ref-andreCulturalEvolutionProducers2023}
+André, J.-B., Baumard, N., \& Boyer, P. (2023). Cultural evolution from the producers{'} standpoint. \emph{Evolutionary Human Sciences}, \emph{5}, e25. \url{https://doi.org/10.1017/ehs.2023.20}
 
 \bibitem[\citeproctext]{ref-bauerWhatCanWe2007}
 Bauer, M. W., Allum, N., \& Miller, S. (2007). What can we learn from 25 years of PUS survey research? Liberating and expanding the agenda. \emph{Public Understanding of Science}, \emph{16}(1), 79--95. \url{https://doi.org/10.1177/0963662506071287}
 
-\bibitem[\citeproctext]{ref-beckRiskSocietyNew1992}
-Beck, U. (1992). \emph{Risk society: towards a new modernity} (Repr). London: Sage.
+\bibitem[\citeproctext]{ref-boyerNaturalnessReligiousIdeas1994}
+Boyer, P. (1994). \emph{The naturalness of religious ideas: A cognitive theory of religion}. Berkeley: University of California Press.
 
-\bibitem[\citeproctext]{ref-colognaRoleTrustClimate2020}
-Cologna, V., \& Siegrist, M. (2020). The role of trust for climate change mitigation and adaptation behaviour: A meta-analysis. \emph{Journal of Environmental Psychology}, \emph{69}, 101428. \url{https://doi.org/10.1016/j.jenvp.2020.101428}
+\bibitem[\citeproctext]{ref-boyerDerivingFeaturesReligions2021}
+Boyer, P. (2021). Deriving Features of Religions in the Wild: How Communication and Threat-Detection May Predict Spirits, Gods, Witches, and Shamans. \emph{Human Nature}, \emph{32}(3), 557--581. \url{https://doi.org/10.1007/s12110-021-09410-y}
 
-\bibitem[\citeproctext]{ref-durantPublicUnderstandingScience1989}
-Durant, J. R., Evans, G. A., \& Thomas, G. P. (1989). The public understanding of science. \emph{Nature}, \emph{340}(6228), 11--14. \url{https://doi.org/10.1038/340011a0}
+\bibitem[\citeproctext]{ref-colognaTrustScientistsTheir2025}
+Cologna, V., Mede, N. G., Berger, S., Besley, J., Brick, C., Joubert, M., \ldots{} Zwaan, R. A. (2025). Trust in scientists and their role in society across 68 countries. \emph{Nature Human Behaviour}, 1--18. \url{https://doi.org/10.1038/s41562-024-02090-5}
+
+\bibitem[\citeproctext]{ref-cromerUncommonSenseHeretical1995}
+Cromer, A. H. (1995). \emph{Uncommon Sense: The Heretical Nature of Science} (1st ed). Oxford: Oxford University Press, Incorporated.
+
+\bibitem[\citeproctext]{ref-dubourgWhyImaginaryWorlds2022}
+Dubourg, E., \& Baumard, N. (2022). Why imaginary worlds? The psychological foundations and cultural evolution of fictions with imaginary worlds. \emph{Behavioral and Brain Sciences}, \emph{45}, e276. \url{https://doi.org/10.1017/S0140525X21000923}
+
+\bibitem[\citeproctext]{ref-dubourgUsingNestedStructure2025}
+Dubourg, E., Dheilly, T., Mercier, H., \& Morin, O. (2025). Using the Nested Structure of Knowledge to Infer What Others Know. \emph{Psychological Science}, \emph{36}(6), 443--450. \url{https://doi.org/10.1177/09567976251339633}
 
 \bibitem[\citeproctext]{ref-feinsteinSustainedExperienceEmotion2010}
 Feinstein, J. S., Duff, M. C., \& Tranel, D. (2010). Sustained experience of emotion after loss of memory in patients with amnesia. \emph{Proceedings of the National Academy of Sciences}, \emph{107}(17), 7674--7679. \url{https://doi.org/10.1073/pnas.0914054107}
 
+\bibitem[\citeproctext]{ref-fitchBiologyEvolutionMusic2006}
+Fitch, W. T. (2006). The biology and evolution of music: A comparative perspective. \emph{Cognition}, \emph{100}(1), 173--215. \url{https://doi.org/10.1016/j.cognition.2005.11.009}
+
+\bibitem[\citeproctext]{ref-funkScienceNewsInformation2017}
+Funk, C., Gottfried, J., \& Mitchell, A. (2017). \emph{Science news and information today}. Retrieved from \url{https://www.pewresearch.org/science/2017/09/20/science-news-and-information-today/}
+
 \bibitem[\citeproctext]{ref-funkPublicConfidenceScientists2020}
 Funk, C., \& Kennedy, B. (2020). \emph{Public confidence in scientists has remained stable for decades}.
-
-\bibitem[\citeproctext]{ref-funkScienceScientistsHeld2020}
-Funk, C., Tyson, A., Kennedy, B., \& Johnson, C. (2020). \emph{Science and scientists held in high esteem across global publics}. Retrieved from \url{https://www.pewresearch.org/science/2020/09/29/science-and-scientists-held-in-high-esteem-across-global-publics/}
 
 \bibitem[\citeproctext]{ref-gauchatCulturalAuthorityScience2011}
 Gauchat, G. (2011). The cultural authority of science: Public trust and acceptance of organized science. \emph{Public Understanding of Science}, \emph{20}(6), 751--770. \url{https://doi.org/10.1177/0963662510365246}
 
-\bibitem[\citeproctext]{ref-gauchatCulturalCognitiveMappingScientific2018}
-Gauchat, G., \& Andrews, K. T. (2018). The Cultural-Cognitive Mapping of Scientific Professions. \emph{American Sociological Review}, \emph{83}(3), 567--595. \url{https://doi.org/10.1177/0003122418773353}
-
-\bibitem[\citeproctext]{ref-giddensModernitySelfidentitySelf1991}
-Giddens, A. (1991). \emph{Modernity and self-identity: Self and society in the late modern age}. Stanford, Calif: Stanford University Press.
+\bibitem[\citeproctext]{ref-gottschallStorytellingAnimalHow2012}
+Gottschall, J. (2012). \emph{The Storytelling Animal: How Stories Make Us Human}. Boston: Houghton Mifflin Harcourt.
 
 \bibitem[\citeproctext]{ref-gunaydinImpressionsBasedPortrait2017}
 Gunaydin, G., Selcuk, E., \& Zayas, V. (2017). Impressions Based on a Portrait Predict, 1-Month Later, Impressions Following a Live Interaction. \emph{Social Psychological and Personality Science}, \emph{8}(1), 36--44. \url{https://doi.org/10.1177/1948550616662123}
 
-\bibitem[\citeproctext]{ref-habermasJurgenHabermasSociety1989}
-Habermas, J. (1989). \emph{Jürgen Habermas on society and politics: a reader} (1. {[}print.{]}; S. Seidman, Ed.). Boston: Beacon Press.
+\bibitem[\citeproctext]{ref-hastieRobustBeautyMajority2005}
+Hastie, R., \& Kameda, T. (2005). The Robust Beauty of Majority Rules in Group Decisions. \emph{Psychological Review}, \emph{112}(2), 494--508. \url{https://doi.org/10.1037/0033-295X.112.2.494}
 
 \bibitem[\citeproctext]{ref-heymanBehavioralObservationCoding2014}
 Heyman, R. E., Lorber, M. F., Eddy, J. M., \& West, T. V. (2014). \emph{Behavioral observation and coding} (C. M. Judd \& H. T. Reis, Eds.). Cambridge: Cambridge University Press. \url{https://doi.org/10.1017/CBO9780511996481.018}
 
+\bibitem[\citeproctext]{ref-hornseyAttitudeRootsJiu2017a}
+Hornsey, M. J., \& Fielding, K. S. (2017). Attitude roots and Jiu Jitsu persuasion: Understanding and overcoming the motivated rejection of science. \emph{American Psychologist}, \emph{72}(5), 459--473. \url{https://doi.org/10.1037/a0040437}
+
 \bibitem[\citeproctext]{ref-konigHowCommunicateScience2023}
 König, L. M., Altenmüller, M. S., Fick, J., Crusius, J., Genschow, O., \& Sauerland, M. (2023). \emph{How to communicate science to the public? Recommendations for effective written communication derived from a systematic review}. \url{https://doi.org/10.31234/osf.io/cwbrs}
 
-\bibitem[\citeproctext]{ref-lindholtPublicAcceptanceCOVID192021}
-Lindholt, M. F., Jørgensen, F., Bor, A., \& Petersen, M. B. (2021). Public acceptance of COVID-19 vaccines: cross-national evidence on levels and individual-level predictors using observational data. \emph{BMJ Open}, \emph{11}(6), e048172. \url{https://doi.org/10.1136/bmjopen-2020-048172}
+\bibitem[\citeproctext]{ref-lawsonRethinkingReligionConnecting1990}
+Lawson, E. T., \& McCauley, R. N. (1990). \emph{Rethinking religion: Connecting cognition and culture}. Cambridge {[}England{]} ; New York: Cambridge University Press.
+
+\bibitem[\citeproctext]{ref-lewandowskyWorldviewmotivatedRejectionScience2021}
+Lewandowsky, S., \& Oberauer, K. (2021). Worldview-motivated rejection of science and the norms of science. \emph{Cognition}, \emph{215}, 104820. \url{https://doi.org/10.1016/j.cognition.2021.104820}
+
+\bibitem[\citeproctext]{ref-lienardWhenceCollectiveRituals2006}
+Liénard, P., \& Boyer, P. (2006). Whence Collective Rituals? A Cultural Selection Model of Ritualized Behavior. \emph{American Anthropologist}, \emph{108}(4), 814--827. \url{https://doi.org/10.1525/aa.2006.108.4.814}
 
 \bibitem[\citeproctext]{ref-liquinMotivatedLearnAccount2022}
 Liquin, E. G., \& Lombrozo, T. (2022). Motivated to learn: An account of explanatory satisfaction. \emph{Cognitive Psychology}, \emph{132}, 101453. \url{https://doi.org/10.1016/j.cogpsych.2021.101453}
 
-\bibitem[\citeproctext]{ref-lombrozoStructureFunctionExplanations2006}
-Lombrozo, T. (2006). The structure and function of explanations. \emph{Trends in Cognitive Sciences}, \emph{10}(10), 464--470. \url{https://doi.org/10.1016/j.tics.2006.08.004}
+\bibitem[\citeproctext]{ref-mccauleyWhyReligionNatural}
+McCauley, R. N. (n.d.). \emph{Why religion is natural and science is not}. Oxford University Press.
 
-\bibitem[\citeproctext]{ref-lombrozoSimplicityProbabilityCausal2007}
-Lombrozo, T. (2007). Simplicity and probability in causal explanation. \emph{Cognitive Psychology}, \emph{55}(3), 232--257. \url{https://doi.org/10.1016/j.cogpsych.2006.09.006}
+\bibitem[\citeproctext]{ref-mccloskeyCurvilinearMotionAbsence1980}
+McCloskey, M., Caramazza, A., \& Green, B. (1980). Curvilinear Motion in the Absence of External Forces: Naïve Beliefs About the Motion of Objects. \emph{Science}, \emph{210}(4474), 1139--1141. \url{https://doi.org/10.1126/science.210.4474.1139}
 
-\bibitem[\citeproctext]{ref-mahrWhyWeRemember2018}
-Mahr, J. B., \& Csibra, G. (2018). Why do we remember? The communicative function of episodic memory. \emph{Behavioral and Brain Sciences}, \emph{41}, e1. \url{https://doi.org/10.1017/S0140525X17000012}
+\bibitem[\citeproctext]{ref-mitonUniversalCognitiveMechanisms2015}
+Miton, H., Claidière, N., \& Mercier, H. (2015). Universal cognitive mechanisms explain the cultural success of bloodletting. \emph{Evolution and Human Behavior}, \emph{36}(4), 303--312. \url{https://doi.org/10.1016/j.evolhumbehav.2015.01.003}
 
-\bibitem[\citeproctext]{ref-millerMeasurementCivicScientific1998a}
-Miller, J. D. (1998). The measurement of civic scientific literacy. \emph{Public Understanding of Science}, \emph{7}(3), 203--223. \url{https://doi.org/10.1088/0963-6625/7/3/001}
-
-\bibitem[\citeproctext]{ref-millerPublicUnderstandingAttitudes2004}
-Miller, J. D. (2004). Public Understanding of, and Attitudes toward, Scientific Research: What We Know and What We Need to Know. \emph{Public Understanding of Science}, \emph{13}(3), 273--294. \url{https://doi.org/10.1177/0963662504044908}
+\bibitem[\citeproctext]{ref-murphyForgettingVerbatimInformation1994}
+Murphy, G. L., \& Shapiro, A. M. (1994). Forgetting of verbatim information in discourse. \emph{Memory \& Cognition}, \emph{22}(1), 85--94. \url{https://doi.org/10.3758/BF03202764}
 
 \bibitem[\citeproctext]{ref-nationalacademiesofsciencesengineeringandmedicineScienceLiteracyConcepts2016}
 National Academies of Sciences, Engineering, and Medicine. (2016). \emph{Science Literacy: Concepts, Contexts, and Consequences} (C. E. Snow \& K. A. Dibner, Eds.). Washington, D.C.: National Academies Press. \url{https://doi.org/10.17226/23595}
 
-\bibitem[\citeproctext]{ref-noyScienceGoodEffects2019}
-Noy, S., \& O'Brien, T. L. (2019). Science for good? The effects of education and national context on perceptions of science. \emph{Public Understanding of Science}, \emph{28}(8), 897--916. \url{https://doi.org/10.1177/0963662519863575}
+\bibitem[\citeproctext]{ref-norenzayanMemoryMysteryCultural2006}
+Norenzayan, A., Atran, S., Faulkner, J., \& Schaller, M. (2006). Memory and Mystery: The Cultural Selection of Minimally Counterintuitive Narratives. \emph{Cognitive Science}, \emph{30}(3), 531--553. \url{https://doi.org/10.1207/s15516709cog0000_68}
+
+\bibitem[\citeproctext]{ref-parkinDifferentialNatureImplicit1990}
+Parkin, A. J., Reid, T. K., \& Russo, R. (1990). On the differential nature of implicit and explicit memory. \emph{Memory \& Cognition}, \emph{18}(5), 507--514. \url{https://doi.org/10.3758/BF03198483}
 
 \bibitem[\citeproctext]{ref-pfanderHowWiseCrowd2025}
 Pfänder, J., De Courson, B., \& Mercier, H. (2025). How wise is the crowd: Can we infer people are accurate and competent merely because they agree with each other? \emph{Cognition}, \emph{255}, 106005. \url{https://doi.org/10.1016/j.cognition.2024.106005}
@@ -561,14 +575,26 @@ Pfänder, J., De Courson, B., \& Mercier, H. (2025). How wise is the crowd: Can 
 \bibitem[\citeproctext]{ref-pfanderQuasiuniversalAcceptanceBasic2024}
 Pfänder, J., Kerzreho, L., \& Mercier, H. (2024). \emph{Quasi-universal acceptance of basic science in the US}. \url{https://doi.org/10.31219/osf.io/qc43v}
 
-\bibitem[\citeproctext]{ref-readExplanatoryCoherenceSocial1993}
-Read, S. J., \& Marcus-Newhall, A. (1993). Explanatory coherence in social explanations: A parallel distributed processing account. \emph{Journal of Personality and Social Psychology}, \emph{65}(3), 429--447. \url{https://doi.org/10.1037/0022-3514.65.3.429}
+\bibitem[\citeproctext]{ref-reynaScientificTheoryGist2021}
+Reyna, V. F. (2021). A scientific theory of gist communication and misinformation resistance, with implications for health, education, and policy. \emph{Proceedings of the National Academy of Sciences}, \emph{118}(15), e1912441117. \url{https://doi.org/10.1073/pnas.1912441117}
 
-\bibitem[\citeproctext]{ref-smithTrendsPublicAttitudes2013}
-Smith, T. W., \& Son, J. (2013). Trends in public attitudes about confidence in institutions. \emph{General Social Survey Final Report}.
+\bibitem[\citeproctext]{ref-ronfardInhibitingIntuitionScaffolding2021}
+Ronfard, S., Brown, S., Doncaster, E., \& Kelemen, D. (2021). Inhibiting intuition: Scaffolding children's theory construction about species evolution in the face of competing explanations. \emph{Cognition}, \emph{211}, 104635. \url{https://doi.org/10.1016/j.cognition.2021.104635}
 
-\bibitem[\citeproctext]{ref-sturgisTrustScienceSocial2021}
-Sturgis, P., Brunton-Smith, I., \& Jackson, J. (2021). Trust in science, social consensus and vaccine confidence. \emph{Nature Human Behaviour}, \emph{5}(11), 1528--1534. \url{https://doi.org/10.1038/s41562-021-01115-7}
+\bibitem[\citeproctext]{ref-shtulmanScienceblindWhyOur2017}
+Shtulman, A. (2017). \emph{Scienceblind: why our intuitive theories about the world are so often wrong}. New York: Basic Books.
+
+\bibitem[\citeproctext]{ref-singhCulturalEvolutionShamanism2018}
+Singh, M. (2018). The cultural evolution of shamanism. \emph{Behavioral and Brain Sciences}, \emph{41}, e66. \url{https://doi.org/10.1017/S0140525X17001893}
+
+\bibitem[\citeproctext]{ref-slomanForgettingPrimedFragment1988}
+Sloman, S. A., Hayman, C. A., Ohta, N., Law, J., \& Tulving, E. (1988). Forgetting in primed fragment completion. \emph{Journal of Experimental Psychology: Learning, Memory, and Cognition}, \emph{14}(2), 223.
+
+\bibitem[\citeproctext]{ref-sperberExplainingCultureNaturalistic1996}
+Sperber, D. (1996). \emph{Explaining culture: A naturalistic approach}. Oxford, UK ; Cambridge, Mass: Blackwell.
+
+\bibitem[\citeproctext]{ref-sturgisScienceSocietyReEvaluating2004}
+Sturgis, P., \& Allum, N. (2004). Science in Society: Re-Evaluating the Deficit Model of Public Attitudes. \emph{Public Understanding of Science}, \emph{13}(1), 55--74. \url{https://doi.org/10.1177/0963662504042690}
 
 \bibitem[\citeproctext]{ref-tenhoveUpdatedGuidelinesSelecting2024}
 Ten Hove, D., Jorgensen, T. D., \& Ark, L. A. van der. (2024). Updated guidelines on selecting an intraclass correlation coefficient for interrater reliability, with applications to incomplete observational designs. \emph{Psychological Methods}, \emph{29}(5), 967--979. \url{https://doi.org/10.1037/met0000516}
@@ -581,6 +607,9 @@ Wellcome Global Monitor. (2018). \emph{Wellcome Global Monitor 2018}. Retrieved 
 
 \bibitem[\citeproctext]{ref-wellcomeglobalmonitorWellcomeGlobalMonitor2020}
 Wellcome Global Monitor. (2020). \emph{Wellcome Global Monitor 2020: Covid-19}. Retrieved from \url{https://wellcome.org/reports/wellcome-global-monitor-covid-19/2020}
+
+\bibitem[\citeproctext]{ref-wolpertUnnaturalNatureScience1994}
+Wolpert, L. (1994). \emph{The unnatural nature of science} (1st pbk ed., 2nd print). Cambridge, Mass: Harvard University Press.
 
 \end{CSLReferences}
 
@@ -611,7 +640,7 @@ Checking recall scores after the main study and before launching the validation 
 
 \begin{figure}
 \centering
-\includegraphics{output/figures/distribution-knowledge.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{output/figures/distribution-knowledge.pdf}}
 \caption{\label{fig:distribution-knowledge}\emph{Distribution of knowledge score in Experiment 2}.}
 \end{figure}
 
@@ -621,7 +650,7 @@ Checking recall scores after the main study and before launching the validation 
 
 \FloatBarrier
 
-Figure \ref{fig:gss-trend} shows how, since the 1970s, on average 40\% of Americans say they have a great deal of confidence in the scientific community, the second highest score among 13 institutions included in the US General Social Survey (GSS), just behind the military.
+Figure \ref{fig:gss-trend} shows how, since the 1970s, on average 43\% of Americans say they have a great deal of confidence in the scientific community, the second highest score among 13 institutions included in the US General Social Survey (GSS), just behind the military.
 
 Figure \ref{fig:gss-trend-confidence} shows that the trend of stability for the share of Americans having a ``great deal of confidence'' in the scientific community also holds for those who have ``only some'' or ``hardly any'' confidence.
 
@@ -629,7 +658,7 @@ Figure \ref{fig:gss-trend-confidence} shows that the trend of stability for the 
 
 \begin{figure}
 \centering
-\includegraphics{output/figures/gss-trend.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{output/figures/gss-trend.pdf}}
 \caption{\label{fig:gss-trend}\emph{Top four trusted institutions in the US}. The plot shows the variation of confidence in the top four trusted institutions in the US over time. The data for this plot is from the cumulative file of the US General Social Survey (GSS).}
 \end{figure}
 
@@ -637,7 +666,7 @@ Figure \ref{fig:gss-trend-confidence} shows that the trend of stability for the 
 
 \begin{figure}
 \centering
-\includegraphics{output/figures/gss-trend-confidence.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{output/figures/gss-trend-confidence.pdf}}
 \caption{\label{fig:gss-trend-confidence}\emph{Confidence in Scientific Community in the US}. The plot shows the variation of confidence in the Scientific Community in the US over time, for all answer options. The data for this plot is from the cumulative file of the US General Social Survey (GSS).}
 \end{figure}
 
@@ -871,7 +900,7 @@ Fig. \ref{fig:exp1b-plot} summarizes descriptive results.
 
 \begin{figure}
 \centering
-\includegraphics{output/figures/exp1b-plot.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{output/figures/exp1b-plot.pdf}}
 \caption{\label{fig:exp1b-plot}Overview of treatment effect on various outcomes.}
 \end{figure}
 
@@ -1002,7 +1031,7 @@ Fig. \ref{fig:exp1-plot} summarizes descriptive results.
 
 \begin{figure}
 \centering
-\includegraphics{output/figures/exp1-plot.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{output/figures/exp1-plot.pdf}}
 \caption{\label{fig:exp1-plot}Overview of treatment effect on various outcomes}
 \end{figure}
 
@@ -1256,7 +1285,7 @@ entom & distraction & 2.88 & 4.12 & 4.65 & 4.16\\
 
 \begin{figure}
 \centering
-\includegraphics{output/figures/exp2b-plot.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{output/figures/exp2b-plot.pdf}}
 \caption{\label{fig:exp2b-plot}Overview of treatment effect on various outcomes}
 \end{figure}
 
