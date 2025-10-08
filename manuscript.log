@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.6.21)  20 AUG 2025 18:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.9.29)  8 OCT 2025 12:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **manuscript.tex
 (./manuscript.tex
 LaTeX2e <2025-06-01> patch level 1
-L3 programming layer <2025-05-26>
+L3 programming layer <2025-09-02>
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/apa6/apa6.cls
 Document Class: apa6 2023/08/07 v2.35 APA formatting (6th edition)
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/base/article.cls
@@ -195,7 +195,23 @@ Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@widthC=\skip76
 \f@nch@widthR=\skip77
 \@temptokenb=\toks19
-)) (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+)) (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+(/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 274.
+(/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
+Package xcolor Info: Model `RGB' extended on input line 1365.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+) (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2025/06/16 v2.17y AMS math features
 \@mathmargin=\skip78
 For additional information on amsmath, use the `?' option.
@@ -280,22 +296,6 @@ Package: textcomp 2024/04/24 v2.1b Standard LaTeX package
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verbatim
 ) (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/parskip/parskip.sty
 Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
-) (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
-Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
-(/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
-File: color.cfg 2016/01/02 v1.6 sample color configuration
-)
-Package xcolor Info: Driver file: pdftex.def on input line 274.
-(/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
-Package xcolor Info: Model `RGB' extended on input line 1365.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
 )
 \pandoc@box=\box57
 \cslhangindent=\skip81
@@ -313,29 +313,26 @@ LaTeX Info: Redefining \addtolength on input line 87.
 \calc@Ccount=\count309
 \calc@Cskip=\skip85
 ) (/Users/jan/Library/TinyTeX/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2025/06/10 v25.10 The multilingual framework for pdfLaTeX, LuaLaTeX and XeLaTeX
+Package: babel 2025/08/03 v25.12 The multilingual framework for LuaLaTeX, pdfLaTeX and XeLaTeX
 \babel@savecnt=\count310
-LaTeX Encoding Info:    Redeclaring text command \ij (encoding OT1) on input line 2043.
-LaTeX Encoding Info:    Redeclaring text command \IJ (encoding OT1) on input line 2045.
-LaTeX Encoding Info:    Redeclaring text command \ij (encoding T1) on input line 2047.
-LaTeX Encoding Info:    Redeclaring text command \IJ (encoding T1) on input line 2048.
-LaTeX Encoding Info:    Ignoring declaration for text command \ij (encoding ?) on input line 2049.
-LaTeX Encoding Info:    Ignoring declaration for text command \IJ (encoding ?) on input line 2051.
-LaTeX Encoding Info:    Ignoring declaration for text command \SS (encoding ?) on input line 2076.
+LaTeX Encoding Info:    Redeclaring text command \ij (encoding OT1) on input line 2045.
+LaTeX Encoding Info:    Redeclaring text command \IJ (encoding OT1) on input line 2047.
+LaTeX Encoding Info:    Redeclaring text command \ij (encoding T1) on input line 2049.
+LaTeX Encoding Info:    Redeclaring text command \IJ (encoding T1) on input line 2050.
+LaTeX Encoding Info:    Ignoring declaration for text command \ij (encoding ?) on input line 2051.
+LaTeX Encoding Info:    Ignoring declaration for text command \IJ (encoding ?) on input line 2053.
+LaTeX Encoding Info:    Ignoring declaration for text command \SS (encoding ?) on input line 2078.
 \U@D=\dimen191
 \l@unhyphenated=\language3
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read2
 \bbl@dirlevel=\count311
 Package babel Info: You haven't specified a language as a class or package
-(babel)             option. I'll load 'nil'. Reported on input line 4266.
+(babel)             option. I'll load 'nil'. Reported on input line 4309.
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/generic/babel/nil.ldf
-Language: nil 2025/06/10 v25.10 Nil language
+Language: nil 2025/08/03 v25.12 Nil language
 \l@nil=\language4
-)) (/Users/jan/Library/TinyTeX/texmf-dist/tex/generic/babel/locale/en/babel-english.tex)
-Package babel Info: Importing data for english
-(babel)             from babel-en.ini. Reported on input line 119.
-(/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/was/upgreek.sty
+)) (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/was/upgreek.sty
 Package: upgreek 2003/02/12 v2.0 (WaS)
 Package upgreek Info: Using Euler Roman for upright Greek on input line 31.
 \symugrf@m=\mathgroup9
@@ -399,9 +396,9 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 Failed to patch abstract.
 Failed to patch title.
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/xpatch/xpatch.sty (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.sty
-Package: expl3 2025-05-26 L3 programming layer (loader) 
+Package: expl3 2025-09-02 L3 programming layer (loader) 
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2025-04-14 L3 backend support: PDF output (pdfTeX)
+File: l3backend-pdftex.def 2025-06-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count319
 ))
 Package: xpatch 2020/03/25 v0.3a Extending etoolbox patching commands
@@ -428,7 +425,7 @@ Package: placeins 2005/04/18  v 2.2
 ) (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/bookmark/bookmark.sty
 Package: bookmark 2023-12-10 v1.31 PDF bookmarks (HO)
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2025-06-21 v7.01n Hypertext links for LaTeX
+Package: hyperref 2025-07-12 v7.01o Hypertext links for LaTeX
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
 ) (/Users/jan/Library/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty
@@ -456,7 +453,7 @@ Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
 \Hy@linkcounter=\count327
 \Hy@pagecounter=\count328
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2025-06-21 v7.01n Hyperref: PDFDocEncoding definition (HO)
+File: pd1enc.def 2025-07-12 v7.01o Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 ) (/Users/jan/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
@@ -464,24 +461,24 @@ Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
 \Hy@SavedSpaceFactor=\count329
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
-File: puenc.def 2025-06-21 v7.01n Hyperref: PDF Unicode definition (HO)
+File: puenc.def 2025-07-12 v7.01o Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
-Package hyperref Info: Option `unicode' set `true' on input line 4052.
-Package hyperref Info: Hyper figures OFF on input line 4181.
-Package hyperref Info: Link nesting OFF on input line 4186.
-Package hyperref Info: Hyper index ON on input line 4189.
-Package hyperref Info: Plain pages OFF on input line 4196.
-Package hyperref Info: Backreferencing OFF on input line 4201.
+Package hyperref Info: Option `unicode' set `true' on input line 4066.
+Package hyperref Info: Hyper figures OFF on input line 4195.
+Package hyperref Info: Link nesting OFF on input line 4200.
+Package hyperref Info: Hyper index ON on input line 4203.
+Package hyperref Info: Plain pages OFF on input line 4210.
+Package hyperref Info: Backreferencing OFF on input line 4215.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4448.
+Package hyperref Info: Bookmarks ON on input line 4462.
 \c@Hy@tempcnt=\count330
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 4787.
+LaTeX Info: Redefining \url on input line 4801.
 \XeTeXLinkMargin=\dimen258
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -491,20 +488,20 @@ Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 \Fld@menulength=\count331
 \Field@Width=\dimen259
 \Fld@charsize=\dimen260
-Package hyperref Info: Hyper figures OFF on input line 6066.
-Package hyperref Info: Link nesting OFF on input line 6071.
-Package hyperref Info: Hyper index ON on input line 6074.
-Package hyperref Info: backreferencing OFF on input line 6081.
-Package hyperref Info: Link coloring OFF on input line 6086.
-Package hyperref Info: Link coloring with OCG OFF on input line 6091.
-Package hyperref Info: PDF/A mode OFF on input line 6096.
+Package hyperref Info: Hyper figures OFF on input line 6078.
+Package hyperref Info: Link nesting OFF on input line 6083.
+Package hyperref Info: Hyper index ON on input line 6086.
+Package hyperref Info: backreferencing OFF on input line 6093.
+Package hyperref Info: Link coloring OFF on input line 6098.
+Package hyperref Info: Link coloring with OCG OFF on input line 6103.
+Package hyperref Info: PDF/A mode OFF on input line 6108.
 \Hy@abspage=\count332
 \c@Item=\count333
 \c@Hfootnote=\count334
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2025-06-21 v7.01n Hyperref driver for pdfTeX
+File: hpdftex.def 2025-07-12 v7.01o Hyperref driver for pdfTeX
 \Fld@listcount=\count335
 \c@bookmark@seq@number=\count336
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
@@ -522,7 +519,11 @@ File: bkm-pdftex.def 2023-12-10 v1.31 bookmark driver for pdfTeX and luaTeX (HO)
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
-Package csquotes Info: Redefining alias 'default' -> 'english'.
+
+Package csquotes Warning: No style for language 'nil'.
+(csquotes)                Using fallback style on input line 219.
+
+Package csquotes Info: Redefining alias 'default' -> 'fallback'.
 (./manuscript.aux
 
 LaTeX Warning: Label `tab:exp1b-stimuli' multiply defined.
@@ -533,24 +534,24 @@ LaTeX Warning: Label `tab:exp1-exp1b-differences' multiply defined.
 )
 \openout1 = `manuscript.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 220.
-LaTeX Font Info:    ... okay on input line 220.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 220.
-LaTeX Font Info:    ... okay on input line 220.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 220.
-LaTeX Font Info:    ... okay on input line 220.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 220.
-LaTeX Font Info:    ... okay on input line 220.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 220.
-LaTeX Font Info:    ... okay on input line 220.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 220.
-LaTeX Font Info:    ... okay on input line 220.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 220.
-LaTeX Font Info:    ... okay on input line 220.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 220.
-LaTeX Font Info:    ... okay on input line 220.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 220.
-LaTeX Font Info:    ... okay on input line 220.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 219.
+LaTeX Font Info:    ... okay on input line 219.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 219.
+LaTeX Font Info:    ... okay on input line 219.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 219.
+LaTeX Font Info:    ... okay on input line 219.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 219.
+LaTeX Font Info:    ... okay on input line 219.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 219.
+LaTeX Font Info:    ... okay on input line 219.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 219.
+LaTeX Font Info:    ... okay on input line 219.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 219.
+LaTeX Font Info:    ... okay on input line 219.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 219.
+LaTeX Font Info:    ... okay on input line 219.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 219.
+LaTeX Font Info:    ... okay on input line 219.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -600,53 +601,53 @@ Package caption Info: longtable package is loaded.
 Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 )
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 220.
+Package hyperref Info: Link coloring OFF on input line 219.
 Using title for running head
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 222.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 221.
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 222.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 221.
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 222.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 221.
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 222.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 221.
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 222.
+(Font)              <14.4> on input line 221.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 222.
+(Font)              <10> on input line 221.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 222.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 222.
+(Font)              <7> on input line 221.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 221.
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 222.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 221.
 (/Users/jan/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 222.
+(Font)              <10.95> on input line 221.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 222.
+(Font)              <8> on input line 221.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 222.
+(Font)              <6> on input line 221.
 
 
 [1
 
 {/Users/jan/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/jan/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 235.
+(Font)              <9> on input line 234.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 235.
+(Font)              <5> on input line 234.
 
 
 [2]
@@ -655,39 +656,39 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 <output/figures/overview-plot.pdf, id=28, 469.755pt x 325.215pt>
 File: output/figures/overview-plot.pdf Graphic file (type pdf)
 <use output/figures/overview-plot.pdf>
-Package pdftex.def Info: output/figures/overview-plot.pdf  used on input line 255.
+Package pdftex.def Info: output/figures/overview-plot.pdf  used on input line 254.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 
 [4]
 
 [5 <./output/figures/overview-plot.pdf>]
-Overfull \hbox (69.88pt too wide) in alignment at lines 293--298
+Overfull \hbox (69.88pt too wide) in alignment at lines 292--297
  [] [] [] 
  []
 
 
-Overfull \hbox (69.88pt too wide) in alignment at lines 298--303
+Overfull \hbox (69.88pt too wide) in alignment at lines 297--302
  [] [] [] 
  []
 
 
-Overfull \hbox (69.88pt too wide) in alignment at lines 303--305
+Overfull \hbox (69.88pt too wide) in alignment at lines 302--304
  [] [] [] 
  []
 
 
-Overfull \hbox (69.88pt too wide) in alignment at lines 305--307
+Overfull \hbox (69.88pt too wide) in alignment at lines 304--306
  [] [] [] 
  []
 
 
-Overfull \hbox (2.00304pt too wide) in paragraph at lines 317--317
+Overfull \hbox (2.00304pt too wide) in paragraph at lines 316--316
 []|\T1/lmr/m/n/8 Entomology|  
  []
 
 
-Overfull \hbox (69.88pt too wide) in alignment at lines 307--328
+Overfull \hbox (69.88pt too wide) in alignment at lines 306--327
  [] [] [] 
  []
 
@@ -700,21 +701,36 @@ Overfull \hbox (69.88pt too wide) in alignment at lines 307--328
 [8]
 
 [9]
-Overfull \hbox (28.37988pt too wide) in alignment at lines 393--410
+Overfull \hbox (28.37988pt too wide) in alignment at lines 392--409
  [] [] 
  []
 
 [10]
 
 [11]
+Underfull \hbox (badness 1831) in paragraph at lines 429--430
+\T1/lmr/m/n/10.95 declared finding all knowledge elements to be impressive ($\OML/lmm/m/it/10.95 mean[]$ \T1/lmr/m/n/10.95 = 7.04,
+ []
+
+
 
 [12]
 
 [13]
 
 [14]
+Underfull \hbox (badness 1571) in paragraph at lines 510--511
+[]\T1/lmr/m/n/10.95 Funk, C., Gottfried, J., & Mitchell, A. (2017). \T1/lmr/m/it/10.95 Science news and information
+ []
+
+
 
 [15]
+Underfull \hbox (badness 2088) in paragraph at lines 531--532
+\T1/lmr/m/n/10.95 Understanding and overcoming the motivated rejection of science. \T1/lmr/m/it/10.95 American
+ []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -724,7 +740,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [17]
 
 [18]
-<output/figures/distribution-knowledge.pdf, id=258, 469.755pt x 325.215pt>
+<output/figures/distribution-knowledge.pdf, id=260, 469.755pt x 325.215pt>
 File: output/figures/distribution-knowledge.pdf Graphic file (type pdf)
 <use output/figures/distribution-knowledge.pdf>
 Package pdftex.def Info: output/figures/distribution-knowledge.pdf  used on input line 643.
@@ -734,12 +750,12 @@ Package pdftex.def Info: output/figures/distribution-knowledge.pdf  used on inpu
 [19
 
  <./output/figures/distribution-knowledge.pdf>]
-<output/figures/gss-trend.pdf, id=273, 469.755pt x 325.215pt>
+<output/figures/gss-trend.pdf, id=275, 469.755pt x 325.215pt>
 File: output/figures/gss-trend.pdf Graphic file (type pdf)
 <use output/figures/gss-trend.pdf>
 Package pdftex.def Info: output/figures/gss-trend.pdf  used on input line 661.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<output/figures/gss-trend-confidence.pdf, id=274, 469.755pt x 325.215pt>
+<output/figures/gss-trend-confidence.pdf, id=276, 469.755pt x 325.215pt>
 File: output/figures/gss-trend-confidence.pdf Graphic file (type pdf)
 <use output/figures/gss-trend-confidence.pdf>
 Package pdftex.def Info: output/figures/gss-trend-confidence.pdf  used on input line 669.
@@ -833,7 +849,7 @@ l.863 \end{longtable}
                       [26]
 
 [27]
-<output/figures/exp1b-plot.pdf, id=348, 469.755pt x 325.215pt>
+<output/figures/exp1b-plot.pdf, id=350, 469.755pt x 325.215pt>
 File: output/figures/exp1b-plot.pdf Graphic file (type pdf)
 <use output/figures/exp1b-plot.pdf>
 Package pdftex.def Info: output/figures/exp1b-plot.pdf  used on input line 903.
@@ -850,7 +866,7 @@ File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 [30
 
 ]
-<output/figures/exp1-plot.pdf, id=387, 469.755pt x 325.215pt>
+<output/figures/exp1-plot.pdf, id=389, 469.755pt x 325.215pt>
 File: output/figures/exp1-plot.pdf Graphic file (type pdf)
 <use output/figures/exp1-plot.pdf>
 Package pdftex.def Info: output/figures/exp1-plot.pdf  used on input line 1034.
@@ -898,7 +914,7 @@ l.1244 \end{longtable}
                       
 
 [35{/Users/jan/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
-<output/figures/exp2b-plot.pdf, id=440, 469.755pt x 325.215pt>
+<output/figures/exp2b-plot.pdf, id=442, 469.755pt x 325.215pt>
 File: output/figures/exp2b-plot.pdf Graphic file (type pdf)
 <use output/figures/exp2b-plot.pdf>
 Package pdftex.def Info: output/figures/exp2b-plot.pdf  used on input line 1288.
@@ -923,18 +939,18 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 16460 strings out of 469867
- 268613 string characters out of 5483848
- 712073 words of memory out of 5000000
- 44306 multiletter control sequences out of 15000+600000
- 723371 words of font info for 125 fonts, out of 8000000 for 9000
+ 16309 strings out of 469729
+ 265202 string characters out of 5476768
+ 708594 words of memory out of 5000000
+ 44297 multiletter control sequences out of 15000+600000
+ 724267 words of font info for 125 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  83i,12n,93p,3193b,696s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></Users/jan/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb>
-Output written on manuscript.pdf (39 pages, 586111 bytes).
+Output written on manuscript.pdf (39 pages, 585604 bytes).
 PDF statistics:
- 718 PDF objects out of 1000 (max. 8388607)
- 631 compressed objects within 7 object streams
- 162 named destinations out of 1000 (max. 500000)
+ 721 PDF objects out of 1000 (max. 8388607)
+ 634 compressed objects within 7 object streams
+ 163 named destinations out of 1000 (max. 500000)
  428 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,0 +1,708 @@
+---
+title: "Additional figures"
+format: html
+---
+
+```{r}
+#| label: setup
+
+library(tidyverse)
+library(gt)
+library(kableExtra)
+library(readxl)
+library(wesanderson) # colours
+library(gghalves)
+library(broom)
+library(broom.mixed)
+library(ggpubr)
+library(ggbeeswarm)
+```
+
+```{r functions}
+# load plot theme
+source("../functions/plot_theme.R") 
+
+# load other functions
+source("../functions/functions.R")
+```
+
+```{r exp1}
+# Analyze data of experiments and store results
+
+# Experiment 1
+
+# read the cleaned version data set
+exp1 <- read_csv("../experiment_2/data/cleaned.csv")
+
+# Hypotheses
+
+# H1 a
+H1a_model <- lmer(competence ~ impressiveness + (1 | id), exp1)
+
+# H1 b
+H1b_model <- lmer(competence ~ impressed + (1 | id), exp1)
+
+# H2 a
+H2a_model <- lmer(trust ~ impressiveness + (1 | id), exp1)
+
+# H2 b
+H2b_model <- lmer(trust ~ impressed + (1 | id), exp1)
+
+# Research questions
+
+# RQ1
+RQ1_model <- lmer(learn ~ impressiveness + (1 | id), exp1)
+
+# RQ2
+# for H1
+RQ2_H1a_model <- lmer(trust ~ impressiveness*consensus + (1 | id), exp1)
+RQ2_H1b_model <- lmer(trust ~ impressed*consensus + (1 | id), exp1)
+# for H2
+RQ2_H2a_model <- lmer(competence ~ impressiveness*consensus + (1 | id), exp1)
+RQ2_H2b_model <- lmer(competence~ impressed*consensus + (1 | id), exp1)
+
+# Manipulation check
+manipulation_check_model <- lmer(impressed ~ impressiveness + (1 | id), exp1) 
+
+# by discipline
+manipulation_check_archeo <- lm(impressed ~ impressiveness, 
+                                  exp1 %>% filter(discipline == "archeo")) 
+
+manipulation_check_entom <- lm(impressed ~ impressiveness, 
+                                  exp1 %>% filter(discipline == "entom")) 
+
+
+```
+
+```{r exp2}
+# Experiment 2
+
+# read the cleaned version data set
+exp2 <- read_xlsx("../experiment_4/data/experiment_cleaned.xlsx")
+
+exp2_above_median <- read_xlsx("../experiment_4/data/experiment_cleaned_above_median.xlsx")
+
+exp2_validation <- read_xlsx("../experiment_4/data/validation_cleaned.xlsx")
+
+# Compute ICC 
+coder_comparison <- read_csv("../experiment_4/data/coder_comparison.csv")
+
+ICC_raw_output <- coder_comparison %>%
+  filter(knowledge_dim == "totalp") %>%
+  estICCs(Y = "rating", subjects = "subject_id", raters = "coder", estimator = "MLE") 
+
+# extracting ICC for agreement between single ratings of random raters 
+ICC <- ICC_raw_output$ICCs |> 
+  rownames_to_column("measure") |> 
+  filter(measure == "ICCa1") |> 
+  rounded_numbers()
+
+# Average Inter-coder agreement between chat gpt and human coders
+coder_agreement <- read_csv("../experiment_4/data/coder_agreement.csv")
+
+agreement_human_gpt <- coder_agreement |> 
+  pivot_longer(ends_with("GPT"), 
+               names_to = "coder_pair", 
+               values_to = "agreement") |> 
+  summarize(mean_agreement = mean(agreement)) |> 
+  # make nicer output
+  mutate(mean_agreement = paste0(round(mean_agreement, digits = 1), "%")) |> 
+  pull()
+
+agreement_human <- paste0(round(mean(coder_agreement$agr_c1_c2), digits = 1), "%")
+
+# Hypotheses
+
+# initialize an empty results data frame
+results <- data.frame(
+  hypothesis = character(),
+  test_type = character(),
+  statistic = numeric(),
+  p_value = numeric(),
+  mean_difference = numeric(),
+  stringsAsFactors = FALSE
+)
+
+# Attention! Sampe = all Participants for H1
+
+# H1a: One-sample t-test/Wilcoxon signed-rank test for change in competence
+if (shapiro.test(exp2$change_competence)$p.value > 0.05) {
+  h1a <- t.test(exp2$change_competence, mu = 0)
+  results <- rbind(results, data.frame(
+    hypothesis = "H1a",
+    test_type = "one sample t-test",
+    statistic = h1a$statistic,
+    p_value = h1a$p.value,
+    mean_difference = h1a$estimate
+  ), row.names = NULL)
+} else {
+  h1a <- wilcox.test(exp2$change_competence, mu = 0, exact = FALSE)
+  results <- rbind(results, data.frame(
+    hypothesis = "H1a",
+    test_type = "Wilcoxon signed-rank test",
+    statistic = h1a$statistic,
+    p_value = h1a$p.value,
+    mean_difference = NA
+  ), row.names = NULL)
+}
+
+# H1b: One-sample t-test/Wilcoxon signed-rank test for change in trust
+if (shapiro.test(exp2$change_trust)$p.value > 0.05) {
+  h1b <- t.test(exp2$change_trust, mu = 0)
+  results <- rbind(results, data.frame(
+    hypothesis = "H1b",
+    test_type = "one sample t-test",
+    statistic = h1b$statistic,
+    p_value = h1b$p.value,
+    mean_difference = h1b$estimate
+  ), row.names = NULL)
+} else {
+  h1b <- wilcox.test(exp2$change_trust, mu = 0, exact = FALSE)
+  results <- rbind(results, data.frame(
+    hypothesis = "H1b",
+    test_type = "Wilcoxon signed-rank test",
+    statistic = h1b$statistic,
+    p_value = h1b$p.value,
+    mean_difference = NA
+  ), row.names = NULL)
+}
+
+# Attention! Sampe = above median recall score participants for H2 and H3
+
+# H2: Test forgetting score against zero
+if (shapiro.test(exp2_above_median$forgetting_score)$p.value > 0.05) {
+  h2 <- t.test(exp2_above_median$forgetting_score, mu = 0)
+  results <- rbind(results, data.frame(
+    hypothesis = "H2",
+    test_type = "one sample t-test",
+    statistic = h2$statistic,
+    p_value = h2$p.value,
+    mean_difference = h2$estimate
+  ), row.names = NULL)
+} else {
+  h2 <- wilcox.test(exp2_above_median$forgetting_score, mu = 0, exact = FALSE)
+  results <- rbind(results, data.frame(
+    hypothesis = "H2",
+    test_type = "Wilcoxon signed-rank test",
+    statistic = h2$statistic,
+    p_value = h2$p.value,
+    mean_difference = NA
+  ), row.names = NULL)
+}
+
+# H3: One-sample test for impressive forgetting score against zero
+if (shapiro.test(exp2_above_median$impressive_forgetting_score)$p.value > 0.05) {
+  h3 <- t.test(exp2_above_median$impressive_forgetting_score, mu = 0)
+  results <- rbind(results, data.frame(
+    hypothesis = "H3",
+    test_type = "one sample t-test",
+    statistic = h3$statistic,
+    p_value = h3$p.value,
+    mean_difference = h3$estimate
+  ), row.names = NULL)
+} else {
+  h3 <- wilcox.test(exp2_above_median$impressive_forgetting_score, mu = 0, exact = FALSE)
+  results <- rbind(results, data.frame(
+    hypothesis = "H3",
+    test_type = "Wilcoxon signed-rank test",
+    statistic = h3$statistic,
+    p_value = h3$p.value,
+    mean_difference = NA
+  ), row.names = NULL)
+}
+
+# H4a: Independent t-test for text impressiveness
+h4a <- t.test(
+  impressiveness ~ condition,
+  data = exp2_validation
+)
+results <- rbind(results, data.frame(
+  hypothesis = "H4a",
+  test_type = "independent t-test",
+  statistic = h4a$statistic,
+  p_value = h4a$p.value,
+  mean_difference = h4a$estimate[[1]] - h4a$estimate[[2]]
+))
+
+# H4b: Independent t-test for competence change
+h4b <- t.test(
+  competence ~ condition,
+  data = exp2_validation
+)
+results <- rbind(results, data.frame(
+  hypothesis = "H4b",
+  test_type = "independent t-test",
+  statistic = h4b$statistic,
+  p_value = h4b$p.value,
+  mean_difference = h4b$estimate[[1]] - h4b$estimate[[2]]
+))
+
+# H4c: Independent t-test for trust change
+h4c <- t.test(
+  trust ~ condition,
+  data = exp2_validation
+)
+results <- rbind(results, data.frame(
+  hypothesis = "H4c",
+  test_type = "independent t-test",
+  statistic = h4c$statistic,
+  p_value = h4c$p.value,
+  mean_difference = h4c$estimate[[1]] - h4c$estimate[[2]]
+))
+
+# Clean result data frame
+results <- results %>% 
+  # report p.value according to apa standards
+  mutate(p.value = case_when(p_value < 0.001 ~ "< .001",
+                             TRUE ~ sprintf("= %.3f", p_value)
+  )
+  ) %>% 
+  # round all other terms
+  rounded_numbers()
+
+# extract descriptives for inline reporting for all participants
+exp2_descriptives_everyone <- list(
+  # Demographics
+  n_subj = n_distinct(exp2$id),
+  gender = exp2 %>% group_by(gender) %>% summarize(n = n_distinct(id)) %>% split(.$gender),
+  age = exp2 %>%
+    summarize(
+      across(
+        age2,
+        list(
+          mean = ~mean(.x, na.rm = TRUE),
+          median = ~median(.x, na.rm = TRUE),
+          sd = ~sd(.x, na.rm = TRUE)
+        ),
+        .names = "{.fn}"
+      )
+    ) %>%
+    rounded_numbers(),
+  # Means (raw scales)
+  descriptive_stats = exp2 %>% 
+    summarize(across(c("knowledge_rawscore", "competence", "change_competence", 
+                       "trust", "change_trust", "knowledge_score",
+                       "forgetting_score", "n_impressive", 
+                       "impressive_knowledge_rawscore", "impressive_knowledge_score", 
+                       "impressive_forgetting_score"),
+                     list(median = ~median(.x, na.rm = TRUE), 
+                          mean = ~mean(.x, na.rm = TRUE), 
+                          sd = ~sd(.x, na.rm = TRUE)), 
+                     .names = "{.col}_{.fn}")) %>%
+    mutate_if(is.numeric, round, digits = 2), 
+  # Hypotheses Results, 
+  results = results %>%
+    # select only results pertaining to main experiment
+    filter(hypothesis %in% c("H1a", "H1b")) %>%
+    split(.$hypothesis)
+)
+
+# extract descriptives for inline reporting for above median participants
+exp2_descriptives_above_median <- list(
+  # Demographics
+  n_subj = n_distinct(exp2_above_median$id),
+  gender = exp2_above_median %>% group_by(gender) %>% summarize(n = n_distinct(id)) %>% split(.$gender),
+  age = exp2_above_median %>%
+    summarize(
+      across(
+        age2,
+        list(
+          mean = ~mean(.x, na.rm = TRUE),
+          median = ~median(.x, na.rm = TRUE),
+          sd = ~sd(.x, na.rm = TRUE)
+        ),
+        .names = "{.fn}"
+      )
+    ) %>%
+    rounded_numbers(),
+  # Means (raw scales)
+  descriptive_stats = exp2_above_median %>% 
+    summarize(across(c("knowledge_rawscore", "competence", "change_competence", 
+                       "trust", "change_trust", "knowledge_score",
+                       "forgetting_score", "n_impressive", 
+                       "impressive_knowledge_rawscore", "impressive_knowledge_score", 
+                       "impressive_forgetting_score"),
+                     list(median = ~median(.x, na.rm = TRUE), 
+                          mean = ~mean(.x, na.rm = TRUE), 
+                          sd = ~sd(.x, na.rm = TRUE)), 
+                     .names = "{.col}_{.fn}")) %>%
+    mutate_if(is.numeric, round, digits = 2), 
+  # How many elements did participants find impressive 
+  # (by discipline since n varied between disciplines) 
+  n_impressive = exp2_above_median %>% 
+    group_by(condition) %>% 
+    summarize(across(c("n_impressive"),
+                     list(median = ~median(.x, na.rm = TRUE), 
+                          mean = ~mean(.x, na.rm = TRUE), 
+                          sd = ~sd(.x, na.rm = TRUE)), 
+                     .names = "{.col}_{.fn}")) %>%
+    mutate_if(is.numeric, round, digits = 2) %>%
+    split(.$condition),
+  # Hypotheses Results, 
+  results = results %>%
+    # select only results pertaining to main experiment
+    filter(hypothesis %in% c("H2", "H3")) %>%
+    split(.$hypothesis)
+)
+
+# extract descriptives for evaluation study
+exp2_descriptives_validation <- list(
+  # Demographics
+  n_subj = n_distinct(exp2_validation$id),
+  gender = exp2_validation %>% group_by(gender) %>% summarize(n = n_distinct(id)) %>% split(.$gender),
+  age = exp2_validation %>%
+    summarize(
+      across(
+        age,
+        list(
+          mean = ~mean(.x, na.rm = TRUE),
+          median = ~median(.x, na.rm = TRUE),
+          sd = ~sd(.x, na.rm = TRUE)
+        ),
+        .names = "{.fn}"
+      )
+    ) %>%
+    rounded_numbers(),
+  # Means (raw scales)
+  descriptive_stats = exp2_validation %>% 
+    summarize(across(c("competence", "trust", "impressiveness"), 
+                     list(median = ~median(.x, na.rm = TRUE), 
+                          mean = ~mean(.x, na.rm = TRUE), 
+                          sd = ~sd(.x, na.rm = TRUE)), 
+                     .names = "{.col}_{.fn}"))%>%
+    mutate_if(is.numeric, round, digits = 2), 
+  # Hypotheses Results, 
+  results = results %>%
+    # select only results pertaining to main experiment
+    filter(hypothesis %in% c("H4a", "H4b", "H4c")) %>%
+    split(.$hypothesis)
+)
+```
+
+```{r combined-data}
+# combine data of all three studies
+
+variables <- c("study", "id", "impressed", "competence", "trust", "discipline", "impressiveness")
+
+combined_data <- bind_rows(exp1 %>% 
+                             mutate(study = "Experiment 1", 
+                                    # use clearer value labels
+                                    impressiveness = ifelse(impressiveness == "basic", "basic", "impressive")) |> 
+                             select(any_of(variables)), 
+                           exp2 %>% 
+                             mutate(study = "Experiment 2 (recall)", 
+                                    impressiveness = "impressive") |> 
+                             # use naming coherent with Experiment 1
+                             rename(impressed = global_impressiveness) |> 
+                             select(any_of(variables)), 
+                           exp2_validation %>% 
+                             mutate(study = "Experiment 2 (evaluation)", 
+                                    condition = ifelse(condition == "recall", "recall", "impressive")) |> 
+                             # use naming coherent with Experiment 1
+                             rename(impressed = impressiveness, 
+                                    impressiveness = condition) |> 
+                             select(any_of(variables))
+                           ) |>  
+  # make a unique id variable
+  mutate(id = paste0("study", study, "_", id), 
+         study = factor(study, levels = c("Experiment 1", 
+                                          "Experiment 2 (recall)",
+                                          "Experiment 2 (evaluation)"))
+         )
+```
+
+
+## Impressive plot trust Experiment 1
+
+```{r trust-plot}
+# make a recall plot
+
+# Define colors
+fox_palette <- wes_palette("FantasticFox1")
+
+# get model predictions
+
+# for Experiment 1
+intercept_exp1 <- tidy(H2a_model) |> 
+  select(estimate) |> 
+  slice(1) |> 
+  pull()
+
+predictions_exp1 <- H2a_model |> 
+  tidy(conf.int = TRUE) |> 
+  mutate(impressiveness = ifelse(term == "(Intercept)", "basic", "impressive"), 
+      # make sure to add the value of the intercept to have the predicted value
+      # instead of the differential
+      across(c(estimate, conf.low, conf.high), ~ifelse(term == "(Intercept)", .x, 
+                                                       .x + intercept_exp1)), 
+      study = "Experiment 1") |> 
+  filter(effect == "fixed") |> 
+  select(study, impressiveness, estimate, conf.low, conf.high)
+
+# for Experiment 2 recall
+predictions_exp2_recall <- combined_data |>
+  filter(study == "Experiment 2 (recall)") |> 
+  group_by(study, impressiveness) |> 
+  summarise(
+    estimate = mean(trust, na.rm = TRUE),
+    se_trust = sd(trust, na.rm = TRUE) / sqrt(n()),  # Standard Error
+    conf.low = estimate - 1.96 * se_trust,  # 95% CI Lower Bound
+    conf.high = estimate + 1.96 * se_trust   # 95% CI Upper Bound
+  ) |> 
+  select(-se_trust)
+
+# for Experiment 2 evaluation 
+# instead of using the t-test from h4c, we will run a linear regression (in order to get a prediction for the intercept)
+h4c_as_linear_model <- lm(trust ~ condition, exp2_validation)
+
+intercept_exp2_evaluation <- tidy(h4c_as_linear_model ) |> 
+  select(estimate) |> 
+  slice(1) |> 
+  pull()
+
+predictions_exp2_evaluation <- h4c_as_linear_model |> 
+  tidy(conf.int = TRUE) |> 
+  mutate(impressiveness = ifelse(term == "(Intercept)", "impressive", "recall"), 
+         # make sure to add the value of the intercept to have the predicted value
+         # instead of the differential
+         across(c(estimate, conf.low, conf.high), ~ifelse(term == "(Intercept)", .x, 
+                                                          .x + intercept_exp2_evaluation )), 
+         study = "Experiment 2 (evaluation)") |> 
+  select(study, impressiveness, estimate, conf.low, conf.high)
+
+
+predictions <- bind_rows(predictions_exp1, 
+                         predictions_exp2_recall,
+                         predictions_exp2_evaluation) |>  
+  # have study being a factor
+  mutate(study = factor(study, levels = c("Experiment 1", 
+                                          "Experiment 2 (recall)",
+                                          "Experiment 2 (evaluation)"))
+         )
+
+# Plot
+impressiveness_plot <- combined_data |> 
+  filter(study == "Experiment 1") |> 
+  ggplot(aes(x = impressiveness, y = trust, fill = study)) +   
+  geom_half_violin(side = "r", nudge = 0.05, alpha = 0.5, adjust = 0.6) + 
+  geom_pointrange(data = predictions |> filter(study == "Experiment 1"), 
+                  aes(x = impressiveness, y = estimate, color = study, 
+                      ymin = conf.low, ymax = conf.high), 
+                  position = position_dodge(width = 0.7), 
+                  size = 1.2,        # size of the central point
+                  linewidth = 1.2,   # thickness of the CI lines
+                  alpha = 1
+  ) +
+  geom_text(
+    data = predictions |> filter(study == "Experiment 1"),
+    aes(
+      x = impressiveness,
+      y = estimate,
+      label = paste0(
+        round(estimate, 2), 
+        " [", round(conf.low, 2), ", ", round(conf.high, 2), "]"
+      ),
+      color = study
+    ),
+    position = position_dodge(width = 0.3),
+    hjust = 1.2,
+    vjust = -1,    # move label above the point
+    size = 3.5,    # text size
+    show.legend = FALSE
+  ) +
+  scale_fill_manual(values = wes_palette("FantasticFox1")) +  
+  scale_color_manual(values = wes_palette("FantasticFox1")) +  
+  labs(y = "Trust", fill = "Impressiveness", color = "Impressiveness") +  
+  guides(fill = "none", color = "none") +
+  plot_theme +
+  theme(axis.text.x = element_text(face = "bold", size = rel(1.5)),
+        axis.ticks.x = element_blank(),  ## Removes x-axis ticks
+        axis.title.x = element_blank(),
+        axis.text.y = element_text(size = rel(1.5)),
+        # Bold title
+        plot.title = element_text(face = "bold", size = rel(0.7)),
+        # Plain subtitle that is grey
+        plot.subtitle = element_text(face = "plain", size = rel(1), color = "grey70"),
+        # Slightly smaller bold legend title
+        legend.title = element_text(face = "bold", size = 10),  # Adjust the size here for a smaller legend title
+        # Bold axis titles
+        axis.title = element_text(face = "bold", size = rel(1.5))
+  ) 
+
+impressiveness_plot
+
+```
+
+## Impressive plot competence Experiment 1
+
+```{r competence-plot}
+# make a recall plot
+
+# Define colors
+fox_palette <- wes_palette("AsteroidCity1")
+
+# get model predictions
+
+# for Experiment 1
+intercept_exp1 <- tidy(H1a_model) |> 
+  select(estimate) |> 
+  slice(1) |> 
+  pull()
+
+predictions_exp1 <- H1a_model |> 
+  tidy(conf.int = TRUE) |> 
+  mutate(impressiveness = ifelse(term == "(Intercept)", "basic", "impressive"), 
+      # make sure to add the value of the intercept to have the predicted value
+      # instead of the differential
+      across(c(estimate, conf.low, conf.high), ~ifelse(term == "(Intercept)", .x, 
+                                                       .x + intercept_exp1)), 
+      study = "Experiment 1") |> 
+  filter(effect == "fixed") |> 
+  select(study, impressiveness, estimate, conf.low, conf.high)
+
+# for Experiment 2 recall
+predictions_exp2_recall <- combined_data |>
+  filter(study == "Experiment 2 (recall)") |> 
+  group_by(study, impressiveness) |> 
+  summarise(
+    estimate = mean(competence, na.rm = TRUE),
+    se_trust = sd(competence, na.rm = TRUE) / sqrt(n()),  # Standard Error
+    conf.low = estimate - 1.96 * se_trust,  # 95% CI Lower Bound
+    conf.high = estimate + 1.96 * se_trust   # 95% CI Upper Bound
+  ) |> 
+  select(-se_trust)
+
+# for Experiment 2 evaluation 
+# instead of using the t-test from h4c, we will run a linear regression (in order to get a prediction for the intercept)
+h4b_as_linear_model <- lm(competence ~ condition, exp2_validation)
+
+intercept_exp2_evaluation <- tidy(h4b_as_linear_model ) |> 
+  select(estimate) |> 
+  slice(1) |> 
+  pull()
+
+predictions_exp2_evaluation <- h4b_as_linear_model |> 
+  tidy(conf.int = TRUE) |> 
+  mutate(impressiveness = ifelse(term == "(Intercept)", "impressive", "recall"), 
+         # make sure to add the value of the intercept to have the predicted value
+         # instead of the differential
+         across(c(estimate, conf.low, conf.high), ~ifelse(term == "(Intercept)", .x, 
+                                                          .x + intercept_exp2_evaluation )), 
+         study = "Experiment 2 (evaluation)") |> 
+  select(study, impressiveness, estimate, conf.low, conf.high)
+
+
+predictions <- bind_rows(predictions_exp1, 
+                         predictions_exp2_recall,
+                         predictions_exp2_evaluation) |>  
+  # have study being a factor
+  mutate(study = factor(study, levels = c("Experiment 1", 
+                                          "Experiment 2 (recall)",
+                                          "Experiment 2 (evaluation)"))
+         )
+
+# Plot
+impressiveness_plot <- combined_data |> 
+  filter(study == "Experiment 1") |> 
+  ggplot(aes(x = impressiveness, y = competence, fill = study)) +   
+  geom_half_violin(side = "r", nudge = 0.05, alpha = 0.5, adjust = 0.6) + 
+  geom_pointrange(data = predictions |> filter(study == "Experiment 1"), 
+                  aes(x = impressiveness, y = estimate, color = study, 
+                      ymin = conf.low, ymax = conf.high), 
+                  position = position_dodge(width = 0.7), 
+                  size = 1.2,        # size of the central point
+                  linewidth = 1.2,   # thickness of the CI lines
+                  alpha = 1
+  ) +
+  geom_text(
+    data = predictions |> filter(study == "Experiment 1"),
+    aes(
+      x = impressiveness,
+      y = estimate,
+      label = paste0(
+        round(estimate, 2), 
+        " [", round(conf.low, 2), ", ", round(conf.high, 2), "]"
+      ),
+      color = study
+    ),
+    position = position_dodge(width = 0.3),
+    hjust = 1.2,
+    vjust = -1,    # move label above the point
+    size = 3.5,    # text size
+    show.legend = FALSE
+  ) +
+  scale_fill_manual(values = fox_palette[4]) +  
+  scale_color_manual(values = fox_palette[4]) +  
+  labs(y = "Competence", fill = "Impressiveness", color = "Impressiveness") + 
+  guides(fill = "none", color = "none") +
+  plot_theme +
+  theme(axis.text.x = element_text(face = "bold", size = rel(1.5)),
+        axis.ticks.x = element_blank(),  ## Removes x-axis ticks
+        axis.title.x = element_blank(),
+        axis.text.y = element_text(size = rel(1.5)),
+        # Bold title
+        plot.title = element_text(face = "bold", size = rel(0.7)),
+        # Plain subtitle that is grey
+        plot.subtitle = element_text(face = "plain", size = rel(1), color = "grey70"),
+        # Slightly smaller bold legend title
+        legend.title = element_text(face = "bold", size = 10),  # Adjust the size here for a smaller legend title
+        # Bold axis titles
+        axis.title = element_text(face = "bold", size = rel(1.5))
+  ) 
+
+impressiveness_plot
+
+```
+
+
+## Recall plot
+
+```{r overview-plot, fig.cap="(ref:overview-plot)"}
+#| label: fig-overview-plot
+#| fig-cap: "The distribution of knowledge scores."
+#| fig-height: 7
+
+exp2 <- read_xlsx("../experiment_4/data/experiment_cleaned.xlsx")
+
+
+## make a recall plot
+
+## Define colors
+fox_palette <- wes_palette("FantasticFox1")
+
+recall_plot <- exp2 |> 
+  ggplot(aes(x = 0, y = knowledge_score)) +  
+  ## Half-boxplot
+  geom_half_boxplot(side = "l", width = 0.1, outlier.shape = NA, 
+                    alpha = 0.7, fill = fox_palette[3], color = fox_palette[3]) +  
+  ## Jittered points
+  geom_half_point(side = "l", transformation = position_jitter(width = 0.05, height = 0), 
+                  alpha = 0.7, color = fox_palette[3]) +  
+  ## Small dotted tick mark at maximum knowledge score
+  geom_segment(aes(x = -0.5, xend = 0.1, y = 1, yend = 1), 
+               color = fox_palette[5], linewidth = 0.6, linetype = "dotted") +  
+  ## Label for maximum knowledge score
+  annotate("text", x = -0.5, y = 1.02, label = "Perfect recall", 
+           hjust = 0, vjust = 0, color = fox_palette[5], size = 7, face = "bold") + 
+  labs(y = "Recall Score", x = NULL) +
+  scale_y_continuous(labels = scales::percent, limits = c(0, 1.05)) +  
+  theme_minimal(base_size = 12) +
+  theme(axis.text.x = element_blank(),   ## Removes x-axis text labels
+        axis.ticks.x = element_blank(),  ## Removes x-axis ticks
+        axis.title.x = element_blank(),
+        axis.text.y = element_text(size = rel(1.5)),
+        # Bold title
+        plot.title = element_text(face = "bold", size = rel(0.7)),
+        # Plain subtitle that is grey
+        plot.subtitle = element_text(face = "plain", size = rel(1), color = "grey70"),
+        # Slightly smaller bold legend title
+        legend.title = element_text(face = "bold", size = 10),  # Adjust the size here for a smaller legend title
+        # Bold axis titles
+        axis.title = element_text(face = "bold", size = rel(1.5))
+  )  
+
+
+recall_plot
+```
+
+
