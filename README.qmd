@@ -12,6 +12,7 @@ knitr::opts_chunk$set(
   fig.retina = 3
 )
 
+# set meta data
 yaml_metadata <- rmarkdown::yaml_front_matter(here::here("manuscript.Rmd"))
 title <- yaml_metadata$title
 abstract <- yaml_metadata$abstract

@@ -8,21 +8,21 @@
 
 ## Abstract
 
-Trust in science is associated with significant outcomes such as intent
-to vaccinate and belief in climate change. Around the globe, most people
-trust science at least to some extent. However, the causes of this trust
-aren’t well understood. Here we propose a ‘rational impression’ model of
-trust in science. In this model, people trust scientists because they
-are impressed by their findings, and this impression of trust persists
-even after knowledge of the specific content has vanished. We present
-evidence for this model in two experiments (total n = 696) with UK
-participants. In Experiment 1, impressive scientific findings lead
-participants to think of the scientists as more competent and their
-scientific discipline as more trustworthy. In Experiment 2, we show that
-participants have these impressions despite forgetting the content that
-generated them. The rational impression model can explain why people
-trust science without remembering much of it. It also stresses the
-relevance of science communication.
+Cultural beliefs and practices often spread because they appeal to
+existing cognitive mechanisms. Science, however, appears to be an
+exception. Scientific concepts are highly counterintuitive, and people
+know very little about science, yet it is among the most trusted
+institutions. Here, we test a cognitive model of trust in science that
+is compatible with these observations: the rational impression account.
+According to this account, people trust scientists because they are
+impressed by their findings, and this impression persists after specific
+knowledge has vanished. We present evidence for this model in two
+experiments (total n = 696) with UK participants. In Experiment 1,
+exposure to more impressive scientific findings led participants to
+think of the relevant scientists as more competent and their scientific
+discipline as more trustworthy. In Experiment 2, we show that
+participants have these impressions despite almost immediately
+forgetting relevant content.
 
 ------------------------------------------------------------------------
 
@@ -78,7 +78,7 @@ than 1min on our machine (see [session info](#session-info))
 
     #> R version 4.4.1 (2024-06-14)
     #> Platform: aarch64-apple-darwin20
-    #> Running under: macOS 15.3.1
+    #> Running under: macOS 15.6.1
     #> 
     #> Matrix products: default
     #> BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 
@@ -87,7 +87,7 @@ than 1min on our machine (see [session info](#session-info))
     #> locale:
     #> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
     #> 
-    #> time zone: Europe/Paris
+    #> time zone: Europe/Zurich
     #> tzcode source: internal
     #> 
     #> attached base packages:
@@ -97,7 +97,7 @@ than 1min on our machine (see [session info](#session-info))
     #>  [1] compiler_4.4.1    here_1.0.1        fastmap_1.2.0     rprojroot_2.0.4  
     #>  [5] cli_3.6.3         tools_4.4.1       htmltools_0.5.8.1 rstudioapi_0.17.1
     #>  [9] yaml_2.3.10       rmarkdown_2.28    knitr_1.48        jsonlite_1.8.9   
-    #> [13] xfun_0.49         digest_0.6.37     rlang_1.1.4       evaluate_1.0.1
+    #> [13] xfun_0.51         digest_0.6.37     rlang_1.1.4       evaluate_1.0.1
 
 ## Licenses
 
