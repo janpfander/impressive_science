@@ -5,16 +5,35 @@ header-includes:  | # to prevent floats from moving past certain points (for the
   \usepackage{placeins} 
   
 author: 
-  - name          : ""
-    affiliation   : ""
+  - name          : "Jan Pfänder"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+    email         : "janlukas.pfaender@gmail.com"
+    #role:         # Contributorship roles (e.g., CRediT, https://casrai.org/credit/)
+  - name          : "Sophie de Rouilhan"
+    affiliation   : "2"
+    #role:         
+  - name          : "Hugo Mercier"
+    affiliation   : "2"
+    email         : "hugo.mercier@gmail.com"
+    address: " "
+    
 affiliation:
     
-  - id            : ""
-    institution   : ""
+  - id            : "1"
+    institution   : "Swiss Federal Institute of Aquatic Science and Technology (Eawag), Department of Environmental Social Sciences"
+
+  - id            : "2"
+    institution   : "Institut Jean Nicod, Département d’études cognitives, ENS, EHESS, PSL University, CNRS, France"    
+            
+authornote: |
+  We thank Kevin Chen for excellent research assistance.
+  
 abstract: |
   
-  Cultural beliefs and practices often spread because they appeal to existing cognitive mechanisms. Science, however, appears to be an exception. Scientific concepts are highly counterintuitive, and people know very little about science, yet it is among the most trusted institutions. Here, we test a cognitive model of trust in science that is compatible with these observations: the rational impression account. According to this account, people trust scientists because they are impressed by their findings, and this impression persists after specific knowledge has vanished. We present evidence for this model in two experiments (total n = 696) with UK participants. In Experiment 1, exposure to more impressive scientific findings led participants to think of the relevant scientists as more competent and their scientific discipline as more trustworthy. In Experiment 2, we show that participants have these impressions despite almost immediately forgetting relevant content. 
-keywords          : Trust in science; science knowledge; deficit model
+  Cultural beliefs and practices often spread because they appeal to existing cognitive mechanisms. Science, however, appears to be an exception. Scientific concepts are highly counterintuitive, and people know very little about science, yet it is among the most trusted institutions. Here, we test a cognitive model of trust in science that is compatible with these observations: the rational impression account. According to this account, people trust scientists because they are impressed by their findings, and this impression persists after specific knowledge has vanished. We present evidence for this model in two experiments (total n = 696) with UK participants. In Experiment 1, exposure to more impressive scientific findings led participants to think of the relevant scientists as more competent and their scientific discipline as more trustworthy. In Experiment 2, we show that participants have these impressions despite almost immediately forgetting relevant content.
+
+keywords          : Trust in science; science knowledge; cognition; deficit model
 floatsintext      : yes
 linenumbers       : no 
 draft             : no
@@ -24,9 +43,9 @@ tablelist         : no
 footnotelist      : no
 classoption       : "doc" # "doc" for nice look, "man" for manuscripty
 output: 
-  papaja::apa6_docx: default
   papaja::apa6_pdf: 
     keep_tex: true
+  papaja::apa6_docx: default
 always_allow_html: true
 appendix:
   - "appendix_gpt-prompt.Rmd"
@@ -765,7 +784,7 @@ combined_plot <- impressiveness_plot + recall_plot +
 combined_plot
 ```
 
-Both experiments were preregistered, and the choice of sample size was informed by power simulations. The preregistrations, along with all materials, data, and code, can be found on Open Science Framework [project page](https://osf.io/j3bk4/?view_only=0c11d7720fe2450e8d205975fa3e47d5) (<https://osf.io/j3bk4/?view_only=0c11d7720fe2450e8d205975fa3e47d5>). All analyses were conducted in R (version 4.2.2) using R Studio. We used two-sided tests for all hypotheses. Unless mentioned otherwise, we report unstandardized estimates that can be interpreted in units of the original scales.
+Both experiments were preregistered, and the choice of sample size was informed by power simulations. The preregistrations, along with all materials, data, and code, can be found on Open Science Framework [project page](https://osf.io/j3bk4/overview) (<https://osf.io/j3bk4/overview>). All analyses were conducted in R (version 4.2.2) using R Studio. We used two-sided tests for all hypotheses. Unless mentioned otherwise, we report unstandardized estimates that can be interpreted in units of the original scales.
 
 As part of this project, we conducted two additional experiments which we present in detail in the ESM. The first experiment ('Experiment 1b' in the ESM) is almost identical to Experiment 1, but suffered from a minor technical error during the implementation. Nonetheless, its findings are identical to those of Experiment 1. The second experiment ('Experiment 2b') was supposed to test the same hypothesis as Experiment 2, but the treatment—a very short distraction task—did not alter any of the outcome variables, suggesting that either the distraction task was too short, or that our outcome measure—a set of multiple-choice questions—was not sufficiently sensitive.
 
@@ -1025,11 +1044,11 @@ Besides providing support for the rational account of trust in science, we hope 
 
 ### Data availability
 
-Data for all experiments and the simulations is available on the OSF project page (<https://osf.io/j3bk4/?view_only=0c11d7720fe2450e8d205975fa3e47d5>). Note that on the project page, all materials related to what is referred to as "Experiment 1" in this paper are stored under "experiment_2", and all materials related to "Experiment 2" in this paper are stored under "experiment_4". This numbering is due to the original order in which experiments for this project were conducted. For a detailed report on the other experiments conducted as part of this project, see the ESM.
+Data for all experiments and the simulations is available on the OSF project page (<https://osf.io/j3bk4/overview>). Note that on the project page, all materials related to what is referred to as "Experiment 1" in this paper are stored under "experiment_2", and all materials related to "Experiment 2" in this paper are stored under "experiment_4". This numbering is due to the original order in which experiments for this project were conducted. For a detailed report on the other experiments conducted as part of this project, see the ESM.
 
 ### Code availability
 
-The code used to create all results (including tables and figures) of this manuscript is also available on the OSF project page (<https://osf.io/j3bk4/?view_only=0c11d7720fe2450e8d205975fa3e47d5>).
+The code used to create all results (including tables and figures) of this manuscript is also available on the OSF project page (<https://osf.io/j3bk4/overview>).
 
 ### Competing interest
 
